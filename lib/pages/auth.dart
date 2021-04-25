@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'home/home_page.dart';
+
+
 enum WidgetMarker { login, signUp }
 
 class AuthSwitch extends StatefulWidget {
@@ -217,6 +220,10 @@ class _AuthSwitchState extends State<AuthSwitch>
                 child: RaisedButton(
                   padding: EdgeInsets.fromLTRB(0, 15, 0, 15),
                   onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => HomePage()),
+                    );
                     // Navigator.of(context).pushReplacement(new MaterialPageRoute(
                     //     builder: (BuildContext context) => MyHomePage()));
                   },
@@ -309,6 +316,8 @@ class _AuthSwitchState extends State<AuthSwitch>
               width: double.infinity,
               child: RaisedButton(
                 onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => HomePage()));
                   // Navigator
                   //     .of(context)
                   //     .pushReplacement(new MaterialPageRoute(builder: (BuildContext context) => MyHomePage()));

@@ -8,11 +8,15 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  custom_navigator:
+    git:
+      url: https://github.com/kjawadDeveloper/Custom-navigator.git
   flutter:
     sdk: flutter
 
   cupertino_icons: ^1.0.2
   pixel_perfect: ^1.1.0
+  http: ^0.13.1
 
 dev_dependencies:
   flutter_test:
@@ -25,7 +29,10 @@ flutter:
   assets:
     - assets/images/
 
-
+  fonts:
+    - family:  Custom
+      fonts:
+        - asset: fonts/Custom.ttf
   # fonts:
   #   - family: Schyler
   #     fonts:
