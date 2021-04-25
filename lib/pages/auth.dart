@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'home/home_page.dart';
-
+import 'home_page.dart';
 
 enum WidgetMarker { login, signUp }
 
@@ -216,29 +215,42 @@ class _AuthSwitchState extends State<AuthSwitch>
               height: 10,
             ),
             Container(
-                width: double.infinity,
-                child: RaisedButton(
-                  padding: EdgeInsets.fromLTRB(0, 15, 0, 15),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => HomePage()),
-                    );
-                    // Navigator.of(context).pushReplacement(new MaterialPageRoute(
-                    //     builder: (BuildContext context) => MyHomePage()));
-                  },
-                  shape: new RoundedRectangleBorder(
-                    borderRadius: new BorderRadius.circular(7.0),
-                  ),
-                  color: Color(0xFF00BF97),
-                  child: Text(
-                    'Вход',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600),
-                  ),
-                ))
+              width: double.infinity,
+              child: RaisedButton(
+                padding: EdgeInsets.fromLTRB(0, 15, 0, 15),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => HomePage()),
+                  );
+                  // Navigator.of(context).pushReplacement(new MaterialPageRoute(
+                  //     builder: (BuildContext context) => MyHomePage()));
+                },
+                shape: new RoundedRectangleBorder(
+                  borderRadius: new BorderRadius.circular(7.0),
+                ),
+                color: Color(0xFF00BF97),
+                child: Text(
+                  'Вход',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 1,
+            ),
+            TextButton(
+              child: Text(
+                'Забыли пароль?',
+                style: TextStyle(
+                  color: Color(0xFF616E77),
+                ),
+              ),
+              onPressed: () {},
+            ),
           ],
         ),
       ),
@@ -335,7 +347,7 @@ class _AuthSwitchState extends State<AuthSwitch>
                       fontWeight: FontWeight.w600),
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),
