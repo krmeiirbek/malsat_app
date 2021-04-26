@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:malsat_app/components/home_card.dart';
+import 'package:malsat_app/components/material_button.dart';
 import 'package:malsat_app/constants/custom_icons.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -32,7 +34,9 @@ class HomeScreen extends StatelessWidget {
                         image: AssetImage("assets/images/MALSAT.png"),
                       ),
                     ),
-                    Spacer(flex: 2,),
+                    Spacer(
+                      flex: 2,
+                    ),
                   ],
                 ),
                 SizedBox(height: 20),
@@ -70,65 +74,11 @@ class HomeScreen extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   child: Row(
                     children: [
-                      MaterialButton(
-                        onPressed: () {},
-                        child: Text(
-                          "Фильтры",
-                          style: TextStyle(
-                            color: Color(0xFF4A564A).withOpacity(0.4),
-                            fontSize: 12,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        color: Color(0xFFF2F1F1),
-                        elevation: 0,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(6),
-                          side: BorderSide(
-                            color: Color(0xFFF2F1F1),
-                          ),
-                        ),
-                      ),
+                      Button1(text: "Фильтры", press: () {}),
                       SizedBox(width: 20),
-                      MaterialButton(
-                        onPressed: () {},
-                        color: Color(0xFFF2F1F1),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(6),
-                          side: BorderSide(
-                            color: Color(0xFFF2F1F1),
-                          ),
-                        ),
-                        elevation: 0,
-                        child: Text(
-                          "Все объявлений",
-                          style: TextStyle(
-                            color: Color(0xFF4A564A).withOpacity(0.4),
-                            fontSize: 12,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
+                      Button1(text: "Все объявлений", press: () {}),
                       SizedBox(width: 20),
-                      MaterialButton(
-                        onPressed: () {},
-                        color: Color(0xFFF2F1F1),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(6),
-                          side: BorderSide(
-                            color: Color(0xFFF2F1F1),
-                          ),
-                        ),
-                        elevation: 0,
-                        child: Text(
-                          "Весь Казахстан",
-                          style: TextStyle(
-                            color: Color(0xFF4A564A).withOpacity(0.4),
-                            fontSize: 12,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
+                      Button1(text: "Весь Казахстан", press: () {}),
                     ],
                   ),
                 ),
@@ -136,7 +86,55 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: Column(),
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              color: Colors.grey[100],
+              child: CustomScrollView(
+                primary: false,
+                slivers: <Widget>[
+                  SliverPadding(
+                    padding: const EdgeInsets.all(20),
+                    sliver: SliverGrid.count(
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10,
+                      crossAxisCount: 2,
+                      children: <Widget>[
+                        HomeCard(
+                          image: 'assets/images/card.png',
+                          title: 'Продам быка',
+                          date: '23.04.2021',
+                          price: '200000 тг',
+                        ),
+                        HomeCard(
+                          image: 'assets/images/card.png',
+                          title: 'Продам быка',
+                          date: '23.04.2021',
+                          price: '200000 тг',
+                        ),
+                        HomeCard(
+                          image: 'assets/images/card.png',
+                          title: 'Продам быка',
+                          date: '23.04.2021',
+                          price: '200000 тг',
+                        ),
+                        HomeCard(
+                          image: 'assets/images/card.png',
+                          title: 'Продам быка',
+                          date: '23.04.2021',
+                          price: '200000 тг',
+                        ),
+                        HomeCard(
+                          image: 'assets/images/card.png',
+                          title: 'Продам быка',
+                          date: '23.04.2021',
+                          price: '200000 тг',
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
         ],
       ),

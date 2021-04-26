@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:malsat_app/components/auth_signin_or_signup_button.dart';
+import 'package:malsat_app/components/auth_switch_button.dart';
 
 import 'home_page.dart';
 
@@ -34,6 +36,10 @@ class _AuthSwitchState extends State<AuthSwitch>
   void dispose() {
     super.dispose();
     _controller.dispose();
+    _loginEmailController.dispose();
+    _loginPasswordController.dispose();
+    _registerEmailController.dispose();
+    _registerPasswordController.dispose();
   }
 
   @override
@@ -42,7 +48,6 @@ class _AuthSwitchState extends State<AuthSwitch>
       body: Padding(
         padding: EdgeInsets.all(35),
         child: Column(
-          // mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             SizedBox(
@@ -59,61 +64,27 @@ class _AuthSwitchState extends State<AuthSwitch>
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                FlatButton(
-                  padding: EdgeInsets.fromLTRB(50, 0, 60, 10),
-                  focusColor: Colors.transparent,
-                  color: Colors.transparent,
-                  disabledColor: Colors.transparent,
-                  splashColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  onPressed: () {
-                    setState(() {
-                      selectedWidgetMarker = WidgetMarker.login;
-                    });
-                  },
-                  child: Text(
-                    "Войти",
-                    style: TextStyle(
-                        color: Color(0xFF616E77),
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500),
+                Expanded(
+                  child: AuthSwitchButton(
+                    text: 'Войти',
+                    press: () {
+                      setState(() {
+                        selectedWidgetMarker = WidgetMarker.login;
+                      });
+                    },
+                    isSelected: selectedWidgetMarker == WidgetMarker.login,
                   ),
-                  shape: Border(
-                      bottom: BorderSide(
-                          color: (selectedWidgetMarker == WidgetMarker.login)
-                              ? Color(0xFF535353)
-                              : Color.fromRGBO(0, 0, 0, 0.5),
-                          width: (selectedWidgetMarker == WidgetMarker.login)
-                              ? 3
-                              : 0.5)),
                 ),
-                FlatButton(
-                  splashColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  focusColor: Colors.transparent,
-                  color: Colors.transparent,
-                  disabledColor: Colors.transparent,
-                  padding: EdgeInsets.fromLTRB(30, 0, 45, 10),
-                  onPressed: () {
-                    setState(() {
-                      selectedWidgetMarker = WidgetMarker.signUp;
-                    });
-                  },
-                  child: Text(
-                    "Регистрация",
-                    style: TextStyle(
-                        color: Color(0xFF616E77),
-                        // fontSize: 14,
-                        fontWeight: FontWeight.w500),
+                Expanded(
+                  child: AuthSwitchButton(
+                    press: () {
+                      setState(() {
+                        selectedWidgetMarker = WidgetMarker.signUp;
+                      });
+                    },
+                    text: 'Регистрация',
+                    isSelected: selectedWidgetMarker == WidgetMarker.signUp,
                   ),
-                  shape: Border(
-                      bottom: BorderSide(
-                          color: (selectedWidgetMarker == WidgetMarker.signUp)
-                              ? Color(0xFF535353)
-                              : Color.fromRGBO(0, 0, 0, 0.5),
-                          width: (selectedWidgetMarker == WidgetMarker.signUp)
-                              ? 3
-                              : 0.5)),
                 ),
               ],
             ),
@@ -216,27 +187,14 @@ class _AuthSwitchState extends State<AuthSwitch>
             ),
             Container(
               width: double.infinity,
-              child: RaisedButton(
-                padding: EdgeInsets.fromLTRB(0, 15, 0, 15),
-                onPressed: () {
+              child: AuthSignInOrSignUpButton(
+                text: 'Вход',
+                press: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => HomePage()),
                   );
-                  // Navigator.of(context).pushReplacement(new MaterialPageRoute(
-                  //     builder: (BuildContext context) => MyHomePage()));
                 },
-                shape: new RoundedRectangleBorder(
-                  borderRadius: new BorderRadius.circular(7.0),
-                ),
-                color: Color(0xFF00BF97),
-                child: Text(
-                  'Вход',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600),
-                ),
               ),
             ),
             SizedBox(
@@ -326,26 +284,12 @@ class _AuthSwitchState extends State<AuthSwitch>
             ),
             Container(
               width: double.infinity,
-              child: RaisedButton(
-                onPressed: () {
+              child: AuthSignInOrSignUpButton(
+                text: 'Зарегистрироваться',
+                press: () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => HomePage()));
-                  // Navigator
-                  //     .of(context)
-                  //     .pushReplacement(new MaterialPageRoute(builder: (BuildContext context) => MyHomePage()));
                 },
-                padding: EdgeInsets.fromLTRB(0, 15, 0, 15),
-                shape: new RoundedRectangleBorder(
-                  borderRadius: new BorderRadius.circular(7.0),
-                ),
-                color: Color(0xFF00BF97),
-                child: Text(
-                  'Зарегистрироваться',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600),
-                ),
               ),
             ),
           ],
