@@ -50,10 +50,11 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
           // SingleChildScrollView(
           //   child:
           Expanded(
+          child:
+          SingleChildScrollView(
             child: Container(
               padding: EdgeInsets.all(20),
-
-              width: double.infinity,
+              width: MediaQuery.of(context).size.width,
               color: Colors.grey[100],
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -74,28 +75,19 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                   SizedBox(
                     height: 20,
                   ),
-                  // getFavorite(),
-                  // getFavorite(),
-                  // getFavorite(),
-                  // getFavorite(),
-                  // ListView(
-                  //   children: <Widget>[
-                  //     getFavorite(),
-                  //   ],
-                  // ),
-                  ListView.builder(
-                    itemCount: 2,
-                    itemBuilder: (context, index) {
-                      print(index);
-                      return getFavorite();
-                    },
+                  Container(
+                    height:560,
+                    child: ListView.builder(
+                      itemCount: 20,
+                      itemBuilder: (context,index)=>getFavorite(),
+                    ),
                   ),
                 ],
               ),
             ),
           ),
           // ),/
-          // ),
+          ),
         ],
       ),
     );

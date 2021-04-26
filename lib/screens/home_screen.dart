@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:malsat_app/constants/custom_icons.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -135,10 +136,7 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: Container(
-              color: Colors.grey[100],
-              child: Column(),
-            ),
+            child: Column(),
           ),
         ],
       ),
