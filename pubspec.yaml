@@ -36,6 +36,9 @@ flutter:
     - family:  Custom
       fonts:
         - asset: fonts/Custom.ttf
+    - family:  CategoryIcons
+      fonts:
+        - asset: fonts/category/MyFlutterApp.ttf
   # fonts:
   #   - family: Schyler
   #     fonts:

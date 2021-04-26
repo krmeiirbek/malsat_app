@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:malsat_app/components/home_post_card.dart';
 import 'package:malsat_app/components/material_button.dart';
+import 'package:malsat_app/constants/category_icons.dart';
 import 'package:malsat_app/constants/custom_icons.dart';
 
 class HomeScreen extends StatelessWidget {
+  List<IconData> icons = [
+    CategoryIcon.birds,
+    CategoryIcon.horse,
+    CategoryIcon.camel,
+    CategoryIcon.cow,
+    CategoryIcon.ram,
+  ];
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -83,6 +91,7 @@ class HomeScreen extends StatelessWidget {
                       Button1(text: "Весь Казахстан", press: () {}),
                       SizedBox(width: 20),
                       Button1(text: "Весь Казахстан", press: () {}),
+                      // Icon(icons[1]),
                     ],
                   ),
                 ),
