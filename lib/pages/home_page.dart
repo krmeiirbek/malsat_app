@@ -1,16 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:malsat_app/constants/custom_icons.dart';
+import 'package:malsat_app/constants/selected_item.dart';
 import 'package:malsat_app/screens/favorites_screen.dart';
 import 'package:malsat_app/screens/home_screen.dart';
+import 'package:malsat_app/screens/profile_screen.dart';
 
 class HomePage extends StatefulWidget {
+  final int selectedIndex;
+
+  const HomePage({Key key,this.selectedIndex = 0}) : super(key: key);
   @override
-  _HomePageState createState() => _HomePageState();
+  _HomePageState createState() => _HomePageState(selectedIndex);
 }
 
 class _HomePageState extends State<HomePage> {
-  var selectedIndex = 0;
+  var selectedIndex;
+
   List<Widget> _pages;
+
+  _HomePageState(this.selectedIndex);
 
   @override
   void initState() {
@@ -19,7 +27,7 @@ class _HomePageState extends State<HomePage> {
       FavoritesScreen(),
       HomeScreen(),
       HomeScreen(),
-      HomeScreen(),
+      ProfileScreen(),
     ];
     super.initState();
   }

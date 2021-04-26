@@ -26,7 +26,9 @@ class HomeScreen extends StatelessWidget {
                         onPressed: () {},
                       ),
                     ),
-                    Spacer(),
+                    Spacer(
+                      flex: 2,
+                    ),
                     Container(
                       height: 30,
                       padding: EdgeInsets.symmetric(vertical: 5),
@@ -35,7 +37,7 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ),
                     Spacer(
-                      flex: 2,
+                      flex: 3,
                     ),
                   ],
                 ),
@@ -77,6 +79,8 @@ class HomeScreen extends StatelessWidget {
                       Button1(text: "Фильтры", press: () {}),
                       SizedBox(width: 20),
                       Button1(text: "Все объявлений", press: () {}),
+                      SizedBox(width: 20),
+                      Button1(text: "Весь Казахстан", press: () {}),
                       SizedBox(width: 20),
                       Button1(text: "Весь Казахстан", press: () {}),
                     ],

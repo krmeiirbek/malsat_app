@@ -29,7 +29,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                         onPressed: () {},
                       ),
                     ),
-                    Spacer(),
+                    Spacer(flex: 2,),
                     Container(
                       height: 30,
                       padding: EdgeInsets.symmetric(vertical: 5),
@@ -38,7 +38,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                       ),
                     ),
                     Spacer(
-                      flex: 2,
+                      flex: 3,
                     ),
                   ],
                 ),
