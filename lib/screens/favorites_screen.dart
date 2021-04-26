@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:malsat_app/components/favorite_component.dart';
+import 'package:malsat_app/components/favorite_post_card.dart';
 
 class FavoritesScreen extends StatefulWidget {
   @override
@@ -14,6 +14,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
         children: [
           Container(
             padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
+            // color: Colors.white,
             child: Column(
               children: [
                 Row(
@@ -41,12 +42,19 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                     ),
                   ],
                 ),
+                // SizedBox(height: 20),
               ],
             ),
           ),
+          // Expanded(
+          // SingleChildScrollView(
+          //   child:
           Expanded(
+          child:
+          SingleChildScrollView(
             child: Container(
-              padding: EdgeInsets.all(0),
+              padding: EdgeInsets.all(20),
+              width: MediaQuery.of(context).size.width,
               color: Colors.grey[100],
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -67,19 +75,19 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                   SizedBox(
                     height: 20,
                   ),
-                  Expanded(
-                    child: Container(
-                      child: ListView.builder(
-                        itemCount: 20,
-                        itemBuilder: (context, index) {
-                          return CardFavorites(image: 'assets/images/card.png', title: 'Продам быка', date: '26.04.2021', price: '200 000 тг');
-                        },
-                      ),
-                    ),
+                  Container(
+                    height:560,
+                    // child: ListView.builder(
+                    //   itemCount: 20,
+                    //   itemBuilder: (context,index)=>
+                    //       getFavorite(),
+                    // ),
                   ),
                 ],
               ),
             ),
+          ),
+          // ),/
           ),
         ],
       ),

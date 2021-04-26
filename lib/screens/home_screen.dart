@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:malsat_app/components/home_card.dart';
+import 'package:malsat_app/components/home_post_card.dart';
 import 'package:malsat_app/components/material_button.dart';
 import 'package:malsat_app/constants/custom_icons.dart';
 
@@ -99,31 +99,31 @@ class HomeScreen extends StatelessWidget {
                       mainAxisSpacing: 10,
                       crossAxisCount: 2,
                       children: <Widget>[
-                        HomeCard(
+                        HomePostCard(
                           image: 'assets/images/card.png',
                           title: 'Продам быка',
                           date: '23.04.2021',
                           price: '200000 тг',
                         ),
-                        HomeCard(
+                        HomePostCard(
                           image: 'assets/images/card.png',
                           title: 'Продам быка',
                           date: '23.04.2021',
                           price: '200000 тг',
                         ),
-                        HomeCard(
+                        HomePostCard(
                           image: 'assets/images/card.png',
                           title: 'Продам быка',
                           date: '23.04.2021',
                           price: '200000 тг',
                         ),
-                        HomeCard(
+                        HomePostCard(
                           image: 'assets/images/card.png',
                           title: 'Продам быка',
                           date: '23.04.2021',
                           price: '200000 тг',
                         ),
-                        HomeCard(
+                        HomePostCard(
                           image: 'assets/images/card.png',
                           title: 'Продам быка',
                           date: '23.04.2021',

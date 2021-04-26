@@ -2,13 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:malsat_app/constants/custom_icons.dart';
 
-class CardFavorites extends StatelessWidget {
+class FavoritePostCard extends StatelessWidget {
   final String image;
   final String title;
   final String date;
   final String price;
 
-  const CardFavorites({
+  const FavoritePostCard({
     Key key,
     @required this.image,
     @required this.title,

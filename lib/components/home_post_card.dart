@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:malsat_app/constants/custom_icons.dart';
 
-class HomeCard extends StatelessWidget {
+class HomePostCard extends StatelessWidget {
   final String image;
   final String title;
   final String date;
   final String price;
 
-  const HomeCard({
+  const HomePostCard({
     Key key,
     @required this.image,
     @required this.title,
