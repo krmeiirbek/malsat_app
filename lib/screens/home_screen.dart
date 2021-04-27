@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:malsat_app/components/home_category_icon_button.dart';
 import 'package:malsat_app/components/home_post_card.dart';
 import 'package:malsat_app/components/material_button.dart';
 import 'package:malsat_app/constants/category_icons.dart';
-import 'package:malsat_app/constants/custom_icons.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   List<IconData> icons = [
     CategoryIcon.birds,
     CategoryIcon.horse,
@@ -12,6 +17,9 @@ class HomeScreen extends StatelessWidget {
     CategoryIcon.cow,
     CategoryIcon.ram,
   ];
+
+  bool isCategory = false;
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -80,6 +88,56 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Категории",
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xff4A564A),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        setState(() {
+                          isCategory = !isCategory;
+                        });
+                      },
+                      child: Text(
+                        "смотреть все",
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.normal,
+                          color: Color(0xff565656),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                if(isCategory) SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      CategoryButton(icon: icons[0], press: () {
+                        setState(() {
+                        });
+                      }),
+                      SizedBox(width: 18),
+                      CategoryButton(icon: icons[1], press: () {}),
+                      SizedBox(width: 18),
+                      CategoryButton(icon: icons[2], press: () {}),
+                      SizedBox(width: 18),
+                      CategoryButton(icon: icons[3], press: () {}),
+                      SizedBox(width: 18),
+                      CategoryButton(icon: icons[4], press: () {}),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(

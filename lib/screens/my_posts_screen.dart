@@ -1,11 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:malsat_app/components/favorite_post_card.dart';
-import 'package:malsat_app/constants/selected_item.dart';
-import 'package:malsat_app/pages/auth.dart';
-import 'package:malsat_app/pages/home_page.dart';
-
-import 'favorites_screen.dart';
 
 class MyPostsScreen extends StatelessWidget {
   @override

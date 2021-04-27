@@ -6,8 +6,6 @@ import 'package:malsat_app/pages/home_page.dart';
 import 'package:malsat_app/screens/my_posts_screen.dart';
 import 'package:malsat_app/screens/settings_screen.dart';
 
-import 'favorites_screen.dart';
-
 class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
