@@ -116,7 +116,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ],
                 ),
-                if(isCategory) SingleChildScrollView(
+                if(isCategory)
+                  SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(
                     children: [

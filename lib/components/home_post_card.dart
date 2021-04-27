@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:malsat_app/constants/custom_icons.dart';
 
-class HomePostCard extends StatelessWidget {
+class HomePostCard extends StatefulWidget {
   final String image;
   final String title;
   final String date;
@@ -14,6 +14,13 @@ class HomePostCard extends StatelessWidget {
     @required this.date,
     @required this.price,
   }) : super(key: key);
+
+  @override
+  _HomePostCardState createState() => _HomePostCardState();
+}
+
+class _HomePostCardState extends State<HomePostCard> {
+  bool inFavorite = false;
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +54,7 @@ class HomePostCard extends StatelessWidget {
                     topRight: Radius.circular(8),
                   ),
                   child: Image.asset(
-                    image,
+                    widget.image,
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -56,7 +63,7 @@ class HomePostCard extends StatelessWidget {
             Expanded(
               flex: 1,
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
@@ -64,17 +71,28 @@ class HomePostCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Text(
-                          title,
+                          widget.title,
                           style: TextStyle(
-                              color: Color(0xFFEA5E3C),
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500),
+                            color: Color(0xFFEA5E3C),
+                            fontSize: 12,
+                            fontWeight: FontWeight.w500,
+                          ),
                           textAlign: TextAlign.left,
                         ),
-                        Icon(
-                          Custom.heart_empty,
-                          size: 16,
-                          color: Color.fromRGBO(74, 86, 74, 0.4),
+                        InkWell(
+                          child: Icon(
+                            Custom.heart_empty,
+                            size: 16,
+                            color: !inFavorite
+                                ? Color.fromRGBO(74, 86, 74, 0.4)
+                                : Colors.red,
+                          ),
+                          onTap: () {
+                            print('er');
+                            setState(() {
+                              inFavorite = !inFavorite;
+                            });
+                          },
                         ),
                       ],
                     ),
@@ -82,18 +100,21 @@ class HomePostCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          date,
+                          widget.date,
                           textAlign: TextAlign.left,
                           style: TextStyle(
-                              color: Color(0xFFB5B5B5), fontSize: 8),
+                            color: Color(0xFFB5B5B5),
+                            fontSize: 8,
+                          ),
                         ),
                         Text(
-                          price,
+                          widget.price,
                           textAlign: TextAlign.left,
                           style: TextStyle(
-                              color: Color(0xFF6C6C6C),
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold),
+                            color: Color(0xFF6C6C6C),
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                          ),
                         )
                       ],
                     )
