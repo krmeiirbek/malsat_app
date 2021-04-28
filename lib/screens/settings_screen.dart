@@ -46,95 +46,97 @@ class SettingsScreen extends StatelessWidget {
               ),
             ),
             Expanded(
-              child: Container(
-                padding: EdgeInsets.all(20),
-                child: Column(
-                  children: <Widget>[
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          'Настройки',
-                          style: TextStyle(
-                              color: Color(0xFF4A564A),
-                              fontSize: 19,
-                              fontWeight: FontWeight.bold),
-                        )
-                      ],
-                    ),
-                    SizedBox(
-                      height: 30,
-                    ),
-                    Card(
-                      child: ListTile(
-                        title: Text(
-                          'Контактные данные',
-                          style: TextStyle(
-                              color: Color(0xFF4A564A),
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500),
-                        ),
-                        trailing: Icon(
-                          Icons.arrow_forward_ios_rounded,
-                          size: 15,
+              child: SingleChildScrollView(
+                child: Container(
+                  padding: EdgeInsets.all(20),
+                  child: Column(
+                    children: <Widget>[
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            'Настройки',
+                            style: TextStyle(
+                                color: Color(0xFF4A564A),
+                                fontSize: 19,
+                                fontWeight: FontWeight.bold),
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      Card(
+                        child: ListTile(
+                          title: Text(
+                            'Контактные данные',
+                            style: TextStyle(
+                                color: Color(0xFF4A564A),
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500),
+                          ),
+                          trailing: Icon(
+                            Icons.arrow_forward_ios_rounded,
+                            size: 15,
+                          ),
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Card(
-                      child: ListTile(
-                        title: Text(
-                          'Изменить пароль',
-                          style: TextStyle(
-                              color: Color(0xFF4A564A),
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500),
-                        ),
-                        trailing: Icon(
-                          Icons.arrow_forward_ios_rounded,
-                          size: 15,
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Card(
+                        child: ListTile(
+                          title: Text(
+                            'Изменить пароль',
+                            style: TextStyle(
+                                color: Color(0xFF4A564A),
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500),
+                          ),
+                          trailing: Icon(
+                            Icons.arrow_forward_ios_rounded,
+                            size: 15,
+                          ),
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Card(
-                      child: ListTile(
-                        title: Text(
-                          'Изменить e-mail адрес',
-                          style: TextStyle(
-                              color: Color(0xFF4A564A),
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500),
-                        ),
-                        trailing: Icon(
-                          Icons.arrow_forward_ios_rounded,
-                          size: 15,
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Card(
+                        child: ListTile(
+                          title: Text(
+                            'Изменить e-mail адрес',
+                            style: TextStyle(
+                                color: Color(0xFF4A564A),
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500),
+                          ),
+                          trailing: Icon(
+                            Icons.arrow_forward_ios_rounded,
+                            size: 15,
+                          ),
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Card(
-                      child: ListTile(
-                        title: Text(
-                          'Удалить аккаунт',
-                          style: TextStyle(
-                              color: Color(0xFF4A564A),
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500),
-                        ),
-                        trailing: Icon(
-                          Icons.arrow_forward_ios_rounded,
-                          size: 15,
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Card(
+                        child: ListTile(
+                          title: Text(
+                            'Удалить аккаунт',
+                            style: TextStyle(
+                                color: Color(0xFF4A564A),
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500),
+                          ),
+                          trailing: Icon(
+                            Icons.arrow_forward_ios_rounded,
+                            size: 15,
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
