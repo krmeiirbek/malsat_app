@@ -69,9 +69,10 @@ class _FavoritePostCardState extends State<FavoritePostCard> {
                       Text(
                         widget.title,
                         style: TextStyle(
-                            color: Color(0xFFEA5E3C),
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,),
+                          color: Color(0xFFEA5E3C),
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
                         textAlign: TextAlign.left,
                       ),
                       SizedBox(
@@ -86,7 +87,6 @@ class _FavoritePostCardState extends State<FavoritePostCard> {
                               : Colors.red,
                         ),
                         onTap: () {
-                          print('er');
                           setState(() {
                             inFavorite = !inFavorite;
                           });

@@ -366,11 +366,11 @@ class DetailPost extends StatelessWidget {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Icon(Icons.facebook,color: Color(0xff828282),),
-                                  Icon(Icons.facebook,color: Color(0xff828282),),
-                                  Icon(Icons.facebook,color: Color(0xff828282),),
-                                  Icon(Icons.facebook,color: Color(0xff828282),),
-                                  Icon(Icons.facebook,color: Color(0xff828282),),
+                                  Icon(Icons.wallet_giftcard,color: Color(0xff828282),),
+                                  Icon(Icons.wallet_giftcard,color: Color(0xff828282),),
+                                  Icon(Icons.wallet_giftcard,color: Color(0xff828282),),
+                                  Icon(Icons.wallet_giftcard,color: Color(0xff828282),),
+                                  Icon(Icons.wallet_giftcard,color: Color(0xff828282),),
                                 ],
                               ),
                             ),

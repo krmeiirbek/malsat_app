@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:malsat_app/components/favorite_post_card.dart';
+
 class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -45,49 +46,97 @@ class SettingsScreen extends StatelessWidget {
               ),
             ),
             Expanded(
-              child:
-              SingleChildScrollView(
-                child: Container(
-                  padding: EdgeInsets.all(20),
-                  width: MediaQuery.of(context).size.width,
-                  color: Colors.grey[100],
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                          SizedBox(width: 5),
-                          Text(
-                            'Мои объявления',
-                            style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xFF4A564A)),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Container(
-                        height:MediaQuery.of(context).size.height*0.8,
-                        child: ListView.builder(
-                          itemCount: 20,
-                          itemBuilder: (context,index)=>
-                              FavoritePostCard(
-                                image: 'assets/images/card.png',
-                                title: 'Продам быка',
-                                date: '23.04.2021',
-                                price: '200000 тг',
-                              ),
+              child: Container(
+                padding: EdgeInsets.all(20),
+                child: Column(
+                  children: <Widget>[
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          'Настройки',
+                          style: TextStyle(
+                              color: Color(0xFF4A564A),
+                              fontSize: 19,
+                              fontWeight: FontWeight.bold),
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Card(
+                      child: ListTile(
+                        title: Text(
+                          'Контактные данные',
+                          style: TextStyle(
+                              color: Color(0xFF4A564A),
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500),
+                        ),
+                        trailing: Icon(
+                          Icons.arrow_forward_ios_rounded,
+                          size: 15,
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Card(
+                      child: ListTile(
+                        title: Text(
+                          'Изменить пароль',
+                          style: TextStyle(
+                              color: Color(0xFF4A564A),
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500),
+                        ),
+                        trailing: Icon(
+                          Icons.arrow_forward_ios_rounded,
+                          size: 15,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Card(
+                      child: ListTile(
+                        title: Text(
+                          'Изменить e-mail адрес',
+                          style: TextStyle(
+                              color: Color(0xFF4A564A),
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500),
+                        ),
+                        trailing: Icon(
+                          Icons.arrow_forward_ios_rounded,
+                          size: 15,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Card(
+                      child: ListTile(
+                        title: Text(
+                          'Удалить аккаунт',
+                          style: TextStyle(
+                              color: Color(0xFF4A564A),
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500),
+                        ),
+                        trailing: Icon(
+                          Icons.arrow_forward_ios_rounded,
+                          size: 15,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              // ),/
             ),
           ],
         ),
