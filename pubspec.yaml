@@ -30,7 +30,7 @@ flutter:
 
   assets:
     - assets/images/
-    - assets/icons/
+    - assets/icons/category
 
   fonts:
     - family:  Custom

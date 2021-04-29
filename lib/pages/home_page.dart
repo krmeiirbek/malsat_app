@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:malsat_app/screens/create_post_screen.dart';
 import 'package:malsat_app/screens/post_detail_screen.dart';
 import 'package:malsat_app/constants/custom_icons.dart';
 import 'package:malsat_app/constants/selected_item.dart';
 import 'package:malsat_app/screens/favorites_screen.dart';
 import 'package:malsat_app/screens/home_screen.dart';
 import 'package:malsat_app/screens/profile_screen.dart';
+import 'package:malsat_app/screens/search_screen.dart';
 
 class HomePage extends StatefulWidget {
   final int selectedIndex;
@@ -25,9 +27,9 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     _pages = [
       HomeScreen(),
+      SearchScreen(),
+      CreatePostScreen(),
       FavoritesScreen(),
-      HomeScreen(),
-      DetailPost(),
       ProfileScreen(),
     ];
     super.initState();
@@ -77,8 +79,8 @@ class _HomePageState extends State<HomePage> {
                       label: ''),
                   BottomNavigationBarItem(
                       icon: Icon(
-                        Custom.heart_empty,
-                        size: 18.0,
+                        Icons.search_sharp,
+                        size: 30.0,
                       ),
                       label: ''),
                   BottomNavigationBarItem(
@@ -89,7 +91,7 @@ class _HomePageState extends State<HomePage> {
                       label: ''),
                   BottomNavigationBarItem(
                       icon: Icon(
-                        Custom.comment,
+                        Custom.heart_empty,
                         size: 18.0,
                       ),
                       label: ''),
