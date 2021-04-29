@@ -13,8 +13,7 @@ class ProfileScreen extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
-            // color: Colors.white,
+            padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
             child: Column(
               children: [
                 Row(

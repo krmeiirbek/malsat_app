@@ -14,9 +14,10 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
         children: [
           Container(
             padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
-            // color: Colors.white,
+            color: Colors.white,
             child: Column(
               children: [
+                SizedBox(height: 20),
                 Row(
                   children: [
                     InkWell(
@@ -42,13 +43,39 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                     ),
                   ],
                 ),
-                // SizedBox(height: 20),
+                SizedBox(height: 20),
+                Container(
+                  height: 50,
+                  decoration: BoxDecoration(
+                    color: Color(0xFFF2F1F1),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(10),
+                    ),
+                  ),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      hintText: 'Поиск объявлений',
+                      hintStyle: TextStyle(
+                        color: Color(0xFF4A564A).withOpacity(0.4),
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      prefixIcon: Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Icon(
+                          Icons.search,
+                          color: Color(0xFF4A564A).withOpacity(0.4),
+                        ),
+                      ),
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
-          // Expanded(
-          // SingleChildScrollView(
-          //   child:
           Expanded(
           child:
           SingleChildScrollView(
@@ -92,7 +119,6 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
               ),
             ),
           ),
-          // ),/
           ),
         ],
       ),

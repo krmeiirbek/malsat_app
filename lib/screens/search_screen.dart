@@ -14,22 +14,12 @@ class _SearchScreenState extends State<SearchScreen> {
       child: Column(
         children: [
           Container(
-            padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
-            // color: Colors.white,
+            padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
+            color: Colors.white,
             child: Column(
               children: [
                 Row(
                   children: [
-                    // InkWell(
-                    //   child: IconButton(
-                    //     icon: Icon(
-                    //       Icons.menu,
-                    //       color: Color(0xFFEA5E3C),
-                    //       size: 30,
-                    //     ),
-                    //     onPressed: () {},
-                    //   ),
-                    // ),
                     Spacer(flex: 3,),
                     Container(
                       height: 30,
