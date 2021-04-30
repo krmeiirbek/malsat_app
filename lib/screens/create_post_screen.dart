@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class CreatePostScreen extends StatefulWidget {
@@ -9,6 +11,21 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
   bool isSwitched1 = false;
   bool isSwitched2 = false;
   bool isSwitched3 = true;
+
+  String dropValue;
+  String dropValue2;
+  List listItem = [
+    "Верблюды",
+    "Лошади",
+    "Крупный рогатый скот",
+    "Мелкий рогатый скот",
+    "Домашние животные",
+    "Корм для животных",
+    "Техника",
+    "Сельхозтовары",
+    "Продукты питания",
+    "Услуги",
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -99,21 +116,31 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                     ),
                     SizedBox(height: 10),
                     Container(
-                      child: ListTile(
-                        title: Text(
-                          'Верблюды',
-                          style: TextStyle(
-                              color: Color(0xFF888888),
-                              fontSize: 14,
-                              fontWeight: FontWeight.normal),
+                      height: 50,
+                      child: DropdownButton(
+                        hint: Text('Categories'),
+                        isExpanded: true,
+                        value: dropValue,
+                        icon: Icon(
+                          Icons.arrow_forward_ios,
+                          color: Color(0xffA8A8A8),
+                          size: 15,
                         ),
-                        trailing: IconButton(
-                          onPressed: () {},
-                          icon: Icon(Icons.chevron_right),
-                        ),
+                        onChanged: (newValue) {
+                          setState(() {
+                            dropValue = newValue;
+                          });
+                        },
+                        items: listItem
+                            .map(
+                              (valueItem) => DropdownMenuItem(
+                                value: valueItem,
+                                child: Text(valueItem),
+                              ),
+                            )
+                            .toList(),
                       ),
                     ),
-                    Divider(),
                     SizedBox(height: 25),
                     Row(
                       children: [
@@ -216,16 +243,15 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                                 fontWeight: FontWeight.normal,
                               ),
                             ),
-                            Switch(
+                            CupertinoSwitch(
                               value: isSwitched1,
                               onChanged: (value) {
                                 setState(() {
                                   isSwitched1 = value;
                                 });
                               },
-                              activeColor: Colors.white,
-                              activeTrackColor: Color(0xff4CD964),
-                              inactiveTrackColor: Color(0xffE5E5E5),
+                              activeColor: Color(0xff4CD964),
+                              trackColor: Colors.white,
                             ),
                           ],
                         ),
@@ -241,16 +267,15 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                                 fontWeight: FontWeight.normal,
                               ),
                             ),
-                            Switch(
+                            CupertinoSwitch(
                               value: isSwitched2,
                               onChanged: (value) {
                                 setState(() {
                                   isSwitched2 = value;
                                 });
                               },
-                              activeColor: Colors.white,
-                              activeTrackColor: Color(0xff4CD964),
-                              inactiveTrackColor: Color(0xffE5E5E5),
+                              trackColor: Colors.white,
+                              activeColor: Color(0xff4CD964),
                             ),
                           ],
                         ),
@@ -266,16 +291,15 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                                 fontWeight: FontWeight.normal,
                               ),
                             ),
-                            Switch(
+                            CupertinoSwitch(
                               value: isSwitched3,
                               onChanged: (value) {
                                 setState(() {
                                   isSwitched3 = value;
                                 });
                               },
-                              activeColor: Colors.white,
-                              activeTrackColor: Color(0xff4CD964),
-                              inactiveTrackColor: Color(0xffE5E5E5),
+                              activeColor: Color(0xff4CD964),
+                              trackColor: Colors.white,
                             ),
                           ],
                         ),
@@ -346,25 +370,42 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                           ),
                         ),
                         Container(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Выбрать',
-                                style: TextStyle(
-                                    color: Color(0xFFEA5E3C),
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.normal),
+                          child: DropdownButton(
+                            hint: Text(
+                              'Выбрать',
+                              style: TextStyle(
+                                color: Color(0xFFEA5E3C),
+                                fontSize: 14,
+                                fontWeight: FontWeight.normal,
                               ),
-                              IconButton(
-                                onPressed: () {},
-                                icon: Icon(
-                                  Icons.cancel_outlined,
-                                  color: Color(0xff4A564A),
-                                  size: 20,
-                                ),
+                            ),
+                            isExpanded: true,
+                            value: dropValue2,
+                            icon: InkWell(
+                              onTap: () {
+                                setState(() {
+                                  dropValue2 = null;
+                                });
+                              },
+                              child: Icon(
+                                Icons.cancel_outlined,
+                                color: Color(0xff4A564A),
+                                size: 20,
                               ),
-                            ],
+                            ),
+                            onChanged: (newValue) {
+                              setState(() {
+                                dropValue2 = newValue;
+                              });
+                            },
+                            items: listItem
+                                .map(
+                                  (valueItem) => DropdownMenuItem(
+                                    value: valueItem,
+                                    child: Text(valueItem),
+                                  ),
+                                )
+                                .toList(),
                           ),
                         ),
                         Divider(),
@@ -399,7 +440,8 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                                   color: Color(0xffF3F3F3),
                                   width: 1,
                                 ),
-                                borderRadius: BorderRadius.all(Radius.circular(8)),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(8)),
                               ),
                             ),
                           ),
