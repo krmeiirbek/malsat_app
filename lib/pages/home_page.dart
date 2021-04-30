@@ -71,6 +71,10 @@ class _HomePageState extends State<HomePage> {
                 },
                 selectedItemColor: Color(0xFFEA5E3C),
                 unselectedItemColor: Color(0xFFBBBBBB),
+                selectedFontSize: 12,
+                unselectedFontSize: 12,
+                showSelectedLabels: false,
+                showUnselectedLabels: false,
                 items: const <BottomNavigationBarItem>[
                   BottomNavigationBarItem(
                       icon: Icon(
@@ -87,13 +91,14 @@ class _HomePageState extends State<HomePage> {
                   BottomNavigationBarItem(
                       icon: Icon(
                         Icons.add_circle_outline,
-                        size: 40.0,
+                        size: 45.0,
+                        color: Color(0xFFEA5E3C),
                       ),
                       label: ''),
                   BottomNavigationBarItem(
                       icon: Icon(
                         Custom.heart_empty,
-                        size: 18.0,
+                        size: 20.0,
                       ),
                       label: ''),
                   BottomNavigationBarItem(

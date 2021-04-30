@@ -30,7 +30,9 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                         onPressed: () {},
                       ),
                     ),
-                    Spacer(flex: 2,),
+                    Spacer(
+                      flex: 2,
+                    ),
                     Container(
                       height: 30,
                       padding: EdgeInsets.symmetric(vertical: 5),
@@ -77,8 +79,6 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
             ),
           ),
           Expanded(
-          child:
-          SingleChildScrollView(
             child: Container(
               padding: EdgeInsets.all(20),
               width: MediaQuery.of(context).size.width,
@@ -102,23 +102,22 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                   SizedBox(
                     height: 20,
                   ),
-                  Container(
-                    height:MediaQuery.of(context).size.height*0.7,
-                    child: ListView.builder(
-                      itemCount: 20,
-                      itemBuilder: (context,index)=>
-                        FavoritePostCard(
+                  Expanded(
+                    child: Container(
+                      child: ListView.builder(
+                        itemCount: 20,
+                        itemBuilder: (context, index) => FavoritePostCard(
                           image: 'assets/images/card.png',
                           title: 'Продам быка',
                           date: '23.04.2021',
                           price: '200000 тг',
                         ),
+                      ),
                     ),
                   ),
                 ],
               ),
             ),
-          ),
           ),
         ],
       ),
