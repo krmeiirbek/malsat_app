@@ -23,6 +23,9 @@ class _AuthSwitchState extends State<AuthSwitch>
   TextEditingController _registerEmailController = TextEditingController();
   TextEditingController _loginPasswordController = TextEditingController();
   TextEditingController _registerPasswordController = TextEditingController();
+  TextEditingController _registerNameController = TextEditingController();
+  TextEditingController _registerPhoneController = TextEditingController();
+  TextEditingController _registerRePasswordController = TextEditingController();
 
   @override
   void initState() {
@@ -40,60 +43,65 @@ class _AuthSwitchState extends State<AuthSwitch>
     _loginPasswordController.dispose();
     _registerEmailController.dispose();
     _registerPasswordController.dispose();
+    _registerNameController.dispose();
+    _registerPhoneController.dispose();
+    _registerRePasswordController.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: EdgeInsets.all(35),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            SizedBox(
-              height: 173,
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 10, bottom: 30),
-              child: Image.asset(
-                'assets/images/logo.png',
-                width: 140,
-                height: 23.33,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.all(35),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              SizedBox(
+                height: 173,
               ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Expanded(
-                  child: AuthSwitchButton(
-                    text: 'Войти',
-                    press: () {
-                      setState(() {
-                        selectedWidgetMarker = WidgetMarker.login;
-                      });
-                    },
-                    isSelected: selectedWidgetMarker == WidgetMarker.login,
-                  ),
+              Padding(
+                padding: EdgeInsets.only(left: 10, bottom: 30),
+                child: Image.asset(
+                  'assets/images/logo.png',
+                  width: 140,
+                  height: 23.33,
                 ),
-                Expanded(
-                  child: AuthSwitchButton(
-                    press: () {
-                      setState(() {
-                        selectedWidgetMarker = WidgetMarker.signUp;
-                      });
-                    },
-                    text: 'Регистрация',
-                    isSelected: selectedWidgetMarker == WidgetMarker.signUp,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Expanded(
+                    child: AuthSwitchButton(
+                      text: 'Войти',
+                      press: () {
+                        setState(() {
+                          selectedWidgetMarker = WidgetMarker.login;
+                        });
+                      },
+                      isSelected: selectedWidgetMarker == WidgetMarker.login,
+                    ),
                   ),
-                ),
-              ],
-            ),
-            FutureBuilder(
-                future: _playAnimation(),
-                builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  return getCustomContainer();
-                }),
-          ],
+                  Expanded(
+                    child: AuthSwitchButton(
+                      press: () {
+                        setState(() {
+                          selectedWidgetMarker = WidgetMarker.signUp;
+                        });
+                      },
+                      text: 'Регистрация',
+                      isSelected: selectedWidgetMarker == WidgetMarker.signUp,
+                    ),
+                  ),
+                ],
+              ),
+              FutureBuilder(
+                  future: _playAnimation(),
+                  builder: (BuildContext context, AsyncSnapshot snapshot) {
+                    return getCustomContainer();
+                  }),
+            ],
+          ),
         ),
       ),
     );
@@ -109,6 +117,9 @@ class _AuthSwitchState extends State<AuthSwitch>
       case WidgetMarker.login:
         _registerEmailController.clear();
         _registerPasswordController.clear();
+        _registerNameController.clear();
+        _registerPhoneController.clear();
+        _registerRePasswordController.clear();
         return getSignInContainer();
       case WidgetMarker.signUp:
         _loginEmailController.clear();
@@ -128,6 +139,7 @@ class _AuthSwitchState extends State<AuthSwitch>
               height: 20,
             ),
             TextField(
+              keyboardType: TextInputType.emailAddress,
               style: new TextStyle(
                 fontFamily: 'Montserrat',
                 fontSize: 14.0,
@@ -157,6 +169,7 @@ class _AuthSwitchState extends State<AuthSwitch>
               height: 10,
             ),
             TextField(
+              obscureText: true,
               style: new TextStyle(
                 fontFamily: 'Montserrat',
                 fontSize: 14.0,
@@ -225,6 +238,7 @@ class _AuthSwitchState extends State<AuthSwitch>
               height: 20,
             ),
             TextField(
+              keyboardType: TextInputType.emailAddress,
               style: new TextStyle(
                 fontFamily: 'Montserrat',
                 fontSize: 14.0,
@@ -254,6 +268,67 @@ class _AuthSwitchState extends State<AuthSwitch>
               height: 10,
             ),
             TextField(
+              keyboardType: TextInputType.text,
+              style: new TextStyle(
+                fontFamily: 'Montserrat',
+                fontSize: 14.0,
+                fontStyle: FontStyle.normal,
+              ),
+              controller: _registerNameController,
+              decoration: InputDecoration(
+                hintText: "Введите ваш имя",
+                hintStyle: TextStyle(
+                    color: Color.fromRGBO(74, 86, 74, 0.4), fontSize: 14.0),
+                fillColor: Color(0xFFF2F1F1),
+                filled: true,
+                focusColor: Color(0xFF000000),
+                focusedBorder: InputBorder.none,
+                border: new OutlineInputBorder(
+                  borderRadius: const BorderRadius.all(
+                    const Radius.circular(10.0),
+                  ),
+                  borderSide: BorderSide(
+                    width: 0,
+                    style: BorderStyle.none,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            TextField(
+              keyboardType: TextInputType.phone,
+              style: new TextStyle(
+                fontFamily: 'Montserrat',
+                fontSize: 14.0,
+                fontStyle: FontStyle.normal,
+              ),
+              controller: _registerPhoneController,
+              decoration: InputDecoration(
+                hintText: "Введите ваш номер телефона",
+                hintStyle: TextStyle(
+                    color: Color.fromRGBO(74, 86, 74, 0.4), fontSize: 14.0),
+                fillColor: Color(0xFFF2F1F1),
+                filled: true,
+                focusColor: Color(0xFF000000),
+                focusedBorder: InputBorder.none,
+                border: new OutlineInputBorder(
+                  borderRadius: const BorderRadius.all(
+                    const Radius.circular(10.0),
+                  ),
+                  borderSide: BorderSide(
+                    width: 0,
+                    style: BorderStyle.none,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            TextField(
+              obscureText: true,
               style: new TextStyle(
                 fontFamily: 'Montserrat',
                 fontSize: 14.0,
@@ -261,7 +336,37 @@ class _AuthSwitchState extends State<AuthSwitch>
               ),
               controller: _registerPasswordController,
               decoration: InputDecoration(
-                hintText: "Введите ваш пароль",
+                hintText: "Придумайте пароль",
+                hintStyle: TextStyle(
+                    color: Color.fromRGBO(74, 86, 74, 0.4), fontSize: 14.0),
+                fillColor: Color(0xFFF2F1F1),
+                filled: true,
+                focusColor: Color(0xFF000000),
+                focusedBorder: InputBorder.none,
+                border: new OutlineInputBorder(
+                  borderRadius: const BorderRadius.all(
+                    const Radius.circular(10.0),
+                  ),
+                  borderSide: BorderSide(
+                    width: 0,
+                    style: BorderStyle.none,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            TextField(
+              obscureText: true,
+              style: new TextStyle(
+                fontFamily: 'Montserrat',
+                fontSize: 14.0,
+                fontStyle: FontStyle.normal,
+              ),
+              controller: _registerRePasswordController,
+              decoration: InputDecoration(
+                hintText: "Повторите пароль",
                 hintStyle: TextStyle(
                     color: Color.fromRGBO(74, 86, 74, 0.4), fontSize: 14.0),
                 fillColor: Color(0xFFF2F1F1),
@@ -291,6 +396,22 @@ class _AuthSwitchState extends State<AuthSwitch>
                       MaterialPageRoute(builder: (context) => HomePage()));
                 },
               ),
+            ),
+            SizedBox(
+              height: 1,
+            ),
+            TextButton(
+              child: Text(
+                'Уже есть аккаунт?',
+                style: TextStyle(
+                  color: Color(0xFF616E77),
+                ),
+              ),
+              onPressed: () {
+                setState(() {
+                  selectedWidgetMarker = WidgetMarker.login;
+                });
+              },
             ),
           ],
         ),
