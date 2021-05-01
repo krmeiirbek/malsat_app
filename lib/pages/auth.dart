@@ -2,12 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:malsat_app/components/auth_signin_or_signup_button.dart';
 import 'package:malsat_app/components/auth_switch_button.dart';
+import 'package:malsat_app/repositories/repositories.dart';
 
 import 'home_page.dart';
 
 enum WidgetMarker { login, signUp }
 
 class AuthSwitch extends StatefulWidget {
+  final   AuthRepository authRepository = AuthRepository();
+
   @override
   _AuthSwitchState createState() => _AuthSwitchState();
 }
@@ -203,10 +206,11 @@ class _AuthSwitchState extends State<AuthSwitch>
               child: AuthSignInOrSignUpButton(
                 text: 'Вход',
                 press: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => HomePage()),
-                  );
+                  widget.authRepository.login(_loginEmailController.text, _loginPasswordController.text);
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(builder: (context) => HomePage()),
+                  // );
                 },
               ),
             ),
