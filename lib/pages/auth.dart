@@ -45,7 +45,6 @@ class _AuthSwitchState extends State<AuthSwitch>
 
   @override
   void dispose() {
-    super.dispose();
     _controller.dispose();
     _loginEmailController.dispose();
     _loginPasswordController.dispose();
@@ -54,6 +53,7 @@ class _AuthSwitchState extends State<AuthSwitch>
     _registerNameController.dispose();
     _registerPhoneController.dispose();
     _registerRePasswordController.dispose();
+    super.dispose();
   }
 
   @override
