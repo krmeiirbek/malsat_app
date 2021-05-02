@@ -15,8 +15,7 @@ class Posts {
     this.auction,
     this.delivery,
     this.category,
-    this.isApproved,
-    this.date,
+    this.gender,
   });
 
   int id;
@@ -29,7 +28,5 @@ class Posts {
   bool auction;
   bool delivery;
   Category category;
-  DateTime date;
-  bool isApproved;
-
+  String gender;
 }

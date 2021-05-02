@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:malsat_app/bloc/auth_bloc/auth.dart';
+import 'package:malsat_app/bloc/login_bloc/login_bloc.dart';
 import 'package:malsat_app/components/auth_signin_or_signup_button.dart';
 import 'package:malsat_app/components/auth_switch_button.dart';
 import 'package:malsat_app/repositories/repositories.dart';
@@ -9,7 +12,9 @@ import 'home_page.dart';
 enum WidgetMarker { login, signUp }
 
 class AuthSwitch extends StatefulWidget {
-  final   AuthRepository authRepository = AuthRepository();
+  final AuthRepository authRepository;
+
+  const AuthSwitch({Key key, @required this.authRepository}) : super(key: key);
 
   @override
   _AuthSwitchState createState() => _AuthSwitchState();
@@ -53,58 +58,83 @@ class _AuthSwitchState extends State<AuthSwitch>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.all(35),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              SizedBox(
-                height: 173,
+    return BlocProvider(
+      create: (context) =>
+          LoginBloc(
+              widget.authRepository,
+              BlocProvider.of<AuthenticationBloc>(context)),
+      child: BlocListener<LoginBloc, LoginState>(
+        listener: (context, state) {
+          if (state is LoginFailure) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('Login Failed'),
+                backgroundColor: Colors.red,
               ),
-              Padding(
-                padding: EdgeInsets.only(left: 10, bottom: 30),
-                child: Image.asset(
-                  'assets/images/logo.png',
-                  width: 140,
-                  height: 23.33,
+            );
+          }
+        },
+        child: BlocBuilder<LoginBloc, LoginState>(
+          builder: (context, state) {
+            return Scaffold(
+              body: SingleChildScrollView(
+                child: Padding(
+                  padding: EdgeInsets.all(35),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      SizedBox(
+                        height: 173,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left: 10, bottom: 30),
+                        child: Image.asset(
+                          'assets/images/logo.png',
+                          width: 140,
+                          height: 23.33,
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Expanded(
+                            child: AuthSwitchButton(
+                              text: 'Войти',
+                              press: () {
+                                setState(() {
+                                  selectedWidgetMarker = WidgetMarker.login;
+                                });
+                              },
+                              isSelected:
+                              selectedWidgetMarker == WidgetMarker.login,
+                            ),
+                          ),
+                          Expanded(
+                            child: AuthSwitchButton(
+                              press: () {
+                                setState(() {
+                                  selectedWidgetMarker = WidgetMarker.signUp;
+                                });
+                              },
+                              text: 'Регистрация',
+                              isSelected:
+                              selectedWidgetMarker == WidgetMarker.signUp,
+                            ),
+                          ),
+                        ],
+                      ),
+                      FutureBuilder(
+                          future: _playAnimation(),
+                          builder:
+                              (BuildContext context, AsyncSnapshot snapshot) {
+                            return getCustomContainer();
+                          }),
+                    ],
+                  ),
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Expanded(
-                    child: AuthSwitchButton(
-                      text: 'Войти',
-                      press: () {
-                        setState(() {
-                          selectedWidgetMarker = WidgetMarker.login;
-                        });
-                      },
-                      isSelected: selectedWidgetMarker == WidgetMarker.login,
-                    ),
-                  ),
-                  Expanded(
-                    child: AuthSwitchButton(
-                      press: () {
-                        setState(() {
-                          selectedWidgetMarker = WidgetMarker.signUp;
-                        });
-                      },
-                      text: 'Регистрация',
-                      isSelected: selectedWidgetMarker == WidgetMarker.signUp,
-                    ),
-                  ),
-                ],
-              ),
-              FutureBuilder(
-                  future: _playAnimation(),
-                  builder: (BuildContext context, AsyncSnapshot snapshot) {
-                    return getCustomContainer();
-                  }),
-            ],
-          ),
+            );
+          },
         ),
       ),
     );
@@ -133,102 +163,121 @@ class _AuthSwitchState extends State<AuthSwitch>
   }
 
   Widget getSignInContainer() {
-    return FadeTransition(
-      opacity: _animation,
-      child: Container(
-        child: Column(
-          children: <Widget>[
-            SizedBox(
-              height: 20,
-            ),
-            TextField(
-              keyboardType: TextInputType.emailAddress,
-              style: new TextStyle(
-                fontFamily: 'Montserrat',
-                fontSize: 14.0,
-                fontStyle: FontStyle.normal,
-              ),
-              controller: _loginEmailController,
-              decoration: InputDecoration(
-                hintText: "Введите ваш email",
-                hintStyle: TextStyle(
-                    color: Color.fromRGBO(74, 86, 74, 0.4), fontSize: 14.0),
-                fillColor: Color(0xFFF2F1F1),
-                filled: true,
-                focusColor: Color(0xFF000000),
-                focusedBorder: InputBorder.none,
-                border: new OutlineInputBorder(
-                  borderRadius: const BorderRadius.all(
-                    const Radius.circular(10.0),
+    return BlocBuilder<LoginBloc, LoginState>(
+      builder: (context, state) {
+        return FadeTransition(
+          opacity: _animation,
+          child: Container(
+            child: Column(
+              children: <Widget>[
+                SizedBox(
+                  height: 20,
+                ),
+                TextField(
+                  keyboardType: TextInputType.emailAddress,
+                  style: new TextStyle(
+                    fontFamily: 'Montserrat',
+                    fontSize: 14.0,
+                    fontStyle: FontStyle.normal,
                   ),
-                  borderSide: BorderSide(
-                    width: 0,
-                    style: BorderStyle.none,
+                  controller: _loginEmailController,
+                  decoration: InputDecoration(
+                    hintText: "Введите ваш email",
+                    hintStyle: TextStyle(
+                        color: Color.fromRGBO(74, 86, 74, 0.4), fontSize: 14.0),
+                    fillColor: Color(0xFFF2F1F1),
+                    filled: true,
+                    focusColor: Color(0xFF000000),
+                    focusedBorder: InputBorder.none,
+                    border: new OutlineInputBorder(
+                      borderRadius: const BorderRadius.all(
+                        const Radius.circular(10.0),
+                      ),
+                      borderSide: BorderSide(
+                        width: 0,
+                        style: BorderStyle.none,
+                      ),
+                    ),
                   ),
                 ),
-              ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            TextField(
-              obscureText: true,
-              style: new TextStyle(
-                fontFamily: 'Montserrat',
-                fontSize: 14.0,
-                fontStyle: FontStyle.normal,
-              ),
-              controller: _loginPasswordController,
-              decoration: InputDecoration(
-                hintText: "Введите ваш пароль",
-                hintStyle: TextStyle(
-                    color: Color.fromRGBO(74, 86, 74, 0.4), fontSize: 14.0),
-                fillColor: Color(0xFFF2F1F1),
-                filled: true,
-                focusColor: Color(0xFF000000),
-                focusedBorder: InputBorder.none,
-                border: new OutlineInputBorder(
-                  borderRadius: const BorderRadius.all(
-                    const Radius.circular(10.0),
+                SizedBox(
+                  height: 10,
+                ),
+                TextField(
+                  obscureText: true,
+                  style: new TextStyle(
+                    fontFamily: 'Montserrat',
+                    fontSize: 14.0,
+                    fontStyle: FontStyle.normal,
                   ),
-                  borderSide: BorderSide(
-                    width: 0,
-                    style: BorderStyle.none,
+                  controller: _loginPasswordController,
+                  decoration: InputDecoration(
+                    hintText: "Введите ваш пароль",
+                    hintStyle: TextStyle(
+                        color: Color.fromRGBO(74, 86, 74, 0.4), fontSize: 14.0),
+                    fillColor: Color(0xFFF2F1F1),
+                    filled: true,
+                    focusColor: Color(0xFF000000),
+                    focusedBorder: InputBorder.none,
+                    border: new OutlineInputBorder(
+                      borderRadius: const BorderRadius.all(
+                        const Radius.circular(10.0),
+                      ),
+                      borderSide: BorderSide(
+                        width: 0,
+                        style: BorderStyle.none,
+                      ),
+                    ),
                   ),
                 ),
-              ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Container(
-              width: double.infinity,
-              child: AuthSignInOrSignUpButton(
-                text: 'Вход',
-                press: () {
-                  widget.authRepository.login(_loginEmailController.text, _loginPasswordController.text);
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(builder: (context) => HomePage()),
-                  // );
-                },
-              ),
-            ),
-            SizedBox(
-              height: 1,
-            ),
-            TextButton(
-              child: Text(
-                'Забыли пароль?',
-                style: TextStyle(
-                  color: Color(0xFF616E77),
+                SizedBox(
+                  height: 10,
                 ),
-              ),
-              onPressed: () {},
+                Container(
+                  width: double.infinity,
+                  child: state is LoginLoading
+                      ? Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Center(
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: 25.0,
+                              width: 25.0,
+                              child: CupertinoActivityIndicator(),
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
+                  )
+                      : AuthSignInOrSignUpButton(
+                    text: 'Вход',
+                    press: () {
+                      BlocProvider.of<LoginBloc>(context).add(LoginButtonPressed(
+                          email: _loginEmailController.text, password: _loginPasswordController.text));
+                    },
+                  ),
+                ),
+                SizedBox(
+                  height: 1,
+                ),
+                TextButton(
+                  child: Text(
+                    'Забыли пароль?',
+                    style: TextStyle(
+                      color: Color(0xFF616E77),
+                    ),
+                  ),
+                  onPressed: () {},
+                ),
+              ],
             ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 

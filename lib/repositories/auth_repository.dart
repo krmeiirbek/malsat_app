@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:malsat_app/data/data.dart';
 
 class AuthRepository{
   static String mainUrl = "http://api.malsat.kz";
@@ -13,23 +14,23 @@ class AuthRepository{
   var deleteAccountUrl = "$mainUrl/api/users/3/";
   var getUserDetailsUrl = "$mainUrl/api/author/2/";
 
-  final FlutterSecureStorage secureStorage = FlutterSecureStorage();
 
   Future<bool> hasToken() async {
-    var value = await secureStorage.read(key: 'token');
+    var value = ACCESS_TOKEN;
     if (value != null)
       return true;
     else
       return false;
   }
 
-  Future<void> writeToken(String token) async {
-    await secureStorage.write(key: 'token', value: token);
+  Future<void> writeToken(String accessToken,String refreshToken) async {
+    ACCESS_TOKEN = accessToken;
+    REFRESH_TOKEN = refreshToken;
   }
 
   Future<void> deleteToken() async {
-    secureStorage.delete(key: 'token');
-    secureStorage.deleteAll();
+    ACCESS_TOKEN = null;
+    REFRESH_TOKEN = null;
   }
 
   Future<String> login(String email, String password) async {

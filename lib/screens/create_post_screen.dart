@@ -3,6 +3,9 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class CreatePostScreen extends StatefulWidget {
+  final List<dynamic> listCities;
+
+  const CreatePostScreen({Key key, this.listCities}) : super(key: key);
   @override
   _CreatePostScreenState createState() => _CreatePostScreenState();
 }
@@ -398,17 +401,16 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                                 dropValue2 = newValue;
                               });
                             },
-                            items: listItem
+                            items: widget.listCities
                                 .map(
                                   (valueItem) => DropdownMenuItem(
-                                    value: valueItem,
-                                    child: Text(valueItem),
+                                    value: valueItem.name,
+                                    child: Text(valueItem.name),
                                   ),
                                 )
                                 .toList(),
                           ),
                         ),
-                        Divider(),
                         SizedBox(height: 25),
                         Text(
                           'Адрес',

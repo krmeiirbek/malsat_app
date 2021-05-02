@@ -10,8 +10,9 @@ import 'package:malsat_app/screens/search_screen.dart';
 
 class HomePage extends StatefulWidget {
   final int selectedIndex;
+  final List<dynamic> listCities;
 
-  const HomePage({Key key,this.selectedIndex = 0}) : super(key: key);
+  const HomePage({Key key,this.selectedIndex = 0, this.listCities}) : super(key: key);
   @override
   _HomePageState createState() => _HomePageState(selectedIndex);
 }
@@ -28,7 +29,7 @@ class _HomePageState extends State<HomePage> {
     _pages = [
       HomeScreen(),
       SearchScreen(),
-      CreatePostScreen(),
+      CreatePostScreen(listCities: widget.listCities),
       FavoritesScreen(),
       ProfileScreen(),
     ];
