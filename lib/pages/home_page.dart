@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     _pages = [
       HomeScreen(),
-      SearchScreen(),
+      SearchScreen(listCategories: widget.listCategories,),
       CreatePostScreen(listCities: widget.listCities,listCategories: widget.listCategories,),
       FavoritesScreen(),
       ProfileScreen(),

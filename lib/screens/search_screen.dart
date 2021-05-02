@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:malsat_app/components/favorite_post_card.dart';
 import 'package:malsat_app/components/search_category_conpanent.dart';
 
 class SearchScreen extends StatefulWidget {
+  final List<dynamic> listCategories;
+
+  const SearchScreen({Key key, this.listCategories}) : super(key: key);
+
   @override
   _SearchScreenState createState() => _SearchScreenState();
 }
@@ -78,11 +81,12 @@ class _SearchScreenState extends State<SearchScreen> {
                   Expanded(
                     child: Container(
                       child: ListView.builder(
-                        itemCount: 20,
+                        itemCount: widget.listCategories.length,
                         itemBuilder: (context, index) =>
                             SearchCategoryCompanent(
-                          text: 'Продам быка',
+                          text: widget.listCategories[index].name,
                           press: () {},
+                          icon: "assets/icons/category/camel.svg",
                         ),
                       ),
                     ),

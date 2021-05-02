@@ -5,12 +5,14 @@ import 'package:malsat_app/screens/posts_by_category.dart';
 
 class SearchCategoryCompanent extends StatelessWidget {
   final String text;
+  final String icon;
   final VoidCallback press;
 
   const SearchCategoryCompanent({
     Key key,
     @required this.text,
     @required this.press,
+    @required this.icon,
   }) : super(key: key);
 
   @override
@@ -20,7 +22,7 @@ class SearchCategoryCompanent extends StatelessWidget {
         Container(
           child: ListTile(
             leading: SvgPicture.asset(
-              "assets/icons/category/camel.svg",
+              icon,
               color: Colors.black,
             ),
             title: Text(

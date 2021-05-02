@@ -203,6 +203,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                         ),
                       ),
                       child: TextField(
+                        keyboardType: TextInputType.number,
                         decoration: InputDecoration(
                           hintText: '0',
                           hintStyle: TextStyle(
