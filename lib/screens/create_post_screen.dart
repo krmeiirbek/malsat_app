@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class CreatePostScreen extends StatefulWidget {
   final List<dynamic> listCities;
+  final List<dynamic> listCategories;
 
-  const CreatePostScreen({Key key, this.listCities}) : super(key: key);
+  const CreatePostScreen({Key key, this.listCities, this.listCategories}) : super(key: key);
   @override
   _CreatePostScreenState createState() => _CreatePostScreenState();
 }
@@ -17,18 +17,6 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
 
   String dropValue;
   String dropValue2;
-  List listItem = [
-    "Верблюды",
-    "Лошади",
-    "Крупный рогатый скот",
-    "Мелкий рогатый скот",
-    "Домашние животные",
-    "Корм для животных",
-    "Техника",
-    "Сельхозтовары",
-    "Продукты питания",
-    "Услуги",
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -134,11 +122,11 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                             dropValue = newValue;
                           });
                         },
-                        items: listItem
+                        items: widget.listCategories
                             .map(
                               (valueItem) => DropdownMenuItem(
-                                value: valueItem,
-                                child: Text(valueItem),
+                                value: valueItem.name,
+                                child: Text(valueItem.name),
                               ),
                             )
                             .toList(),

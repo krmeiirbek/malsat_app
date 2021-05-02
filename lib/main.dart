@@ -4,20 +4,24 @@ import 'package:malsat_app/bloc/auth_bloc/auth.dart';
 import 'package:malsat_app/pages/auth.dart';
 import 'package:malsat_app/pages/home_page.dart';
 import 'package:malsat_app/repositories/repositories.dart';
-import 'package:malsat_app/screens/home_screen.dart';
 
 void main() {
   final AuthRepository authRepository = AuthRepository();
   final CityRepository cityRepository = CityRepository();
+  final CategoryRepository categoryRepository = CategoryRepository();
   runApp(
     BlocProvider(
       create: (context) {
-        return AuthenticationBloc(authRepository, cityRepository)
-          ..add(AppStarted());
+        return AuthenticationBloc(
+          authRepository,
+          cityRepository,
+          categoryRepository,
+        )..add(AppStarted());
       },
       child: MyApp(
         authRepository: authRepository,
         cityRepository: cityRepository,
+        categoryRepository: categoryRepository,
       ),
     ),
   );
@@ -26,23 +30,26 @@ void main() {
 class MyApp extends StatelessWidget {
   final AuthRepository authRepository;
   final CityRepository cityRepository;
+  final CategoryRepository categoryRepository;
 
-  MyApp({Key key, @required this.authRepository, this.cityRepository})
+  MyApp({Key key, @required this.authRepository, this.cityRepository, this.categoryRepository})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: BlocBuilder<AuthenticationBloc,AuthenticationState>(
+      home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
         builder: (context, state) {
-          if(state is AuthenticationAuthenticated){
-            return HomePage(listCities: state.loadedCities);
+          if (state is AuthenticationAuthenticated) {
+            return HomePage(listCities: state.loadedCities,listCategories: state.loadedCategories,);
           }
-          if(state is AuthenticationUnauthenticated){
-            return AuthSwitch(authRepository: authRepository,);
+          if (state is AuthenticationUnauthenticated) {
+            return AuthSwitch(
+              authRepository: authRepository,
+            );
           }
-          if(state is AuthenticationLoading){
+          if (state is AuthenticationLoading) {
             return Scaffold(
               body: Center(
                 child: CircularProgressIndicator(),
