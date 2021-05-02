@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:malsat_app/constants/selected_item.dart';
 import 'package:malsat_app/pages/auth.dart';
 import 'package:malsat_app/pages/home_page.dart';
+import 'package:malsat_app/repositories/repositories.dart';
 import 'package:malsat_app/screens/my_posts_screen.dart';
 import 'package:malsat_app/screens/settings_screen.dart';
 
@@ -226,7 +227,7 @@ class ProfileScreen extends StatelessWidget {
                           onPressed: () {
                             Navigator.of(context).pushReplacement(
                               new MaterialPageRoute(
-                                builder: (BuildContext context) => AuthSwitch(),
+                                builder: (BuildContext context) => AuthSwitch(authRepository: AuthRepository()..deleteToken(),),
                               ),
                             );
                           },

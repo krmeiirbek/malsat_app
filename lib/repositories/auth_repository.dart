@@ -28,6 +28,7 @@ class AuthRepository{
   }
 
   Future<void> deleteToken() async {
+    print("deleted tokens");
     ACCESS_TOKEN = null;
     REFRESH_TOKEN = null;
   }
