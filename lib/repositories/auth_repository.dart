@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:malsat_app/data/data.dart';
 
-class AuthRepository{
+class AuthRepository {
   static String mainUrl = "http://api.malsat.kz";
   var registerUrl = "$mainUrl/api/auth/signup/";
   var loginUrl = "$mainUrl/api/token/";
@@ -13,7 +13,6 @@ class AuthRepository{
   var deleteAccountUrl = "$mainUrl/api/users/3/";
   var getUserDetailsUrl = "$mainUrl/api/author/2/";
 
-
   Future<bool> hasToken() async {
     var value = ACCESS_TOKEN;
     if (value != null)
@@ -22,7 +21,7 @@ class AuthRepository{
       return false;
   }
 
-  Future<void> writeToken(String accessToken,String refreshToken) async {
+  Future<void> writeToken(String accessToken, String refreshToken) async {
     ACCESS_TOKEN = accessToken;
     REFRESH_TOKEN = refreshToken;
   }
@@ -39,8 +38,24 @@ class AuthRepository{
       "password": password,
     });
     if (response.statusCode == 200) {
-      print(json.decode(response.body)['access']);
       return json.decode(response.body)['access'];
+    } else {
+      return throw Exception("Error code: ${response.statusCode}");
+    }
+  }
+
+  Future<String> register(
+      String email, String firstName, String phone, String password, String password2) async {
+    final response = await http.post(Uri.parse(registerUrl), body: {
+      "email": email,
+      "first_name": firstName,
+      "phone": phone,
+      "password": password,
+      "password2": password2,
+    });
+    if (response.statusCode == 201) {
+      final token = await login(email, password);
+      return token;
     } else {
       return throw Exception("Error code: ${response.statusCode}");
     }

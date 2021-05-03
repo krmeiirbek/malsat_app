@@ -4,6 +4,7 @@ import 'package:malsat_app/bloc/auth_bloc/auth.dart';
 import 'package:malsat_app/repositories/repositories.dart';
 
 part 'login_event.dart';
+
 part 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
@@ -26,6 +27,23 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         yield LoginInitial();
       } catch (e) {
         yield LoginFailure(error: e.toString());
+      }
+    }
+    if (event is RegisterButtonPressed) {
+      yield LoginLoading();
+
+      try {
+        final token = await authRepository.register(
+          event.email,
+          event.firstName,
+          event.phone,
+          event.password,
+          event.password2,
+        );
+        authenticationBloc.add(LoggedIn(token: token));
+        yield LoginInitial();
+      } catch (e) {
+        yield RegisterFailure(error: e.toString());
       }
     }
   }

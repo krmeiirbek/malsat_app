@@ -22,3 +22,15 @@ class LoginFailure extends LoginState {
   @override
   String toString() => 'LoginFailure {$error}';
 }
+
+class RegisterFailure extends LoginState {
+  final String error;
+
+  const RegisterFailure({this.error});
+
+  @override
+  List<Object> get props => [error];
+
+  @override
+  String toString() => 'RegisterFailure {$error}';
+}
