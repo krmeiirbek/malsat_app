@@ -44,8 +44,8 @@ class AuthRepository {
     }
   }
 
-  Future<String> register(
-      String email, String firstName, String phone, String password, String password2) async {
+  Future<String> register(String email, String firstName, String phone,
+      String password, String password2) async {
     final response = await http.post(Uri.parse(registerUrl), body: {
       "email": email,
       "first_name": firstName,
@@ -57,6 +57,7 @@ class AuthRepository {
       final token = await login(email, password);
       return token;
     } else {
+      print(throw Exception("Error code: ${response.statusCode}"));
       return throw Exception("Error code: ${response.statusCode}");
     }
   }
