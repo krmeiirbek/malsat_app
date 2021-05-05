@@ -43,3 +43,8 @@ class RegisterButtonPressed extends LoginEvent {
   String toString() =>
       'RegisterButtonPressed {email: $email, firstName: $firstName, phone: $phone, password: $password}';
 }
+
+class LogOutButtonPressed extends LoginEvent {
+  @override
+  List<Object> get props => [];
+}

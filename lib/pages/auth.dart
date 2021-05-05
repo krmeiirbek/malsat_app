@@ -7,8 +7,6 @@ import 'package:malsat_app/components/auth_signin_or_signup_button.dart';
 import 'package:malsat_app/components/auth_switch_button.dart';
 import 'package:malsat_app/repositories/repositories.dart';
 
-import 'home_page.dart';
-
 enum WidgetMarker { login, signUp }
 
 class AuthSwitch extends StatefulWidget {

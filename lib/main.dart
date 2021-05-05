@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:malsat_app/bloc/auth_bloc/auth.dart';
+import 'package:malsat_app/data/data.dart';
 import 'package:malsat_app/pages/auth.dart';
 import 'package:malsat_app/pages/home_page.dart';
 import 'package:malsat_app/repositories/repositories.dart';
 
 void main() {
-  final AuthRepository authRepository = AuthRepository();
+  final authRepository = authRepositoryGlobal;
   final CityRepository cityRepository = CityRepository();
   final CategoryRepository categoryRepository = CategoryRepository();
   runApp(
@@ -42,7 +43,7 @@ class MyApp extends StatelessWidget {
       home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
         builder: (context, state) {
           if (state is AuthenticationAuthenticated) {
-            return HomePage(listCities: state.loadedCities,listCategories: state.loadedCategories,);
+            return HomePage(listCities: state.loadedCities,listCategories: state.loadedCategories, authRepository: authRepository,);
           }
           if (state is AuthenticationUnauthenticated) {
             return AuthSwitch(
