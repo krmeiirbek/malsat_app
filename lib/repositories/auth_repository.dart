@@ -33,26 +33,43 @@ class AuthRepository {
   }
 
   Future<String> login(String email, String password) async {
-    final response = await http.post(Uri.parse(loginUrl), body: {
-      "email": email,
-      "password": password,
-    });
-    if (response.statusCode == 200) {
-      return json.decode(response.body)['access'];
-    } else {
-      return throw Exception("Error code: ${response.statusCode}");
+    try {
+      final response = await http.post(
+        // Uri.http(mainUrl, loginUrl),
+        Uri.parse(loginUrl),
+        // headers: <String, String>{
+        //   'Content-Type': 'application/json; charset=UTF-8',
+        // },
+        body: {
+          "email": email,
+          "password": password,
+        },
+      );
+      if (response.statusCode == 200) {
+        return json.decode(response.body)['access'];
+      } else {
+        return throw Exception("Error code: ${response.statusCode}");
+      }
+    } on Exception catch (e) {
+      print(e.toString());
     }
   }
 
   Future<String> register(String email, String firstName, String phone,
       String password, String password2) async {
-    final response = await http.post(Uri.parse(registerUrl), body: {
-      "email": email,
-      "first_name": firstName,
-      "phone": phone,
-      "password": password,
-      "password2": password2,
-    });
+    final response = await http.post(
+      Uri.parse(registerUrl),
+      body: {
+        "email": email,
+        "first_name": firstName,
+        "phone": phone,
+        "password": password,
+        "password2": password2,
+      },
+    );
+
+    print(response);
+
     if (response.statusCode == 201) {
       final token = await login(email, password);
       return token;

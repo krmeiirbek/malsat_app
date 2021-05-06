@@ -247,10 +247,11 @@ class _AuthSwitchState extends State<AuthSwitch>
                       : AuthSignInOrSignUpButton(
                           text: 'Вход',
                           press: () {
-                            BlocProvider.of<LoginBloc>(context).add(
-                                LoginButtonPressed(
-                                    email: _loginEmailController.text,
-                                    password: _loginPasswordController.text));
+                            BlocProvider.of<LoginBloc>(context)
+                                .add(LoginButtonPressed(
+                              email: _loginEmailController.text,
+                              password: _loginPasswordController.text,
+                            ));
                           },
                         ),
                 ),
