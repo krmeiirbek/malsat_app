@@ -13,9 +13,18 @@ class HomePage extends StatefulWidget {
   final int selectedIndex;
   final List<dynamic> listCities;
   final List<dynamic> listCategories;
+  final List<dynamic> listPostsApprovedNotHidden;
   final AuthRepository authRepository;
 
-  const HomePage({Key key,this.selectedIndex = 0, this.listCities, this.listCategories,@required this.authRepository}) : super(key: key);
+  const HomePage({
+    Key key,
+    this.selectedIndex = 0,
+    this.listCities,
+    this.listCategories,
+    this.listPostsApprovedNotHidden,
+    @required this.authRepository,
+  }) : super(key: key);
+
   @override
   _HomePageState createState() => _HomePageState(selectedIndex);
 }
@@ -30,11 +39,20 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     _pages = [
-      HomeScreen(),
-      SearchScreen(listCategories: widget.listCategories,),
-      CreatePostScreen(listCities: widget.listCities,listCategories: widget.listCategories,),
+      HomeScreen(
+        loadedPostsApprovedNotHidden: widget.listPostsApprovedNotHidden,
+      ),
+      SearchScreen(
+        listCategories: widget.listCategories,
+      ),
+      CreatePostScreen(
+        listCities: widget.listCities,
+        listCategories: widget.listCategories,
+      ),
       FavoritesScreen(),
-      ProfileScreen(authRepository: widget.authRepository,),
+      ProfileScreen(
+        authRepository: widget.authRepository,
+      ),
     ];
     super.initState();
   }

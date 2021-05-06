@@ -1,20 +1,20 @@
+import 'package:intl/intl.dart';
 import 'package:malsat_app/models/user.dart';
-
 import 'category.dart';
 import 'city.dart';
 
-class Posts {
-  Posts({
+class Post {
+  Post({
     this.id,
     this.title,
     this.user,
-    this.city,
+    this.cities,
     this.description,
     this.price,
     this.exchange,
     this.auction,
     this.delivery,
-    this.category,
+    this.categories,
     this.date,
     this.images,
     this.bookmarks,
@@ -29,13 +29,13 @@ class Posts {
   int id;
   String title;
   User user;
-  City city;
+  City cities;
   String description;
   String price;
   bool exchange;
   bool auction;
   bool delivery;
-  Category category;
+  Category categories;
   DateTime date;
   List<dynamic> images;
   List<dynamic> bookmarks;
@@ -46,19 +46,22 @@ class Posts {
   List<dynamic> bookmarkViews;
   bool isHidden;
 
-  factory Posts.fromJson(Map<String, dynamic> json) {
-    return Posts(
+  factory Post.fromJson(Map<String, dynamic> json) {
+    User user = User.fromJson(json['user']);
+    City city = City.fromJson(json['cities']);
+    Category category = Category.fromJson(json['categories']);
+    return Post(
       id: json["id"],
       title: json["title"],
-      user: json["user"],
-      city: json["cities"],
+      user: user,
+      cities: city,
       description: json["description"],
       price: json["price"],
       exchange: json["exchange"],
       auction: json["auction"],
       delivery: json["delivery"],
-      category: json["categories"],
-      date: json["date"],
+      categories: category,
+      date:  DateFormat("yyyy-MM-dd").parse(json["date"]) ,
       images: json["images"],
       bookmarks: json["bookmarks"],
       isApproved: json["isApproved"],

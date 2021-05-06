@@ -10,7 +10,7 @@ class AuthenticationUninitialized extends AuthenticationState {}
 
 class AuthenticationAuthenticated extends AuthenticationState {
   List<dynamic> loadedCities;
-  List<dynamic> loadedPosts;
+  List<dynamic> loadedPostsApprovedNotHidden;
   List<dynamic> loadedCategories;
   List<dynamic> loadedComments;
   List<dynamic> loadedBookmarks;
@@ -18,7 +18,7 @@ class AuthenticationAuthenticated extends AuthenticationState {
 
   AuthenticationAuthenticated({
     this.loadedCities,
-    this.loadedPosts,
+    this.loadedPostsApprovedNotHidden,
     this.loadedCategories,
     this.loadedComments,
     this.loadedBookmarks,
@@ -28,7 +28,7 @@ class AuthenticationAuthenticated extends AuthenticationState {
   @override
   List<Object> get props => [
         loadedCities,
-        loadedPosts,
+        loadedPostsApprovedNotHidden,
         loadedCategories,
         loadedComments,
         loadedBookmarks,

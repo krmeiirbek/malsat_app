@@ -27,7 +27,7 @@ class User {
       image: json["image"],
       phone: json["phone"],
       city: json["cities"],
-      dateJoined: json["dateJoined"],
+      // dateJoined: json["dateJoined"],
     );
   }
 }

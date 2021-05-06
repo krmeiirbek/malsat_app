@@ -3,8 +3,13 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:malsat_app/constants/custom_icons.dart';
+import 'package:malsat_app/models/post.dart';
 
 class DetailPost extends StatelessWidget {
+  final Post post;
+
+  const DetailPost({Key key, this.post}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,8 +34,10 @@ class DetailPost extends StatelessWidget {
           children: <Widget>[
             Container(
               width: double.infinity,
-              child: Image.asset("assets/images/card_big.png",
-                  fit: BoxFit.fitWidth),
+              child: Image.asset(
+                "assets/images/card_big.png",
+                fit: BoxFit.fitWidth,
+              ),
             ),
             Column(
               children: <Widget>[
@@ -49,7 +56,7 @@ class DetailPost extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Text(
-                            'Крупный рогатый скот',
+                            '${post.title}',
                             style: TextStyle(
                               color: Color(0xFF4A564A).withOpacity(0.5),
                               fontSize: 12,
@@ -64,7 +71,7 @@ class DetailPost extends StatelessWidget {
                         ],
                       ),
                       Text(
-                        'Бұқалар сатылады',
+                        '${post.description}',
                         style: TextStyle(
                           color: Color(0xffEA5E3C),
                           fontWeight: FontWeight.bold,
@@ -82,7 +89,7 @@ class DetailPost extends StatelessWidget {
                         ),
                         child: Center(
                             child: Text(
-                          '200 000 ₸',
+                          '${post.price}',
                           style: TextStyle(
                             color: Color(0xff555555),
                             fontWeight: FontWeight.bold,
@@ -131,14 +138,23 @@ class DetailPost extends StatelessWidget {
                                     fontWeight: FontWeight.normal,
                                   ),
                                 ),
-                                Text(
-                                  'Да',
-                                  style: TextStyle(
-                                    color: Color(0xff000000),
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                                ),
+                                post.exchange
+                                    ? Text(
+                                        'Да',
+                                        style: TextStyle(
+                                          color: Color(0xff000000),
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.normal,
+                                        ),
+                                      )
+                                    : Text(
+                                        'Нет',
+                                        style: TextStyle(
+                                          color: Color(0xff000000),
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.normal,
+                                        ),
+                                      ),
                               ],
                             ),
                           ],
@@ -164,14 +180,23 @@ class DetailPost extends StatelessWidget {
                                     fontWeight: FontWeight.normal,
                                   ),
                                 ),
-                                Text(
-                                  'Нет',
-                                  style: TextStyle(
-                                    color: Color(0xff000000),
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                                ),
+                                post.delivery
+                                    ? Text(
+                                        'Да',
+                                        style: TextStyle(
+                                          color: Color(0xff000000),
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.normal,
+                                        ),
+                                      )
+                                    : Text(
+                                        'Нет',
+                                        style: TextStyle(
+                                          color: Color(0xff000000),
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.normal,
+                                        ),
+                                      ),
                               ],
                             ),
                           ],
@@ -197,14 +222,23 @@ class DetailPost extends StatelessWidget {
                                     fontWeight: FontWeight.normal,
                                   ),
                                 ),
-                                Text(
-                                  'Да',
-                                  style: TextStyle(
-                                    color: Color(0xff000000),
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                                ),
+                                post.auction
+                                    ? Text(
+                                        'Да',
+                                        style: TextStyle(
+                                          color: Color(0xff000000),
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.normal,
+                                        ),
+                                      )
+                                    : Text(
+                                        'Нет',
+                                        style: TextStyle(
+                                          color: Color(0xff000000),
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.normal,
+                                        ),
+                                      ),
                               ],
                             ),
                           ],
@@ -232,7 +266,7 @@ class DetailPost extends StatelessWidget {
                       children: [
                         SizedBox(height: 15),
                         Text(
-                          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam et ut in tristique consectetur imperdiet in. Adipiscing phasellus vel diam in non eget. Nulla enim pharetra sit etiam lobortis diam gravida purus augue. Enim tristique odio aenean lectus magnis cursus neque rhoncus.',
+                          '${post.description}',
                           style: TextStyle(
                             fontWeight: FontWeight.normal,
                             fontSize: 12,
@@ -268,7 +302,9 @@ class DetailPost extends StatelessWidget {
                             color: Color(0xffC5C5C5),
                           ),
                           image: DecorationImage(
-                            image: AssetImage('assets/images/avatar.png'),
+                            image: AssetImage(
+                              'assets/images/avatar.png',
+                            ),
                             fit: BoxFit.fill,
                           ),
                         ),
@@ -295,7 +331,7 @@ class DetailPost extends StatelessWidget {
                                     ),
                                     SizedBox(height: 3),
                                     Text(
-                                      'Султан',
+                                      '${post.user.firstName}',
                                       style: TextStyle(
                                         color: Color(0xff4A564A),
                                         fontWeight: FontWeight.bold,
@@ -364,22 +400,41 @@ class DetailPost extends StatelessWidget {
                               width: 160,
                               padding: EdgeInsets.symmetric(horizontal: 8),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Icon(Icons.wallet_giftcard,color: Color(0xff828282),),
-                                  Icon(Icons.wallet_giftcard,color: Color(0xff828282),),
-                                  Icon(Icons.wallet_giftcard,color: Color(0xff828282),),
-                                  Icon(Icons.wallet_giftcard,color: Color(0xff828282),),
-                                  Icon(Icons.wallet_giftcard,color: Color(0xff828282),),
+                                  Icon(
+                                    Icons.wallet_giftcard,
+                                    color: Color(0xff828282),
+                                  ),
+                                  Icon(
+                                    Icons.wallet_giftcard,
+                                    color: Color(0xff828282),
+                                  ),
+                                  Icon(
+                                    Icons.wallet_giftcard,
+                                    color: Color(0xff828282),
+                                  ),
+                                  Icon(
+                                    Icons.wallet_giftcard,
+                                    color: Color(0xff828282),
+                                  ),
+                                  Icon(
+                                    Icons.wallet_giftcard,
+                                    color: Color(0xff828282),
+                                  ),
                                 ],
                               ),
                             ),
                             SizedBox(height: 14),
-                            Text('224 просмотра объявления',style: TextStyle(
-                              color: Color(0xff828282),
-                              fontSize: 11,
-                              fontWeight: FontWeight.normal,
-                            ),)
+                            Text(
+                              '224 просмотра объявления',
+                              style: TextStyle(
+                                color: Color(0xff828282),
+                                fontSize: 11,
+                                fontWeight: FontWeight.normal,
+                              ),
+                            )
                           ],
                         ),
                       ),

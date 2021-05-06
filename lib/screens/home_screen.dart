@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:malsat_app/components/home_category_icon_button.dart';
 import 'package:malsat_app/components/home_post_card.dart';
 import 'package:malsat_app/components/material_button.dart';
 import 'package:malsat_app/constants/category_icons.dart';
 
 class HomeScreen extends StatefulWidget {
+  final List<dynamic> loadedPostsApprovedNotHidden;
+
+  HomeScreen({this.loadedPostsApprovedNotHidden});
+
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -116,26 +121,27 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ],
                 ),
-                if(isCategory)
+                if (isCategory)
                   SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: [
-                      CategoryButton(icon: icons[0], press: () {
-                        setState(() {
-                        });
-                      }),
-                      SizedBox(width: 18),
-                      CategoryButton(icon: icons[1], press: () {}),
-                      SizedBox(width: 18),
-                      CategoryButton(icon: icons[2], press: () {}),
-                      SizedBox(width: 18),
-                      CategoryButton(icon: icons[3], press: () {}),
-                      SizedBox(width: 18),
-                      CategoryButton(icon: icons[4], press: () {}),
-                    ],
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: [
+                        CategoryButton(
+                            icon: icons[0],
+                            press: () {
+                              setState(() {});
+                            }),
+                        SizedBox(width: 18),
+                        CategoryButton(icon: icons[1], press: () {}),
+                        SizedBox(width: 18),
+                        CategoryButton(icon: icons[2], press: () {}),
+                        SizedBox(width: 18),
+                        CategoryButton(icon: icons[3], press: () {}),
+                        SizedBox(width: 18),
+                        CategoryButton(icon: icons[4], press: () {}),
+                      ],
+                    ),
                   ),
-                ),
                 SizedBox(
                   height: 10,
                 ),
@@ -170,38 +176,24 @@ class _HomeScreenState extends State<HomeScreen> {
                       crossAxisSpacing: 10,
                       mainAxisSpacing: 10,
                       crossAxisCount: 2,
-                      children: <Widget>[
-                        HomePostCard(
-                          image: 'assets/images/card.png',
-                          title: 'Продам быка',
-                          date: '23.04.2021',
-                          price: '200000 тг',
+                      children: List.generate(
+                        widget.loadedPostsApprovedNotHidden.length,
+                        (index) => HomePostCard(
+                            post:widget.loadedPostsApprovedNotHidden[index],
+                          // image: 'assets/images/card.png',
+                          // title:
+                          //     widget.loadedPostsApprovedNotHidden[index].title,
+                          // date: widget.loadedPostsApprovedNotHidden[index].date.toString(),
+                          // price:
+                          //     widget.loadedPostsApprovedNotHidden[index].price,
                         ),
-                        HomePostCard(
-                          image: 'assets/images/card.png',
-                          title: 'Продам быка',
-                          date: '23.04.2021',
-                          price: '200000 тг',
-                        ),
-                        HomePostCard(
-                          image: 'assets/images/card.png',
-                          title: 'Продам быка',
-                          date: '23.04.2021',
-                          price: '200000 тг',
-                        ),
-                        HomePostCard(
-                          image: 'assets/images/card.png',
-                          title: 'Продам быка',
-                          date: '23.04.2021',
-                          price: '200000 тг',
-                        ),
-                        HomePostCard(
-                          image: 'assets/images/card.png',
-                          title: 'Продам быка',
-                          date: '23.04.2021',
-                          price: '200000 тг',
-                        ),
-                      ],
+                      ),
+                      // HomePostCard(
+                      //   image: 'assets/images/card.png',
+                      //   title: 'Продам быка',
+                      //   date: '23.04.2021',
+                      //   price: '200000 тг',
+                      // ),
                     ),
                   ),
                 ],

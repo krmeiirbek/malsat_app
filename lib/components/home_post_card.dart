@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:malsat_app/constants/custom_icons.dart';
+import 'package:malsat_app/models/post.dart';
 import 'package:malsat_app/screens/post_detail_screen.dart';
 
 class HomePostCard extends StatefulWidget {
-  final String image;
-  final String title;
-  final String date;
-  final String price;
+  // final String image;
+  // final String title;
+  // final String date;
+  // final String price;
+  final Post post;
 
-  const HomePostCard({
-    Key key,
-    @required this.image,
-    @required this.title,
-    @required this.date,
-    @required this.price,
-  }) : super(key: key);
+  const HomePostCard({Key key, this.post
+      // @required this.image,
+      // @required this.title,
+      // @required this.date,
+      // @required this.price,
+      })
+      : super(key: key);
 
   @override
   _HomePostCardState createState() => _HomePostCardState();
@@ -27,7 +30,14 @@ class _HomePostCardState extends State<HomePostCard> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => DetailPost()));
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => DetailPost(
+              post: widget.post,
+            ),
+          ),
+        );
       },
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 5),
@@ -59,7 +69,8 @@ class _HomePostCardState extends State<HomePostCard> {
                       topRight: Radius.circular(8),
                     ),
                     child: Image.asset(
-                      widget.image,
+                      'assets/images/card.png',
+                      // widget.post.,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -76,7 +87,7 @@ class _HomePostCardState extends State<HomePostCard> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Text(
-                            widget.title,
+                            widget.post.title,
                             style: TextStyle(
                               color: Color(0xFFEA5E3C),
                               fontSize: 12,
@@ -104,7 +115,7 @@ class _HomePostCardState extends State<HomePostCard> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            widget.date,
+                            widget.post.date.toString(),
                             textAlign: TextAlign.left,
                             style: TextStyle(
                               color: Color(0xFFB5B5B5),
@@ -112,7 +123,7 @@ class _HomePostCardState extends State<HomePostCard> {
                             ),
                           ),
                           Text(
-                            widget.price,
+                            widget.post.price,
                             textAlign: TextAlign.left,
                             style: TextStyle(
                               color: Color(0xFF6C6C6C),

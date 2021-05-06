@@ -1,6 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:malsat_app/models/category.dart';
 import 'package:malsat_app/models/city.dart';
+import 'package:malsat_app/models/post.dart';
+import 'package:malsat_app/repositories/post_respository.dart';
 import 'package:malsat_app/repositories/repositories.dart';
 import 'auth.dart';
 
@@ -9,9 +11,11 @@ class AuthenticationBloc
   final AuthRepository authRepository;
   final CityRepository cityRepository;
   final CategoryRepository categoryRepository;
+  final PostRepository postRepository;
 
-  AuthenticationBloc(this.authRepository, this.cityRepository, this.categoryRepository)
-      : assert(authRepository !=null),
+  AuthenticationBloc(this.authRepository, this.cityRepository,
+      this.categoryRepository, this.postRepository)
+      : assert(authRepository != null),
         super(AuthenticationUninitialized());
 
   @override
@@ -20,19 +24,35 @@ class AuthenticationBloc
     if (event is AppStarted) {
       final bool hasToken = await authRepository.hasToken();
       if (hasToken) {
-        final List<City> _loadedCitiesList = await cityRepository.getAllCities();
-        final List<Category> _loadedCategoriesList = await categoryRepository.getAllCategories();
-        yield AuthenticationAuthenticated(loadedCities: _loadedCitiesList,loadedCategories: _loadedCategoriesList);
+        final List<City> _loadedCitiesList =
+            await cityRepository.getAllCities();
+        final List<Category> _loadedCategoriesList =
+            await categoryRepository.getAllCategories();
+        final List<Post> _loadedPostsApprovedNotHidden =
+            await postRepository.getAllPostsApprovedNotHidden();
+
+        yield AuthenticationAuthenticated(
+          loadedCities: _loadedCitiesList,
+          loadedCategories: _loadedCategoriesList,
+          loadedPostsApprovedNotHidden: _loadedPostsApprovedNotHidden,
+        );
       } else {
         yield AuthenticationUnauthenticated();
       }
     }
     if (event is LoggedIn) {
       yield AuthenticationLoading();
-      await authRepository.writeToken(event.token,null);
+      await authRepository.writeToken(event.token, null);
       final List<City> _loadedCitiesList = await cityRepository.getAllCities();
-      final List<Category> _loadedCategoriesList = await categoryRepository.getAllCategories();
-      yield AuthenticationAuthenticated(loadedCities: _loadedCitiesList, loadedCategories: _loadedCategoriesList);
+      final List<Category> _loadedCategoriesList =
+          await categoryRepository.getAllCategories();
+      final List<Post> _loadedPostsApprovedNotHidden =
+          await postRepository.getAllPostsApprovedNotHidden();
+      yield AuthenticationAuthenticated(
+        loadedCities: _loadedCitiesList,
+        loadedCategories: _loadedCategoriesList,
+        loadedPostsApprovedNotHidden: _loadedPostsApprovedNotHidden,
+      );
     }
     if (event is LoggedOut) {
       yield AuthenticationLoading();
