@@ -48,3 +48,22 @@ class LogOutButtonPressed extends LoginEvent {
   @override
   List<Object> get props => [];
 }
+
+class ChangePasswordButtonPressed extends LoginEvent {
+  final String oldPassword;
+  final String password;
+  final String password2;
+
+  const ChangePasswordButtonPressed({
+    this.oldPassword,
+    this.password,
+    this.password2,
+  });
+
+  @override
+  List<Object> get props => [  oldPassword, password, password2];
+
+  @override
+  String toString() =>
+      'ChangePasswordButtonPressed';
+}

@@ -5,17 +5,9 @@ import 'package:malsat_app/models/post.dart';
 import 'package:malsat_app/screens/post_detail_screen.dart';
 
 class HomePostCard extends StatefulWidget {
-  // final String image;
-  // final String title;
-  // final String date;
-  // final String price;
   final Post post;
 
   const HomePostCard({Key key, this.post
-      // @required this.image,
-      // @required this.title,
-      // @required this.date,
-      // @required this.price,
       })
       : super(key: key);
 

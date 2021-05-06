@@ -109,7 +109,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                     Container(
                       height: 50,
                       child: DropdownButton(
-                        hint: Text('Categories'),
+                        hint: Text('Выберите категория'),
                         isExpanded: true,
                         value: dropValue,
                         icon: Icon(

@@ -33,25 +33,17 @@ class AuthRepository {
   }
 
   Future<String> login(String email, String password) async {
-    try {
-      final response = await http.post(
-        // Uri.http(mainUrl, loginUrl),
-        Uri.parse(loginUrl),
-        // headers: <String, String>{
-        //   'Content-Type': 'application/json; charset=UTF-8',
-        // },
-        body: {
-          "email": email,
-          "password": password,
-        },
-      );
-      if (response.statusCode == 200) {
-        return json.decode(response.body)['access'];
-      } else {
-        return throw Exception("Error code: ${response.statusCode}");
-      }
-    } on Exception catch (e) {
-      print(e.toString());
+    final response = await http.post(
+      Uri.parse(loginUrl),
+      body: {
+        "email": email,
+        "password": password,
+      },
+    );
+    if (response.statusCode == 200) {
+      return json.decode(response.body)['access'];
+    } else {
+      return throw Exception("Error code: ${response.statusCode}");
     }
   }
 
@@ -68,14 +60,39 @@ class AuthRepository {
       },
     );
 
-    print(response);
-
     if (response.statusCode == 201) {
       final token = await login(email, password);
       return token;
     } else {
       print(throw Exception("Error code: ${response.statusCode}"));
       return throw Exception("Error code: ${response.statusCode}");
+    }
+  }
+
+  Future<String> changePassword(
+      String oldPassword, String newPassword, String newPassword2) async {
+    try {
+      final response = await http.post(
+        Uri.parse(changePasswordUrl),
+        headers: {
+          'Authorization': 'Bearer $ACCESS_TOKEN',
+        },
+        body: {
+          "new_password1": newPassword,
+          "new_password2": newPassword2,
+          "old_password": oldPassword,
+        },
+      );
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        return "New password has been saved.";
+      } else if (response.statusCode == 400) {
+        return "Invalid current password";
+      } else {
+        return throw Exception("Error code: ${response.statusCode}");
+      }
+    } on Exception catch (e) {
+      print(e.toString());
     }
   }
 }

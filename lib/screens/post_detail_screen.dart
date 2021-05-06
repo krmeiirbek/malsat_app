@@ -56,7 +56,7 @@ class DetailPost extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Text(
-                            '${post.title}',
+                            '${post.categories.name}',
                             style: TextStyle(
                               color: Color(0xFF4A564A).withOpacity(0.5),
                               fontSize: 12,
@@ -71,7 +71,7 @@ class DetailPost extends StatelessWidget {
                         ],
                       ),
                       Text(
-                        '${post.description}',
+                        '${post.title}',
                         style: TextStyle(
                           color: Color(0xffEA5E3C),
                           fontWeight: FontWeight.bold,
@@ -101,7 +101,7 @@ class DetailPost extends StatelessWidget {
                       Container(
                         alignment: Alignment.center,
                         child: Text(
-                          'Жамбылский район | Добавлено: 13 марта 2021',
+                          '${post.cities.name} | Добавлено: 13 марта 2021',
                           style: TextStyle(
                             color: Color(0xff9A9A9A).withOpacity(0.8),
                             fontSize: 11,
@@ -302,9 +302,11 @@ class DetailPost extends StatelessWidget {
                             color: Color(0xffC5C5C5),
                           ),
                           image: DecorationImage(
-                            image: AssetImage(
-                              'assets/images/avatar.png',
-                            ),
+                            image: post.user.image != null
+                                ? NetworkImage(post.user.image)
+                                : AssetImage(
+                                    'assets/images/avatar.png',
+                                  ),
                             fit: BoxFit.fill,
                           ),
                         ),
@@ -428,7 +430,7 @@ class DetailPost extends StatelessWidget {
                             ),
                             SizedBox(height: 14),
                             Text(
-                              '224 просмотра объявления',
+                              '${post.views} просмотра объявления',
                               style: TextStyle(
                                 color: Color(0xff828282),
                                 fontSize: 11,

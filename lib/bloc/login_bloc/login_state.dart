@@ -34,3 +34,27 @@ class RegisterFailure extends LoginState {
   @override
   String toString() => 'RegisterFailure {$error}';
 }
+
+class ChangePasswordFailure extends LoginState {
+  final String error;
+
+  const ChangePasswordFailure({this.error});
+
+  @override
+  List<Object> get props => [error];
+
+  @override
+  String toString() => 'ChangePasswordFailure {$error}';
+}
+
+class ChangePasswordSuccess extends LoginState {
+  final String success;
+
+  const ChangePasswordSuccess({this.success});
+
+  @override
+  List<Object> get props => [success];
+
+  @override
+  String toString() => 'ChangePasswordSuccess {$success}';
+}

@@ -48,5 +48,20 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     if (event is LogOutButtonPressed) {
       authenticationBloc.add(LoggedOut());
     }
+    if (event is ChangePasswordButtonPressed) {
+      yield LoginLoading();
+
+      try {
+        final success = await authRepository.changePassword(
+          event.oldPassword,
+          event.password,
+          event.password2,
+        );
+        yield ChangePasswordSuccess(success: success);
+        yield LoginInitial();
+      } catch (e) {
+        yield ChangePasswordFailure(error: e.toString());
+      }
+    }
   }
 }

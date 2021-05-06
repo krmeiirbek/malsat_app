@@ -211,7 +211,7 @@ class ProfileScreen extends StatelessWidget {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => SettingsScreen(),
+                                      builder: (context) => SettingsScreen(authRepository: authRepository,),
                                     ),
                                   );
                                 },

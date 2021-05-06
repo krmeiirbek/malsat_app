@@ -1,8 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:malsat_app/components/favorite_post_card.dart';
+import 'package:malsat_app/repositories/auth_repository.dart';
+import 'package:malsat_app/screens/change_password_screen.dart';
 
 class SettingsScreen extends StatelessWidget {
+  final AuthRepository authRepository;
+
+  const SettingsScreen({Key key, @required this.authRepository})
+      : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,7 +47,6 @@ class SettingsScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  // SizedBox(height: 20),
                 ],
               ),
             ),
@@ -85,35 +90,29 @@ class SettingsScreen extends StatelessWidget {
                         height: 10,
                       ),
                       Card(
-                        child: ListTile(
-                          title: Text(
-                            'Изменить пароль',
-                            style: TextStyle(
-                                color: Color(0xFF4A564A),
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500),
-                          ),
-                          trailing: Icon(
-                            Icons.arrow_forward_ios_rounded,
-                            size: 15,
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Card(
-                        child: ListTile(
-                          title: Text(
-                            'Изменить e-mail адрес',
-                            style: TextStyle(
-                                color: Color(0xFF4A564A),
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500),
-                          ),
-                          trailing: Icon(
-                            Icons.arrow_forward_ios_rounded,
-                            size: 15,
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ChangePasswordScreen(
+                                  authRepository: authRepository,
+                                ),
+                              ),
+                            );
+                          },
+                          child: ListTile(
+                            title: Text(
+                              'Изменить пароль',
+                              style: TextStyle(
+                                  color: Color(0xFF4A564A),
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                            trailing: Icon(
+                              Icons.arrow_forward_ios_rounded,
+                              size: 15,
+                            ),
                           ),
                         ),
                       ),
