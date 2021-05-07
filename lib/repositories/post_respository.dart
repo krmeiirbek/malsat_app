@@ -10,12 +10,9 @@ class PostRepository {
 
   Future<List<Post>> getAllPostsApprovedNotHidden() async {
     final response = await http.get(Uri.parse(getAllPostsApprovedNotHiddenUrl));
-    print("status Code: " + response.statusCode.toString());
     if (response.statusCode == 200) {
       final List<dynamic> postsJson =
           json.decode(utf8.decode(response.bodyBytes));
-      print(postsJson);
-
       return postsJson.map((json) => Post.fromJson(json)).toList();
     } else {
       return null;

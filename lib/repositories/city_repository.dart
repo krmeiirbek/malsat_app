@@ -12,7 +12,6 @@ class CityRepository {
 
   Future<List<City>> getAllCities() async{
     final response = await http.get(Uri.parse(getCitiesUrl));
-    print("status Code: "+ response.statusCode.toString());
     if(response.statusCode == 200){
       final List<dynamic> cityJson = json.decode(utf8.decode(response.bodyBytes));
       return cityJson.map((json) => City.fromJson(json)).toList();
