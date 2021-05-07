@@ -21,9 +21,10 @@ class AuthSwitch extends StatefulWidget {
 class _AuthSwitchState extends State<AuthSwitch>
     with SingleTickerProviderStateMixin<AuthSwitch> {
   WidgetMarker selectedWidgetMarker = WidgetMarker.login;
-
   AnimationController _controller;
   Animation _animation;
+  bool _hidePassword = true;
+  bool _hideRegPassword = true;
 
   TextEditingController _loginEmailController = TextEditingController();
   TextEditingController _registerEmailController = TextEditingController();
@@ -195,7 +196,7 @@ class _AuthSwitchState extends State<AuthSwitch>
                   height: 10,
                 ),
                 TextField(
-                  obscureText: true,
+                  obscureText: _hidePassword,
                   style: new TextStyle(
                     fontFamily: 'Montserrat',
                     fontSize: 14.0,
@@ -203,6 +204,17 @@ class _AuthSwitchState extends State<AuthSwitch>
                   ),
                   controller: _loginPasswordController,
                   decoration: InputDecoration(
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _hidePassword ? Icons.visibility : Icons.visibility_off,
+                        color: Color(0xFF616E77),
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _hidePassword = !_hidePassword;
+                        });
+                      },
+                    ),
                     hintText: "Введите ваш пароль",
                     hintStyle: TextStyle(
                         color: Color.fromRGBO(74, 86, 74, 0.4), fontSize: 14.0),
@@ -377,7 +389,7 @@ class _AuthSwitchState extends State<AuthSwitch>
                   height: 10,
                 ),
                 TextField(
-                  obscureText: true,
+                  obscureText: _hideRegPassword,
                   style: new TextStyle(
                     fontFamily: 'Montserrat',
                     fontSize: 14.0,
@@ -385,6 +397,17 @@ class _AuthSwitchState extends State<AuthSwitch>
                   ),
                   controller: _registerPasswordController,
                   decoration: InputDecoration(
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _hideRegPassword ? Icons.visibility : Icons.visibility_off,
+                        color: Color(0xFF616E77),
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _hideRegPassword = !_hideRegPassword;
+                        });
+                      },
+                    ),
                     hintText: "Придумайте пароль",
                     hintStyle: TextStyle(
                         color: Color.fromRGBO(74, 86, 74, 0.4), fontSize: 14.0),
@@ -407,7 +430,7 @@ class _AuthSwitchState extends State<AuthSwitch>
                   height: 10,
                 ),
                 TextField(
-                  obscureText: true,
+                  obscureText: _hideRegPassword,
                   style: new TextStyle(
                     fontFamily: 'Montserrat',
                     fontSize: 14.0,
