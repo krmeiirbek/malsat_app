@@ -94,7 +94,7 @@ class _FavoritePostCardState extends State<FavoritePostCard> {
                               onTap: () {
                                 setState(() {
                                   inFavorite = !inFavorite;
-                                  BlocProvider.of<AuthenticationBloc>(context).add(UpdateBookMarks(postId: widget.post.id,inBookmarks: false));
+                                  BlocProvider.of<AuthenticationBloc>(context).add(UpdateBookMarks(postId: widget.post.id,inBookmarks: false,openScreen: 3));
                                 });
                               },
                             ),

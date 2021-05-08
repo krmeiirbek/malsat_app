@@ -8,12 +8,13 @@ abstract class AuthenticationState extends Equatable {
 class AuthenticationUninitialized extends AuthenticationState {}
 
 class AuthenticationAuthenticated extends AuthenticationState {
-  List<dynamic> loadedCities;
-  List<dynamic> loadedPostsApprovedNotHidden;
-  List<dynamic> loadedCategories;
-  List<dynamic> loadedComments;
-  List<dynamic> loadedBookmarks;
-  List<dynamic> loadedImages;
+  final List<dynamic> loadedCities;
+  final List<dynamic> loadedPostsApprovedNotHidden;
+  final List<dynamic> loadedCategories;
+  final List<dynamic> loadedComments;
+  final List<dynamic> loadedBookmarks;
+  final List<dynamic> loadedImages;
+  final int openScreen;
 
   AuthenticationAuthenticated({
     this.loadedCities,
@@ -22,6 +23,7 @@ class AuthenticationAuthenticated extends AuthenticationState {
     this.loadedComments,
     this.loadedBookmarks,
     this.loadedImages,
+    this.openScreen,
   });
 
   @override

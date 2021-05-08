@@ -26,8 +26,9 @@ class LoggedOut extends AuthenticationEvent {}
 class UpdateBookMarks extends AuthenticationEvent {
   final int postId;
   final bool inBookmarks;
+  final int openScreen;
 
-  const UpdateBookMarks({@required this.postId,this.inBookmarks = true,});
+  const UpdateBookMarks({@required this.postId,this.inBookmarks = true,this.openScreen = 0, });
 
   @override
   List<Object> get props => [postId,inBookmarks];

@@ -84,6 +84,7 @@ class AuthenticationBloc
         loadedCategories: _loadedCategoriesList,
         loadedPostsApprovedNotHidden: _loadedPostsApprovedNotHidden,
         loadedBookmarks: _loadedBookmarks,
+        openScreen: event.openScreen,
       );
     }
   }

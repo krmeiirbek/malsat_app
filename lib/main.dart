@@ -66,6 +66,7 @@ class MyApp extends StatelessWidget {
               listPostsApprovedNotHidden: state.loadedPostsApprovedNotHidden,
               authRepository: authRepository,
               listBookmarks: state.loadedBookmarks,
+              selectedIndex: state.openScreen,
             );
           }
           if (state is AuthenticationUnauthenticated) {
