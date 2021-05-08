@@ -23,4 +23,24 @@ class BookmarkRepository {
       return null;
     }
   }
+
+  Future<List<BookMark>> addBookmarks(int postId,{bool inBookmarks = true}) async {
+    final response = await http.post(
+      Uri.parse(getBookmarkUrl),
+      headers: {
+        'Authorization': 'Bearer $ACCESS_TOKEN',
+      },
+      body: {
+        'post': '$postId',
+        'in_bookmarks': '$inBookmarks'
+      }
+    );
+    if (response.statusCode == 200) {
+      final List<dynamic> bookmarkJson =
+      json.decode(utf8.decode(response.bodyBytes));
+      return bookmarkJson.map((json) => BookMark.fromJson(json)).toList();
+    } else {
+      return null;
+    }
+  }
 }

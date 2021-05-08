@@ -69,5 +69,22 @@ class AuthenticationBloc
       await authRepository.deleteToken();
       yield AuthenticationUnauthenticated();
     }
+
+    if (event is UpdateBookMarks) {
+      yield AuthenticationLoading();
+      final List<City> _loadedCitiesList = await cityRepository.getAllCities();
+      final List<Category> _loadedCategoriesList =
+      await categoryRepository.getAllCategories();
+      final List<Post> _loadedPostsApprovedNotHidden =
+      await postRepository.getAllPostsApprovedNotHidden();
+      final List<BookMark> _loadedBookmarks =
+      await bookmarkRepository.addBookmarks(event.postId,inBookmarks: event.inBookmarks);
+      yield AuthenticationAuthenticated(
+        loadedCities: _loadedCitiesList,
+        loadedCategories: _loadedCategoriesList,
+        loadedPostsApprovedNotHidden: _loadedPostsApprovedNotHidden,
+        loadedBookmarks: _loadedBookmarks,
+      );
+    }
   }
 }

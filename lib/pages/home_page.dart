@@ -42,6 +42,7 @@ class _HomePageState extends State<HomePage> {
     _pages = [
       HomeScreen(
         loadedPostsApprovedNotHidden: widget.listPostsApprovedNotHidden,
+        listBookmarks: widget.listBookmarks,
       ),
       SearchScreen(
         listCategories: widget.listCategories,
