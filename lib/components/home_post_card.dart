@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
 import 'package:malsat_app/constants/custom_icons.dart';
 import 'package:malsat_app/models/post.dart';
 import 'package:malsat_app/screens/post_detail_screen.dart';
@@ -115,7 +114,7 @@ class _HomePostCardState extends State<HomePostCard> {
                             ),
                           ),
                           Text(
-                            widget.post.price,
+                            '${widget.post.price}',
                             textAlign: TextAlign.left,
                             style: TextStyle(
                               color: Color(0xFF6C6C6C),

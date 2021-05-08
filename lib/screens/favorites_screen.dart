@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:malsat_app/components/favorite_post_card.dart';
 
 class FavoritesScreen extends StatefulWidget {
+  final List<dynamic> listBookmarks;
+
+  const FavoritesScreen({Key key, this.listBookmarks}) : super(key: key);
   @override
   _FavoritesScreenState createState() => _FavoritesScreenState();
 }
@@ -104,15 +107,12 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                   ),
                   Expanded(
                     child: Container(
-                      child: ListView.builder(
-                        itemCount: 20,
+                      child: widget.listBookmarks.isNotEmpty ? ListView.builder(
+                        itemCount: widget.listBookmarks.length,
                         itemBuilder: (context, index) => FavoritePostCard(
-                          image: 'assets/images/card.png',
-                          title: 'Продам быка',
-                          date: '23.04.2021',
-                          price: '200000 тг',
+                          post: widget.listBookmarks[index].post,
                         ),
-                      ),
+                      ) : Text('No favorites'),
                     ),
                   ),
                 ],

@@ -2,7 +2,7 @@ class City {
   int id;
   String name;
   String slug;
-  List<dynamic> children;
+  List<City> children;
 
   City({
     this.id,
@@ -16,7 +16,7 @@ class City {
       id: json['id'],
       name: json['name'],
       slug: json['slug'],
-      children: json['children'],
+      children: List<City>.from(json['children'].map((x) => City.fromJson(x))),
     );
   }
 }

@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:malsat_app/bloc/auth_bloc/auth.dart';
 import 'package:malsat_app/bloc/login_bloc/login_bloc.dart';
 import 'package:malsat_app/constants/selected_item.dart';
+import 'package:malsat_app/models/post.dart';
 import 'package:malsat_app/pages/home_page.dart';
 import 'package:malsat_app/repositories/auth_repository.dart';
 import 'package:malsat_app/screens/my_posts_screen.dart';
@@ -11,8 +12,9 @@ import 'package:malsat_app/screens/settings_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   final AuthRepository authRepository;
+  final List<Post> listPosts;
 
-  const ProfileScreen({Key key,@required this.authRepository}) : super(key: key);
+  const ProfileScreen({Key key,@required this.authRepository, this.listPosts}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -149,7 +151,7 @@ class ProfileScreen extends StatelessWidget {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => MyPostsScreen(),
+                                      builder: (context) => MyPostsScreen(listPosts: listPosts,),
                                     ),
                                   );
                                 },

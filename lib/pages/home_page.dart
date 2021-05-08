@@ -15,7 +15,7 @@ class HomePage extends StatefulWidget {
   final List<dynamic> listCategories;
   final List<dynamic> listPostsApprovedNotHidden;
   final AuthRepository authRepository;
-
+  final List<dynamic> listBookmarks;
   const HomePage({
     Key key,
     this.selectedIndex = 0,
@@ -23,6 +23,7 @@ class HomePage extends StatefulWidget {
     this.listCategories,
     this.listPostsApprovedNotHidden,
     @required this.authRepository,
+    this.listBookmarks,
   }) : super(key: key);
 
   @override
@@ -49,7 +50,9 @@ class _HomePageState extends State<HomePage> {
         listCities: widget.listCities,
         listCategories: widget.listCategories,
       ),
-      FavoritesScreen(),
+      FavoritesScreen(
+        listBookmarks: widget.listBookmarks,
+      ),
       ProfileScreen(
         authRepository: widget.authRepository,
       ),

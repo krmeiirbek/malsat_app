@@ -1,20 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:malsat_app/constants/custom_icons.dart';
+import 'package:malsat_app/models/post.dart';
 import 'package:malsat_app/screens/post_detail_screen.dart';
 
 class FavoritePostCard extends StatefulWidget {
-  final String image;
-  final String title;
-  final String date;
-  final String price;
+  final Post post;
 
   const FavoritePostCard({
     Key key,
-    @required this.image,
-    @required this.title,
-    @required this.date,
-    @required this.price,
+    @required this.post
   }) : super(key: key);
 
   @override
@@ -28,7 +23,7 @@ class _FavoritePostCardState extends State<FavoritePostCard> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => DetailPost()));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => DetailPost(post: widget.post,)));
       },
       child: Container(
         margin: EdgeInsets.all(5),
@@ -58,7 +53,7 @@ class _FavoritePostCardState extends State<FavoritePostCard> {
                     bottomLeft: Radius.circular(8),
                   ),
                   child: Image.asset(
-                    widget.image,
+                    'assets/images/card.png',
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -72,7 +67,7 @@ class _FavoritePostCardState extends State<FavoritePostCard> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Text(
-                          widget.title,
+                          widget.post.title,
                           style: TextStyle(
                             color: Color(0xFFEA5E3C),
                             fontSize: 16,
@@ -103,13 +98,13 @@ class _FavoritePostCardState extends State<FavoritePostCard> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          widget.date,
+                          widget.post.date.toString(),
                           textAlign: TextAlign.left,
                           style:
                               TextStyle(color: Color(0xFFB5B5B5), fontSize: 12),
                         ),
                         Text(
-                          widget.price,
+                          widget.post.price.toString(),
                           textAlign: TextAlign.left,
                           style: TextStyle(
                             color: Color(0xFF6C6C6C),

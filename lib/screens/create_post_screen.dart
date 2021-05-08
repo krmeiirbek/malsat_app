@@ -390,7 +390,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                                 dropValue2 = newValue;
                               });
                             },
-                            items: widget.listCities
+                            items: widget.listCities.where((element) => element.children.isNotEmpty)
                                 .map(
                                   (valueItem) => DropdownMenuItem(
                                     value: valueItem.name,
@@ -398,43 +398,6 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                                   ),
                                 )
                                 .toList(),
-                          ),
-                        ),
-                        SizedBox(height: 25),
-                        Text(
-                          'Адрес',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xff4A564A),
-                          ),
-                        ),
-                        SizedBox(height: 10),
-                        Container(
-                          height: 70,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(10),
-                            ),
-                          ),
-                          child: TextField(
-                            maxLength: 70,
-                            decoration: InputDecoration(
-                              hintText: 'Не более 70 знаков',
-                              hintStyle: TextStyle(
-                                color: Color(0xFFB2B2B2),
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                              ),
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Color(0xffF3F3F3),
-                                  width: 1,
-                                ),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(8)),
-                              ),
-                            ),
                           ),
                         ),
                         SizedBox(height: 25),
