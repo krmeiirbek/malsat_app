@@ -3,6 +3,7 @@ import 'package:malsat_app/models/bookmark.dart';
 import 'package:malsat_app/models/category.dart';
 import 'package:malsat_app/models/city.dart';
 import 'package:malsat_app/models/post.dart';
+import 'package:malsat_app/models/user.dart';
 import 'package:malsat_app/repositories/bookmark_repository.dart';
 import 'package:malsat_app/repositories/post_respository.dart';
 import 'package:malsat_app/repositories/repositories.dart';
@@ -33,6 +34,7 @@ class AuthenticationBloc
             await categoryRepository.getAllCategories();
         final List<Post> _loadedPostsApprovedNotHidden =
             await postRepository.getAllPostsApprovedNotHidden();
+        final User _currentUser = await authRepository.getUserDetails();
         final List<BookMark> _loadedBookmarks =
             await bookmarkRepository.getAllBookmarks();
 
@@ -41,6 +43,7 @@ class AuthenticationBloc
           loadedCategories: _loadedCategoriesList,
           loadedPostsApprovedNotHidden: _loadedPostsApprovedNotHidden,
           loadedBookmarks: _loadedBookmarks,
+          currentUser: _currentUser,
         );
       } else {
         yield AuthenticationUnauthenticated();
@@ -56,12 +59,14 @@ class AuthenticationBloc
           await postRepository.getAllPostsApprovedNotHidden();
       final List<BookMark> _loadedBookmarks =
           await bookmarkRepository.getAllBookmarks();
+      final User _currentUser = await authRepository.getUserDetails();
 
       yield AuthenticationAuthenticated(
         loadedCities: _loadedCitiesList,
         loadedCategories: _loadedCategoriesList,
         loadedPostsApprovedNotHidden: _loadedPostsApprovedNotHidden,
         loadedBookmarks: _loadedBookmarks,
+        currentUser: _currentUser,
       );
     }
     if (event is LoggedOut) {
@@ -77,6 +82,7 @@ class AuthenticationBloc
       await categoryRepository.getAllCategories();
       final List<Post> _loadedPostsApprovedNotHidden =
       await postRepository.getAllPostsApprovedNotHidden();
+      final User _currentUser = await authRepository.getUserDetails();
       final List<BookMark> _loadedBookmarks =
       await bookmarkRepository.addBookmarks(event.postId,inBookmarks: event.inBookmarks);
       yield AuthenticationAuthenticated(
@@ -84,6 +90,7 @@ class AuthenticationBloc
         loadedCategories: _loadedCategoriesList,
         loadedPostsApprovedNotHidden: _loadedPostsApprovedNotHidden,
         loadedBookmarks: _loadedBookmarks,
+        currentUser: _currentUser,
         openScreen: event.openScreen,
       );
     }
