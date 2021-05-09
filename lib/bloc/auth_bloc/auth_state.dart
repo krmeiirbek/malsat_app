@@ -23,7 +23,7 @@ class AuthenticationAuthenticated extends AuthenticationState {
     this.loadedComments,
     this.loadedBookmarks,
     this.loadedImages,
-    this.openScreen,
+    this.openScreen = 0,
   });
 
   @override
