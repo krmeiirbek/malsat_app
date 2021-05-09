@@ -3,12 +3,14 @@ class Category {
   String name;
   String slug;
   List<dynamic> children;
+  String image;
 
   Category({
     this.id,
     this.name,
     this.slug,
     this.children,
+    this.image,
   });
 
   factory Category.fromJson(Map<String, dynamic> json) {
@@ -17,6 +19,7 @@ class Category {
       name: json['name'],
       slug: json['slug'],
       children: json['children'],
+      image: json['image'],
     );
   }
 }

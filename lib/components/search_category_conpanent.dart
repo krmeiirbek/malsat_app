@@ -17,14 +17,12 @@ class SearchCategoryCompanent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Column(
       children: [
         Container(
           child: ListTile(
-            leading: SvgPicture.asset(
-              icon,
-              color: Colors.black,
-            ),
+            leading: Image.network(this.getIcon()),
             title: Text(
               text,
               style: TextStyle(
@@ -48,5 +46,13 @@ class SearchCategoryCompanent extends StatelessWidget {
         Divider(),
       ],
     );
+  }
+
+  String getIcon() {
+    String url = this.icon;
+    if(url == null){
+      url = 'https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png';
+    }
+    return url;
   }
 }
