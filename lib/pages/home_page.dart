@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:malsat_app/models/user.dart';
 import 'package:malsat_app/repositories/auth_repository.dart';
 import 'package:malsat_app/screens/create_post_screen.dart';
 import 'package:malsat_app/screens/post_detail_screen.dart';
@@ -15,7 +16,8 @@ class HomePage extends StatefulWidget {
   final List<dynamic> listCategories;
   final List<dynamic> listPostsApprovedNotHidden;
   final AuthRepository authRepository;
-
+  final List<dynamic> listBookmarks;
+  final User currentUser;
   const HomePage({
     Key key,
     this.selectedIndex = 0,
@@ -23,6 +25,8 @@ class HomePage extends StatefulWidget {
     this.listCategories,
     this.listPostsApprovedNotHidden,
     @required this.authRepository,
+    this.listBookmarks,
+    this.currentUser,
   }) : super(key: key);
 
   @override
@@ -41,6 +45,7 @@ class _HomePageState extends State<HomePage> {
     _pages = [
       HomeScreen(
         loadedPostsApprovedNotHidden: widget.listPostsApprovedNotHidden,
+        listBookmarks: widget.listBookmarks,
       ),
       SearchScreen(
         listCategories: widget.listCategories,
@@ -49,9 +54,13 @@ class _HomePageState extends State<HomePage> {
         listCities: widget.listCities,
         listCategories: widget.listCategories,
       ),
-      FavoritesScreen(),
+      FavoritesScreen(
+        listBookmarks: widget.listBookmarks,
+      ),
       ProfileScreen(
+        currentUser: widget.currentUser,
         authRepository: widget.authRepository,
+        listPosts: [],
       ),
     ];
     super.initState();

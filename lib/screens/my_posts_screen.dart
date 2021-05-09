@@ -1,8 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:malsat_app/components/favorite_post_card.dart';
+import 'package:malsat_app/models/post.dart';
 
 class MyPostsScreen extends StatelessWidget {
+  final List<Post> listPosts;
+
+  const MyPostsScreen({Key key, this.listPosts}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,13 +78,10 @@ class MyPostsScreen extends StatelessWidget {
                       Container(
                         height:MediaQuery.of(context).size.height*0.8,
                         child: ListView.builder(
-                          itemCount: 20,
+                          itemCount: listPosts.length,
                           itemBuilder: (context,index)=>
                               FavoritePostCard(
-                                image: 'assets/images/card.png',
-                                title: 'Продам быка',
-                                date: '23.04.2021',
-                                price: '200000 тг',
+                                post: listPosts[index],
                               ),
                         ),
                       ),

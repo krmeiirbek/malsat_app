@@ -6,7 +6,8 @@ import 'package:malsat_app/screens/change_password_screen.dart';
 class SettingsScreen extends StatelessWidget {
   final AuthRepository authRepository;
 
-  const SettingsScreen({Key key, @required this.authRepository})
+
+  const SettingsScreen({Key key, @required this.authRepository,})
       : super(key: key);
 
   @override

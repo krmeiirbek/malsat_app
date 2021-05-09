@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:malsat_app/data/data.dart';
+import 'package:malsat_app/models/user.dart';
 
 class AuthRepository {
   static String mainUrl = "http://api.malsat.kz";
@@ -11,7 +12,7 @@ class AuthRepository {
   var logoutUrl = "$mainUrl/rest-auth/logout/";
   var currentlyLoggedUrl = "$mainUrl/rest-auth/user/";
   var deleteAccountUrl = "$mainUrl/api/users/3/";
-  var getUserDetailsUrl = "$mainUrl/api/author/2/";
+  var getUserDetailsUrl = "$mainUrl/api/author/";
 
   Future<bool> hasToken() async {
     var value = ACCESS_TOKEN;
@@ -58,7 +59,6 @@ class AuthRepository {
         "password2": password2,
       },
     );
-
     if (response.statusCode == 201) {
       final token = await login(email, password);
       return token;
@@ -86,6 +86,30 @@ class AuthRepository {
       return "Invalid current password";
     } else {
       return throw Exception("Error code: ${response.statusCode}");
+    }
+  }
+
+  Future<int> currentlyUser() async {
+    final response = await http.get(
+      Uri.parse(currentlyLoggedUrl),
+      headers: {
+        'Authorization': 'Bearer $ACCESS_TOKEN',
+      },
+    );
+    if (response.statusCode == 200) {
+      return json.decode(response.body)['pk'];
+    } else {
+      return throw Exception("Error code: ${response.statusCode}");
+    }
+  }
+
+  Future<User> getUserDetails() async{
+    int id = await currentlyUser();
+    final response = await http.get(Uri.parse(getUserDetailsUrl + '$id'));
+    if(response.statusCode == 200){
+      return User.fromJson(json.decode(utf8.decode(response.bodyBytes)));
+    }else{
+      return null;
     }
   }
 }

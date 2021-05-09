@@ -1,22 +1,54 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class CreatePostScreen extends StatefulWidget {
   final List<dynamic> listCities;
   final List<dynamic> listCategories;
 
-  const CreatePostScreen({Key key, this.listCities, this.listCategories}) : super(key: key);
+  const CreatePostScreen({Key key, this.listCities, this.listCategories})
+      : super(key: key);
+
   @override
-  _CreatePostScreenState createState() => _CreatePostScreenState();
+  _CreatePostScreenState createState() =>
+      _CreatePostScreenState(listCities: listCities);
 }
 
 class _CreatePostScreenState extends State<CreatePostScreen> {
+  final List<dynamic> listCities;
+  List<dynamic> cities;
+
+  _CreatePostScreenState({this.listCities});
+
+  TextEditingController _titleController = TextEditingController();
+  TextEditingController _descriptionController = TextEditingController();
+  TextEditingController _priceController = TextEditingController();
+
   bool isSwitched1 = false;
   bool isSwitched2 = false;
   bool isSwitched3 = true;
 
   String dropValue;
   String dropValue2;
+
+  List<String> _imageFiles = [];
+  final ImagePicker _picker = ImagePicker();
+
+  @override
+  void initState() {
+    cities = listCities;
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _titleController.dispose();
+    _descriptionController.dispose();
+    _priceController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -83,6 +115,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                         ),
                       ),
                       child: TextField(
+                        controller: _titleController,
                         decoration: InputDecoration(
                           hintText: 'Введите заголовок',
                           hintStyle: TextStyle(
@@ -164,6 +197,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                       ),
                       child: Container(
                         child: TextField(
+                          controller: _descriptionController,
                           maxLines: 6,
                           decoration: InputDecoration(
                             hintText:
@@ -203,6 +237,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                         ),
                       ),
                       child: TextField(
+                        controller: _priceController,
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
                           hintText: '0',
@@ -316,11 +351,18 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                       ),
                     ),
                     SizedBox(height: 25),
+                    imagesThatAdded(),
+                    SizedBox(height: 25),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                           primary: Color(0xff00BF97),
                           minimumSize: Size(double.infinity, 45)),
-                      onPressed: () {},
+                      onPressed: () {
+                        showModalBottomSheet(
+                          context: context,
+                          builder: ((builder) => bottomSheet()),
+                        );
+                      },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -362,7 +404,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                           ),
                         ),
                         Container(
-                          child: DropdownButton(
+                          child: DropdownButtonFormField(
                             hint: Text(
                               'Выбрать',
                               style: TextStyle(
@@ -386,11 +428,10 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                               ),
                             ),
                             onChanged: (newValue) {
-                              setState(() {
-                                dropValue2 = newValue;
-                              });
+                              dropValue2 = newValue;
                             },
-                            items: widget.listCities
+                            items: cities
+                                // .where((element) => element.children.isNotEmpty)
                                 .map(
                                   (valueItem) => DropdownMenuItem(
                                     value: valueItem.name,
@@ -401,48 +442,13 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                           ),
                         ),
                         SizedBox(height: 25),
-                        Text(
-                          'Адрес',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xff4A564A),
-                          ),
-                        ),
-                        SizedBox(height: 10),
-                        Container(
-                          height: 70,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(10),
-                            ),
-                          ),
-                          child: TextField(
-                            maxLength: 70,
-                            decoration: InputDecoration(
-                              hintText: 'Не более 70 знаков',
-                              hintStyle: TextStyle(
-                                color: Color(0xFFB2B2B2),
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                              ),
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Color(0xffF3F3F3),
-                                  width: 1,
-                                ),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(8)),
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 25),
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
                               primary: Color(0xff00BF97),
                               minimumSize: Size(double.infinity, 45)),
-                          onPressed: () {},
+                          onPressed: () {
+                            print("title: "+_titleController.text+" \ncategory: "+dropValue+" \ndescription: "+_descriptionController.text+ " \nprice: "+_priceController.text+" \ndogovor: "+ isSwitched1.toString() + " \nobmen: "+ isSwitched2.toString() + " \ndostavka: "+ isSwitched3.toString() + " \nimages: "+_imageFiles.toString()+" \nadres: "+dropValue2);
+                          },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -468,5 +474,116 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
         ],
       ),
     );
+  }
+
+  Widget imagesThatAdded() {
+    return _imageFiles.length == 0
+        ? SizedBox()
+        : SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              height: 80,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: _imageFiles.length,
+                itemBuilder: (context, index) => Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: Container(
+                    height: 80,
+                    color: Colors.grey,
+                    child: Stack(
+                      children: [
+                        Image(
+                          image: FileImage(File(_imageFiles[index])),
+                          fit: BoxFit.fill,
+                        ),
+                        Positioned(
+                          bottom: 5,
+                          right: 5,
+                          child: InkWell(
+                            onTap: () {
+                              setState(() {
+                                _imageFiles.removeAt(index);
+                              });
+                            },
+                            child: Icon(
+                              Icons.delete,
+                              color: Colors.redAccent,
+                              size: 20,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          );
+  }
+
+  Widget bottomSheet() {
+    return Container(
+      height: 100,
+      width: MediaQuery.of(context).size.width,
+      margin: EdgeInsets.all(20),
+      child: Column(
+        children: [
+          Text(
+            "Choose photo",
+            style: TextStyle(
+                fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
+          ),
+          SizedBox(height: 20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextButton.icon(
+                onPressed: () {
+                  takePhoto(ImageSource.camera);
+                },
+                icon: Icon(
+                  Icons.camera,
+                  color: Colors.black,
+                ),
+                label: Text(
+                  "Camera",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 18,
+                  ),
+                ),
+              ),
+              TextButton.icon(
+                onPressed: () {
+                  takePhoto(ImageSource.gallery);
+                },
+                icon: Icon(
+                  Icons.image,
+                  color: Colors.black,
+                ),
+                label: Text(
+                  "Gallery",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 18,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  void takePhoto(ImageSource source) async {
+    final pickedFile = await _picker.getImage(source: source);
+    setState(() {
+      _imageFiles.add(pickedFile.path);
+    });
   }
 }

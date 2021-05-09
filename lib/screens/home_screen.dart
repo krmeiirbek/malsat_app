@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:malsat_app/components/home_category_icon_button.dart';
 import 'package:malsat_app/components/home_post_card.dart';
 import 'package:malsat_app/components/material_button.dart';
 import 'package:malsat_app/constants/category_icons.dart';
+import 'package:malsat_app/models/bookmark.dart';
 
 class HomeScreen extends StatefulWidget {
   final List<dynamic> loadedPostsApprovedNotHidden;
+  final List<dynamic> listBookmarks;
 
-  HomeScreen({this.loadedPostsApprovedNotHidden});
+  HomeScreen({this.loadedPostsApprovedNotHidden, this.listBookmarks});
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -180,20 +181,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         widget.loadedPostsApprovedNotHidden.length,
                         (index) => HomePostCard(
                             post:widget.loadedPostsApprovedNotHidden[index],
-                          // image: 'assets/images/card.png',
-                          // title:
-                          //     widget.loadedPostsApprovedNotHidden[index].title,
-                          // date: widget.loadedPostsApprovedNotHidden[index].date.toString(),
-                          // price:
-                          //     widget.loadedPostsApprovedNotHidden[index].price,
+                            listBookmarks: widget.listBookmarks,
                         ),
                       ),
-                      // HomePostCard(
-                      //   image: 'assets/images/card.png',
-                      //   title: 'Продам быка',
-                      //   date: '23.04.2021',
-                      //   price: '200000 тг',
-                      // ),
                     ),
                   ),
                 ],

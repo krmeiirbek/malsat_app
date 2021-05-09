@@ -31,7 +31,7 @@ class Post {
   User user;
   City cities;
   String description;
-  String price;
+  int price;
   bool exchange;
   bool auction;
   bool delivery;
