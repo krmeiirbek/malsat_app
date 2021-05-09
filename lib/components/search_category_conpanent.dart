@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:malsat_app/pages/home_page.dart';
@@ -21,9 +22,10 @@ class SearchCategoryCompanent extends StatelessWidget {
       children: [
         Container(
           child: ListTile(
-            leading: SvgPicture.asset(
-              icon,
-              color: Colors.black,
+            leading: CachedNetworkImage(
+              imageUrl: this.icon,
+              progressIndicatorBuilder: (context, url, _) => CircularProgressIndicator(),
+              errorWidget: (context, url, error) => Icon(Icons.error),
             ),
             title: Text(
               text,

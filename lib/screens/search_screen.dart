@@ -86,7 +86,7 @@ class _SearchScreenState extends State<SearchScreen> {
                             SearchCategoryCompanent(
                           text: widget.listCategories[index].name,
                           press: () {},
-                          icon: "assets/icons/category/camel.svg",
+                          icon: widget.listCategories[index].image,
                         ),
                       ),
                     ),

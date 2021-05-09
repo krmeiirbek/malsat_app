@@ -58,7 +58,6 @@ class AuthRepository {
         "password2": password2,
       },
     );
-
     if (response.statusCode == 201) {
       final token = await login(email, password);
       return token;

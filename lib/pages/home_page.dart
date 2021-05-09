@@ -56,6 +56,7 @@ class _HomePageState extends State<HomePage> {
       ),
       ProfileScreen(
         authRepository: widget.authRepository,
+        listPosts: [],
       ),
     ];
     super.initState();
