@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:malsat_app/models/user.dart';
 import 'package:malsat_app/repositories/auth_repository.dart';
 import 'package:malsat_app/screens/create_post_screen.dart';
-import 'package:malsat_app/screens/post_detail_screen.dart';
 import 'package:malsat_app/constants/custom_icons.dart';
-import 'package:malsat_app/constants/selected_item.dart';
 import 'package:malsat_app/screens/favorites_screen.dart';
 import 'package:malsat_app/screens/home_screen.dart';
 import 'package:malsat_app/screens/profile_screen.dart';
@@ -60,7 +58,7 @@ class _HomePageState extends State<HomePage> {
       ProfileScreen(
         currentUser: widget.currentUser,
         authRepository: widget.authRepository,
-        listPosts: [],
+        listPosts: widget.listPostsApprovedNotHidden,
       ),
     ];
     super.initState();

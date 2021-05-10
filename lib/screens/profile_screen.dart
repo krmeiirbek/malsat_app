@@ -3,10 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:malsat_app/bloc/auth_bloc/auth.dart';
 import 'package:malsat_app/bloc/login_bloc/login_bloc.dart';
-import 'package:malsat_app/constants/selected_item.dart';
 import 'package:malsat_app/models/post.dart';
 import 'package:malsat_app/models/user.dart';
-import 'package:malsat_app/pages/home_page.dart';
 import 'package:malsat_app/repositories/auth_repository.dart';
 import 'package:malsat_app/screens/my_posts_screen.dart';
 import 'package:malsat_app/screens/settings_screen.dart';
@@ -79,7 +77,7 @@ class ProfileScreen extends StatelessWidget {
                                     image: DecorationImage(
                                       image: currentUser.image == null
                                           ? AssetImage(
-                                              "assets/images/avatar.png",
+                                              "assets/images/nouser.png",
                                             )
                                           : NetworkImage(currentUser.image),
                                       fit: BoxFit.fill,
@@ -174,6 +172,7 @@ class ProfileScreen extends StatelessWidget {
                                     MaterialPageRoute(
                                       builder: (context) => SettingsScreen(
                                         authRepository: authRepository,
+                                        currentUser: currentUser,
                                       ),
                                     ),
                                   );
