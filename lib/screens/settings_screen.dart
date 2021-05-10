@@ -1,13 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:malsat_app/models/user.dart';
 import 'package:malsat_app/repositories/auth_repository.dart';
 import 'package:malsat_app/screens/change_password_screen.dart';
+import 'package:malsat_app/screens/user_details.dart';
 
 class SettingsScreen extends StatelessWidget {
   final AuthRepository authRepository;
+  final User currentUser;
 
 
-  const SettingsScreen({Key key, @required this.authRepository,})
+  const SettingsScreen({Key key, @required this.authRepository, this.currentUser,})
       : super(key: key);
 
   @override
@@ -73,17 +76,22 @@ class SettingsScreen extends StatelessWidget {
                         height: 30,
                       ),
                       Card(
-                        child: ListTile(
-                          title: Text(
-                            'Контактные данные',
-                            style: TextStyle(
-                                color: Color(0xFF4A564A),
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500),
-                          ),
-                          trailing: Icon(
-                            Icons.arrow_forward_ios_rounded,
-                            size: 15,
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => UserDetailsScreen(currentUser :currentUser)));
+                          },
+                          child: ListTile(
+                            title: Text(
+                              'Контактные данные',
+                              style: TextStyle(
+                                  color: Color(0xFF4A564A),
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                            trailing: Icon(
+                              Icons.arrow_forward_ios_rounded,
+                              size: 15,
+                            ),
                           ),
                         ),
                       ),
