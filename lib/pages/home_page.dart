@@ -13,17 +13,22 @@ class HomePage extends StatefulWidget {
   final List<dynamic> listCities;
   final List<dynamic> listCategories;
   final List<dynamic> listPostsApprovedNotHidden;
-  final List<dynamic> listMyPosts;
+  final List<dynamic> listMyActivePosts;
+  final List<dynamic> listMyHiddenPosts;
+  final List<dynamic> listMyCheckingPosts;
   final AuthRepository authRepository;
   final List<dynamic> listBookmarks;
   final User currentUser;
+
   const HomePage({
     Key key,
     this.selectedIndex = 0,
     this.listCities,
     this.listCategories,
     this.listPostsApprovedNotHidden,
-    this.listMyPosts,
+    this.listMyActivePosts,
+    this.listMyHiddenPosts,
+    this.listMyCheckingPosts,
     @required this.authRepository,
     this.listBookmarks,
     this.currentUser,
@@ -60,7 +65,9 @@ class _HomePageState extends State<HomePage> {
       ProfileScreen(
         currentUser: widget.currentUser,
         authRepository: widget.authRepository,
-        listPosts: widget.listMyPosts,
+        activePosts: widget.listMyActivePosts,
+        hiddenPosts: widget.listMyHiddenPosts,
+        checkingPosts:widget.listMyCheckingPosts,
       ),
     ];
     super.initState();

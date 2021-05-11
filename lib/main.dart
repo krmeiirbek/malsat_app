@@ -65,7 +65,10 @@ class MyApp extends StatelessWidget {
               listCategories: state.loadedCategories,
               listPostsApprovedNotHidden: state.loadedPostsApprovedNotHidden,
               authRepository: authRepository,
-              listMyPosts: state.loadedMyPosts,
+              listMyActivePosts: state.listMyActivePosts,
+              listMyHiddenPosts: state.listMyHiddenPosts,
+              listMyCheckingPosts: state.listMyCheckingPosts,
+
               listBookmarks: state.loadedBookmarks,
               selectedIndex: state.openScreen,
               currentUser: state.currentUser,

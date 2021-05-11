@@ -13,14 +13,18 @@ import 'package:malsat_app/screens/settings_screen.dart';
 class ProfileScreen extends StatelessWidget {
   final AuthRepository authRepository;
   final PostRepository postRepository;
-  final List<Post> listPosts;
+  final List<Post> activePosts;
+  final List<Post> hiddenPosts;
+  final List<Post> checkingPosts;
   final User currentUser;
 
   const ProfileScreen({
     Key key,
     @required this.authRepository,
     @required this.postRepository,
-    this.listPosts,
+    this.activePosts,
+    this.hiddenPosts,
+    this.checkingPosts,
     this.currentUser,
   }) : super(key: key);
 
@@ -143,7 +147,7 @@ class ProfileScreen extends StatelessWidget {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) => MyPostsScreen(
-                                        listPosts: listPosts,
+                                        listPosts: activePosts,
                                       ),
                                     ),
                                   );
@@ -174,7 +178,7 @@ class ProfileScreen extends StatelessWidget {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) => MyPostsScreen(
-                                        listPosts: listPosts,
+                                        listPosts: checkingPosts,
                                       ),
                                     ),
                                   );
@@ -205,7 +209,7 @@ class ProfileScreen extends StatelessWidget {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) => MyPostsScreen(
-                                        listPosts: listPosts,
+                                        listPosts: hiddenPosts,
                                       ),
                                     ),
                                   );

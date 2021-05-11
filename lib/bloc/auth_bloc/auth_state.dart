@@ -14,7 +14,11 @@ class AuthenticationAuthenticated extends AuthenticationState {
   final List<dynamic> loadedCategories;
   final List<dynamic> loadedComments;
   final List<dynamic> loadedBookmarks;
-  final List<dynamic> loadedMyPosts;
+
+  final List<dynamic> listMyActivePosts;
+  final List<dynamic> listMyHiddenPosts;
+  final List<dynamic> listMyCheckingPosts;
+
   final List<dynamic> loadedImages;
   final User currentUser;
   final int openScreen;
@@ -25,7 +29,9 @@ class AuthenticationAuthenticated extends AuthenticationState {
     this.loadedCategories,
     this.loadedComments,
     this.loadedBookmarks,
-    this.loadedMyPosts,
+    this.listMyActivePosts,
+    this.listMyHiddenPosts,
+    this.listMyCheckingPosts,
     this.loadedImages,
     this.currentUser,
     this.openScreen = 0,
@@ -37,7 +43,9 @@ class AuthenticationAuthenticated extends AuthenticationState {
         loadedPostsApprovedNotHidden,
         loadedCategories,
         loadedComments,
-        loadedMyPosts,
+        listMyActivePosts,
+        listMyHiddenPosts,
+        listMyCheckingPosts,
         loadedBookmarks,
         loadedImages,
       ];
