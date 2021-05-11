@@ -36,3 +36,4 @@ class UpdateBookMarks extends AuthenticationEvent {
   @override
   String toString() => 'UpdateBookMarks {$postId}';
 }
+

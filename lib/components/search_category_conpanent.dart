@@ -17,7 +17,6 @@ class SearchCategoryCompanent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Column(
       children: [
         Container(
@@ -50,9 +49,11 @@ class SearchCategoryCompanent extends StatelessWidget {
 
   String getIcon() {
     String url = this.icon;
-    if(url == null){
-      url = 'https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png';
+    if (url == null) {
+      url =
+          'https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png';
     }
+    print(url);
     return url;
   }
 }

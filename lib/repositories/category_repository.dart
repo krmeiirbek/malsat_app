@@ -13,7 +13,7 @@ class CategoryRepository {
       final List<dynamic> categoryJson = json.decode(utf8.decode(response.bodyBytes));
       return categoryJson.map((json) => Category.fromJson(json)).toList();
     }else{
-      return null;
+      return [];
     }
   }
 }

@@ -20,7 +20,7 @@ class BookmarkRepository {
           json.decode(utf8.decode(response.bodyBytes));
       return bookmarkJson.map((json) => BookMark.fromJson(json)).toList();
     } else {
-      return null;
+      return [];
     }
   }
 
@@ -40,7 +40,7 @@ class BookmarkRepository {
       json.decode(utf8.decode(response.bodyBytes));
       return bookmarkJson.map((json) => BookMark.fromJson(json)).toList();
     } else {
-      return null;
+      return [];
     }
   }
 }

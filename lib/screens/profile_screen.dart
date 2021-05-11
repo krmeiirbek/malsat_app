@@ -6,17 +6,20 @@ import 'package:malsat_app/bloc/login_bloc/login_bloc.dart';
 import 'package:malsat_app/models/post.dart';
 import 'package:malsat_app/models/user.dart';
 import 'package:malsat_app/repositories/auth_repository.dart';
+import 'package:malsat_app/repositories/post_respository.dart';
 import 'package:malsat_app/screens/my_posts_screen.dart';
 import 'package:malsat_app/screens/settings_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   final AuthRepository authRepository;
+  final PostRepository postRepository;
   final List<Post> listPosts;
   final User currentUser;
 
   const ProfileScreen({
     Key key,
     @required this.authRepository,
+    @required this.postRepository,
     this.listPosts,
     this.currentUser,
   }) : super(key: key);
@@ -25,7 +28,7 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => LoginBloc(
-          authRepository, BlocProvider.of<AuthenticationBloc>(context)),
+          authRepository, BlocProvider.of<AuthenticationBloc>(context),postRepository),
       child: BlocBuilder<LoginBloc, LoginState>(
         builder: (context, state) {
           return SafeArea(
@@ -147,7 +150,69 @@ class ProfileScreen extends StatelessWidget {
                                 },
                                 child: ListTile(
                                   title: Text(
-                                    'Мои объявления',
+                                    'Активные',
+                                    style: TextStyle(
+                                      color: Color(0xFF4A564A),
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                  trailing: Icon(
+                                    Icons.arrow_forward_ios_rounded,
+                                    size: 15,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Card(
+                              child: InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => MyPostsScreen(
+                                        listPosts: listPosts,
+                                      ),
+                                    ),
+                                  );
+                                },
+                                child: ListTile(
+                                  title: Text(
+                                    'На проверке',
+                                    style: TextStyle(
+                                      color: Color(0xFF4A564A),
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                  trailing: Icon(
+                                    Icons.arrow_forward_ios_rounded,
+                                    size: 15,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Card(
+                              child: InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => MyPostsScreen(
+                                        listPosts: listPosts,
+                                      ),
+                                    ),
+                                  );
+                                },
+                                child: ListTile(
+                                  title: Text(
+                                    'Скрытые',
                                     style: TextStyle(
                                       color: Color(0xFF4A564A),
                                       fontSize: 14,

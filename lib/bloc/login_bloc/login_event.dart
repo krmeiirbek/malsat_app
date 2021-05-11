@@ -61,9 +61,27 @@ class ChangePasswordButtonPressed extends LoginEvent {
   });
 
   @override
-  List<Object> get props => [  oldPassword, password, password2];
+  List<Object> get props => [oldPassword, password, password2];
 
   @override
-  String toString() =>
-      'ChangePasswordButtonPressed';
+  String toString() => 'ChangePasswordButtonPressed';
+}
+
+class CreatePostButtonPressed extends LoginEvent {
+  final String title;
+  final String description;
+  final int price;
+  final bool exchange;
+  final bool auction;
+  final bool delivery;
+
+  CreatePostButtonPressed(this.title, this.description, this.price,
+      this.exchange, this.auction, this.delivery);
+
+  @override
+  List<Object> get props =>
+      [title, description, price, exchange, auction, delivery];
+
+  @override
+  String toString() => 'ChangePasswordButtonPressed';
 }

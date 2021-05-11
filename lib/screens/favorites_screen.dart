@@ -112,7 +112,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                         itemBuilder: (context, index) => FavoritePostCard(
                           post: widget.listBookmarks[index].post,
                         ),
-                      ) : Text('No favorites'),
+                      ) : Center(child: Text('У вас нет избранные посты'),)
                     ),
                   ),
                 ],

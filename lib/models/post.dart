@@ -48,20 +48,22 @@ class Post {
 
   factory Post.fromJson(Map<String, dynamic> json) {
     User user = User.fromJson(json['user']);
-    City city = City.fromJson(json['cities']);
+    // City city = City.fromJson(json['cities']);
     Category category = Category.fromJson(json['categories']);
     return Post(
       id: json["id"],
       title: json["title"],
       user: user,
-      cities: city,
+      cities: json['cities'] == null
+          ? City(name: '', slug: '', id: 0)
+          : City.fromJson(json['cities']),
       description: json["description"],
       price: json["price"],
       exchange: json["exchange"],
       auction: json["auction"],
       delivery: json["delivery"],
       categories: category,
-      date:  DateFormat("yyyy-MM-dd").parse(json["date"]) ,
+      date: DateFormat("yyyy-MM-dd").parse(json["date"]),
       images: json["images"],
       bookmarks: json["bookmarks"],
       isApproved: json["isApproved"],
@@ -72,4 +74,13 @@ class Post {
       isHidden: json["isHidden"],
     );
   }
+
+ String getImage(){
+    String url =  'https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png';
+    if(images!=null && images.length>0){
+      url = images[0]['image'];
+    }
+    return url;
+ }
+
 }

@@ -34,8 +34,12 @@ class DetailPost extends StatelessWidget {
           children: <Widget>[
             Container(
               width: double.infinity,
-              child: Image.asset(
-                "assets/images/card_big.png",
+              // child: Image.asset(
+              //   "assets/images/card_big.png",
+              //   fit: BoxFit.fitWidth,
+              // ),
+              child: Image.network(
+                '${post.getImage()}',
                 fit: BoxFit.fitWidth,
               ),
             ),

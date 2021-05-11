@@ -57,8 +57,8 @@ class _FavoritePostCardState extends State<FavoritePostCard> {
                         topLeft: Radius.circular(8),
                         bottomLeft: Radius.circular(8),
                       ),
-                      child: Image.asset(
-                        'assets/images/card.png',
+                      child: Image.network(
+                        widget.post.getImage(),
                         fit: BoxFit.cover,
                       ),
                     ),

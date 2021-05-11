@@ -2,7 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:malsat_app/bloc/login_bloc/login_bloc.dart';
 
 class CreatePostScreen extends StatefulWidget {
   final List<dynamic> listCities;
@@ -26,12 +28,14 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
   TextEditingController _descriptionController = TextEditingController();
   TextEditingController _priceController = TextEditingController();
 
-  bool isSwitched1 = false;
-  bool isSwitched2 = false;
-  bool isSwitched3 = true;
+  bool auction = false;
+  bool exchange = false;
+  bool delivery = true;
 
-  String dropValue;
-  String dropValue2;
+  String selectedCategoryName;
+  int selectedCategoryId;
+  String selectedCity;
+  int selectedCityId;
 
   List<String> _imageFiles = [];
   final ImagePicker _picker = ImagePicker();
@@ -139,12 +143,13 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                       ),
                     ),
                     SizedBox(height: 10),
+
                     Container(
                       height: 50,
                       child: DropdownButton(
                         hint: Text('Выберите категория'),
                         isExpanded: true,
-                        value: dropValue,
+                        // value: selectedCategoryName,
                         icon: Icon(
                           Icons.arrow_forward_ios,
                           color: Color(0xffA8A8A8),
@@ -152,13 +157,14 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                         ),
                         onChanged: (newValue) {
                           setState(() {
-                            dropValue = newValue;
+                            // selectedCategoryName = newValue.name;
+                            selectedCategoryId = newValue.id;
                           });
                         },
                         items: widget.listCategories
                             .map(
                               (valueItem) => DropdownMenuItem(
-                                value: valueItem.name,
+                                value: valueItem,
                                 child: Text(valueItem.name),
                               ),
                             )
@@ -271,10 +277,10 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                               ),
                             ),
                             CupertinoSwitch(
-                              value: isSwitched1,
+                              value: auction,
                               onChanged: (value) {
                                 setState(() {
-                                  isSwitched1 = value;
+                                  auction = value;
                                 });
                               },
                               activeColor: Color(0xff4CD964),
@@ -295,10 +301,10 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                               ),
                             ),
                             CupertinoSwitch(
-                              value: isSwitched2,
+                              value: exchange,
                               onChanged: (value) {
                                 setState(() {
-                                  isSwitched2 = value;
+                                  exchange = value;
                                 });
                               },
                               trackColor: Colors.white,
@@ -319,10 +325,10 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                               ),
                             ),
                             CupertinoSwitch(
-                              value: isSwitched3,
+                              value: delivery,
                               onChanged: (value) {
                                 setState(() {
-                                  isSwitched3 = value;
+                                  delivery = value;
                                 });
                               },
                               activeColor: Color(0xff4CD964),
@@ -414,11 +420,12 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                               ),
                             ),
                             isExpanded: true,
-                            value: dropValue2,
+                            // value: selectedCity,
                             icon: InkWell(
                               onTap: () {
                                 setState(() {
-                                  dropValue2 = null;
+                                  selectedCity = null;
+                                  selectedCityId = null;
                                 });
                               },
                               child: Icon(
@@ -428,13 +435,12 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                               ),
                             ),
                             onChanged: (newValue) {
-                              dropValue2 = newValue;
+                              selectedCityId = newValue.id;
                             },
                             items: cities
-                                // .where((element) => element.children.isNotEmpty)
                                 .map(
                                   (valueItem) => DropdownMenuItem(
-                                    value: valueItem.name,
+                                    value: valueItem,
                                     child: Text(valueItem.name),
                                   ),
                                 )
@@ -447,7 +453,18 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                               primary: Color(0xff00BF97),
                               minimumSize: Size(double.infinity, 45)),
                           onPressed: () {
-                            print("title: "+_titleController.text+" \ncategory: "+dropValue+" \ndescription: "+_descriptionController.text+ " \nprice: "+_priceController.text+" \ndogovor: "+ isSwitched1.toString() + " \nobmen: "+ isSwitched2.toString() + " \ndostavka: "+ isSwitched3.toString() + " \nimages: "+_imageFiles.toString()+" \nadres: "+dropValue2);
+                            // BlocProvider.of<LoginBloc>(context).add(
+                            //   CreatePostButtonPressed(
+                            //     title: _titleController.text,
+                            //     description: _descriptionController.text,
+                            //     price: _priceController.text.,
+                            //     exchange: exchange,
+                            //     auction: auction,
+                            //     delivery: delivery,
+                            //   ),
+                            // );
+                            print(" \ncategory: "+selectedCityId.toString());
+                            // print("title: "+_titleController.text+" \ncategory: "+dropValue+" \ndescription: "+_descriptionController.text+ " \nprice: "+_priceController.text+" \ndogovor: "+ isSwitched1.toString() + " \nobmen: "+ isSwitched2.toString() + " \ndostavka: "+ isSwitched3.toString() + " \nimages: "+_imageFiles.toString()+" \nadres: "+dropValue2);
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,

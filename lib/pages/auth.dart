@@ -5,14 +5,15 @@ import 'package:malsat_app/bloc/auth_bloc/auth.dart';
 import 'package:malsat_app/bloc/login_bloc/login_bloc.dart';
 import 'package:malsat_app/components/auth_signin_or_signup_button.dart';
 import 'package:malsat_app/components/auth_switch_button.dart';
+import 'package:malsat_app/repositories/post_respository.dart';
 import 'package:malsat_app/repositories/repositories.dart';
 
 enum WidgetMarker { login, signUp }
 
 class AuthSwitch extends StatefulWidget {
   final AuthRepository authRepository;
-
-  const AuthSwitch({Key key, @required this.authRepository}) : super(key: key);
+  final PostRepository postRepository;
+  const AuthSwitch({Key key, @required this.authRepository,@required this.postRepository}) : super(key: key);
 
   @override
   _AuthSwitchState createState() => _AuthSwitchState();
@@ -59,7 +60,7 @@ class _AuthSwitchState extends State<AuthSwitch>
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => LoginBloc(
-          widget.authRepository, BlocProvider.of<AuthenticationBloc>(context)),
+          widget.authRepository, BlocProvider.of<AuthenticationBloc>(context),widget.postRepository),
       child: BlocListener<LoginBloc, LoginState>(
         listener: (context, state) {
           if (state is LoginFailure) {

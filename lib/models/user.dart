@@ -26,7 +26,10 @@ class User {
       firstName: json["first_name"],
       image: json["image"],
       phone: json["phone"],
-      city: json["cities"],
+      city: City(name: '', slug: '', id: 0),
+      // city: json['cities'] == null
+      //     ? City(name: '', slug: '', id: 0)
+      //     : City.fromJson(json['cities']),
       // dateJoined: json["dateJoined"],
     );
   }

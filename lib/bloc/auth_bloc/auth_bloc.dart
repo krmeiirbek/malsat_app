@@ -34,17 +34,19 @@ class AuthenticationBloc
             await categoryRepository.getAllCategories();
         final List<Post> _loadedPostsApprovedNotHidden =
             await postRepository.getAllPostsApprovedNotHidden();
+        final List<Post> _loadedMyPosts = await postRepository.getMyPosts();
         final User _currentUser = await authRepository.getUserDetails();
         final List<BookMark> _loadedBookmarks =
             await bookmarkRepository.getAllBookmarks();
 
+        print(_loadedCitiesList);
         yield AuthenticationAuthenticated(
-          loadedCities: _loadedCitiesList,
-          loadedCategories: _loadedCategoriesList,
-          loadedPostsApprovedNotHidden: _loadedPostsApprovedNotHidden,
-          loadedBookmarks: _loadedBookmarks,
-          currentUser: _currentUser,
-        );
+            loadedCities: _loadedCitiesList,
+            loadedCategories: _loadedCategoriesList,
+            loadedPostsApprovedNotHidden: _loadedPostsApprovedNotHidden,
+            loadedBookmarks: _loadedBookmarks,
+            currentUser: _currentUser,
+            loadedMyPosts: _loadedMyPosts);
       } else {
         yield AuthenticationUnauthenticated();
       }
@@ -57,6 +59,7 @@ class AuthenticationBloc
           await categoryRepository.getAllCategories();
       final List<Post> _loadedPostsApprovedNotHidden =
           await postRepository.getAllPostsApprovedNotHidden();
+      final List<Post> _loadedMyPosts = await postRepository.getMyPosts();
       final List<BookMark> _loadedBookmarks =
           await bookmarkRepository.getAllBookmarks();
       final User _currentUser = await authRepository.getUserDetails();
@@ -66,6 +69,7 @@ class AuthenticationBloc
         loadedCategories: _loadedCategoriesList,
         loadedPostsApprovedNotHidden: _loadedPostsApprovedNotHidden,
         loadedBookmarks: _loadedBookmarks,
+        loadedMyPosts: _loadedMyPosts,
         currentUser: _currentUser,
       );
     }
@@ -79,18 +83,20 @@ class AuthenticationBloc
       yield AuthenticationLoading();
       final List<City> _loadedCitiesList = await cityRepository.getAllCities();
       final List<Category> _loadedCategoriesList =
-      await categoryRepository.getAllCategories();
+          await categoryRepository.getAllCategories();
       final List<Post> _loadedPostsApprovedNotHidden =
-      await postRepository.getAllPostsApprovedNotHidden();
+          await postRepository.getAllPostsApprovedNotHidden();
+      final List<Post> _loadedMyPosts = await postRepository.getMyPosts();
       final User _currentUser = await authRepository.getUserDetails();
-      final List<BookMark> _loadedBookmarks =
-      await bookmarkRepository.addBookmarks(event.postId,inBookmarks: event.inBookmarks);
+      final List<BookMark> _loadedBookmarks = await bookmarkRepository
+          .addBookmarks(event.postId, inBookmarks: event.inBookmarks);
       yield AuthenticationAuthenticated(
         loadedCities: _loadedCitiesList,
         loadedCategories: _loadedCategoriesList,
         loadedPostsApprovedNotHidden: _loadedPostsApprovedNotHidden,
         loadedBookmarks: _loadedBookmarks,
         currentUser: _currentUser,
+        loadedMyPosts: _loadedMyPosts,
         openScreen: event.openScreen,
       );
     }

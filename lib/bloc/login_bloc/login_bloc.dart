@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:malsat_app/bloc/auth_bloc/auth.dart';
+import 'package:malsat_app/repositories/post_respository.dart';
 import 'package:malsat_app/repositories/repositories.dart';
 
 part 'login_event.dart';
@@ -10,8 +11,9 @@ part 'login_state.dart';
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final AuthRepository authRepository;
   final AuthenticationBloc authenticationBloc;
+  final PostRepository postRepository;
 
-  LoginBloc(this.authRepository, this.authenticationBloc)
+  LoginBloc(this.authRepository, this.authenticationBloc, this.postRepository)
       : assert(authRepository != null),
         assert(authenticationBloc != null),
         super(LoginInitial());
@@ -30,7 +32,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     }
     if (event is RegisterButtonPressed) {
       yield LoginLoading();
-
       try {
         final token = await authRepository.register(
           event.email,
@@ -61,6 +62,23 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         yield LoginInitial();
       } catch (e) {
         yield ChangePasswordFailure(error: e.toString());
+      }
+    }
+    if (event is CreatePostButtonPressed) {
+      yield LoginLoading();
+      try {
+        final success = await postRepository.createPost(
+            event.title,
+            event.description,
+            event.price,
+            event.exchange,
+            event.auction,
+            event.delivery
+            );
+        yield CreatePostButtonSuccess(success: success);
+        yield LoginInitial();
+      } catch (e) {
+        yield CreatePostFailure(error: e.toString());
       }
     }
   }

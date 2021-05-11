@@ -58,3 +58,28 @@ class ChangePasswordSuccess extends LoginState {
   @override
   String toString() => 'ChangePasswordSuccess {$success}';
 }
+
+class CreatePostButtonSuccess extends LoginState {
+  final String success;
+
+  const CreatePostButtonSuccess({this.success});
+
+  @override
+  List<Object> get props => [success];
+
+  @override
+  String toString() => 'CreatePostButtonSuccess {$success}';
+}
+
+
+class CreatePostFailure extends LoginState {
+  final String error;
+
+  const CreatePostFailure({this.error});
+
+  @override
+  List<Object> get props => [error];
+
+  @override
+  String toString() => 'CreatePostFailure {$error}';
+}

@@ -1,21 +1,60 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:malsat_app/data/data.dart';
 import 'package:malsat_app/models/city.dart';
 import 'package:malsat_app/models/post.dart';
 
 class PostRepository {
   static String mainUrl = "http://api.malsat.kz";
   var getAllPostsApprovedNotHiddenUrl = "$mainUrl/api/posts/";
+  var createPostUrl = "$mainUrl/api/posts/";
+  var getMyPostsUrl = "$mainUrl/api/authorposts/";
 
   Future<List<Post>> getAllPostsApprovedNotHidden() async {
-    final response = await http.get(Uri.parse(getAllPostsApprovedNotHiddenUrl));
+    final response = await http.get(
+      Uri.parse(getAllPostsApprovedNotHiddenUrl),
+      headers: {
+        'Authorization': 'Bearer $ACCESS_TOKEN',
+      },
+    );
     if (response.statusCode == 200) {
       final List<dynamic> postsJson =
           json.decode(utf8.decode(response.bodyBytes));
+      print(postsJson);
       return postsJson.map((json) => Post.fromJson(json)).toList();
     } else {
-      return null;
+      return [];
     }
+  }
+
+  Future<List<Post>> getMyPosts() async {
+    final response = await http.get(
+      Uri.parse(getMyPostsUrl),
+      headers: {
+        'Authorization': 'Bearer $ACCESS_TOKEN',
+      },
+    );
+    if (response.statusCode == 200) {
+      final List<dynamic> postsJson =
+          json.decode(utf8.decode(response.bodyBytes));
+      print(postsJson);
+      return postsJson.map((json) => Post.fromJson(json)).toList();
+    } else {
+      return [];
+    }
+  }
+
+  Future<String> createPost(String title, String description, int price,
+      bool exchange, bool auction, bool delivery) async {
+    final response = await http.post(Uri.parse(createPostUrl));
+    // if (response.statusCode == 200) {
+    //   final List<dynamic> postsJson =
+    //   json.decode(utf8.decode(response.bodyBytes));
+    //   print(postsJson);
+    //   return postsJson.map((json) => Post.fromJson(json)).toList();
+    // } else {
+    //   return [];
+    // }
   }
 }

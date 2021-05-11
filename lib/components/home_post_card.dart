@@ -78,9 +78,8 @@ class _HomePostCardState extends State<HomePostCard> {
                           topLeft: Radius.circular(8),
                           topRight: Radius.circular(8),
                         ),
-                        child: Image.asset(
-                          'assets/images/card.png',
-                          // widget.post.,
+                        child: Image.network(
+                          widget.post.getImage(),
                           fit: BoxFit.cover,
                         ),
                       ),

@@ -4,11 +4,13 @@ import 'package:malsat_app/bloc/auth_bloc/auth_bloc.dart';
 import 'package:malsat_app/bloc/login_bloc/login_bloc.dart';
 import 'package:malsat_app/components/auth_signin_or_signup_button.dart';
 import 'package:malsat_app/repositories/auth_repository.dart';
+import 'package:malsat_app/repositories/post_respository.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
   final AuthRepository authRepository;
+  final PostRepository postRepository;
 
-  const ChangePasswordScreen({Key key, @required this.authRepository})
+  const ChangePasswordScreen({Key key, @required this.authRepository,@required this.postRepository})
       : super(key: key);
 
   @override
@@ -23,8 +25,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => LoginBloc(
-          widget.authRepository, BlocProvider.of<AuthenticationBloc>(context)),
+      create: (context) => LoginBloc(widget.authRepository, BlocProvider.of<AuthenticationBloc>(context),widget.postRepository),
       child: BlocListener<LoginBloc, LoginState>(
         listener: (context, state) {
           if (state is ChangePasswordFailure) {
