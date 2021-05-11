@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:malsat_app/models/user.dart';
 import 'package:malsat_app/repositories/auth_repository.dart';
 import 'package:malsat_app/screens/create_post_screen.dart';
-import 'package:malsat_app/screens/post_detail_screen.dart';
 import 'package:malsat_app/constants/custom_icons.dart';
-import 'package:malsat_app/constants/selected_item.dart';
 import 'package:malsat_app/screens/favorites_screen.dart';
 import 'package:malsat_app/screens/home_screen.dart';
 import 'package:malsat_app/screens/profile_screen.dart';
@@ -16,6 +15,7 @@ class HomePage extends StatefulWidget {
   final List<dynamic> listPostsApprovedNotHidden;
   final AuthRepository authRepository;
   final List<dynamic> listBookmarks;
+  final User currentUser;
   const HomePage({
     Key key,
     this.selectedIndex = 0,
@@ -24,6 +24,7 @@ class HomePage extends StatefulWidget {
     this.listPostsApprovedNotHidden,
     @required this.authRepository,
     this.listBookmarks,
+    this.currentUser,
   }) : super(key: key);
 
   @override
@@ -55,8 +56,9 @@ class _HomePageState extends State<HomePage> {
         listBookmarks: widget.listBookmarks,
       ),
       ProfileScreen(
+        currentUser: widget.currentUser,
         authRepository: widget.authRepository,
-        listPosts: [],
+        listPosts: widget.listPostsApprovedNotHidden,
       ),
     ];
     super.initState();

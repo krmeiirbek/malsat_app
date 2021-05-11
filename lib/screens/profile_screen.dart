@@ -3,9 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:malsat_app/bloc/auth_bloc/auth.dart';
 import 'package:malsat_app/bloc/login_bloc/login_bloc.dart';
-import 'package:malsat_app/constants/selected_item.dart';
 import 'package:malsat_app/models/post.dart';
-import 'package:malsat_app/pages/home_page.dart';
+import 'package:malsat_app/models/user.dart';
 import 'package:malsat_app/repositories/auth_repository.dart';
 import 'package:malsat_app/screens/my_posts_screen.dart';
 import 'package:malsat_app/screens/settings_screen.dart';
@@ -13,8 +12,15 @@ import 'package:malsat_app/screens/settings_screen.dart';
 class ProfileScreen extends StatelessWidget {
   final AuthRepository authRepository;
   final List<Post> listPosts;
+  final User currentUser;
 
-  const ProfileScreen({Key key,@required this.authRepository, this.listPosts}) : super(key: key);
+  const ProfileScreen({
+    Key key,
+    @required this.authRepository,
+    this.listPosts,
+    this.currentUser,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -69,9 +75,11 @@ class ProfileScreen extends StatelessWidget {
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
                                     image: DecorationImage(
-                                      image: AssetImage(
-                                        "assets/images/avatar.png",
-                                      ),
+                                      image: currentUser.image == null
+                                          ? AssetImage(
+                                              "assets/images/nouser.png",
+                                            )
+                                          : NetworkImage(currentUser.image),
                                       fit: BoxFit.fill,
                                     ),
                                   ),
@@ -111,33 +119,13 @@ class ProfileScreen extends StatelessWidget {
                                           fontWeight: FontWeight.w500),
                                     ),
                                     Text(
-                                      'Султан',
+                                      currentUser.firstName,
                                       style: TextStyle(
                                         color: Color(0xFF4A564A),
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     )
-                                  ],
-                                ),
-                                Column(
-                                  children: <Widget>[
-                                    Text(
-                                      'Ваш кошелек: 0,00 ₸',
-                                      style: TextStyle(
-                                        color: Color(0xFF4A564A),
-                                        fontSize: 11,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                    Text(
-                                      'Бонусы: 0,00 Бонусы',
-                                      style: TextStyle(
-                                        color: Color(0xFF4A564A),
-                                        fontSize: 11,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
                                   ],
                                 ),
                               ],
@@ -151,7 +139,9 @@ class ProfileScreen extends StatelessWidget {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => MyPostsScreen(listPosts: listPosts,),
+                                      builder: (context) => MyPostsScreen(
+                                        listPosts: listPosts,
+                                      ),
                                     ),
                                   );
                                 },
@@ -180,40 +170,10 @@ class ProfileScreen extends StatelessWidget {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) =>
-                                          HomePage(
-                                            selectedIndex: SelectedItem
-                                                .selectedHeart,
-                                          ),
-                                    ),
-                                  );
-                                },
-                                child: ListTile(
-                                  title: Text(
-                                    'Избранные',
-                                    style: TextStyle(
-                                      color: Color(0xFF4A564A),
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                  trailing: Icon(
-                                    Icons.arrow_forward_ios_rounded,
-                                    size: 15,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Card(
-                              child: InkWell(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => SettingsScreen(authRepository: authRepository,),
+                                      builder: (context) => SettingsScreen(
+                                        authRepository: authRepository,
+                                        currentUser: currentUser,
+                                      ),
                                     ),
                                   );
                                 },

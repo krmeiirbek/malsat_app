@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:malsat_app/bloc/auth_bloc/auth.dart';
 import 'package:malsat_app/constants/custom_icons.dart';
-import 'package:malsat_app/models/bookmark.dart';
 import 'package:malsat_app/models/post.dart';
 import 'package:malsat_app/repositories/bookmark_repository.dart';
 import 'package:malsat_app/screens/post_detail_screen.dart';
@@ -25,7 +24,7 @@ class _HomePostCardState extends State<HomePostCard> {
 
   @override
   void initState() {
-    if (widget.listBookmarks.isNotEmpty)
+    if (widget.listBookmarks != null)
       for (int i = 0; i < widget.listBookmarks.length; i++) {
         if (widget.listBookmarks[i].post.id == widget.post.id) {
           inFavorite = true;

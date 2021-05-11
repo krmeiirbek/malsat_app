@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:malsat_app/models/user.dart';
 
 abstract class AuthenticationState extends Equatable {
   @override
@@ -14,6 +15,7 @@ class AuthenticationAuthenticated extends AuthenticationState {
   final List<dynamic> loadedComments;
   final List<dynamic> loadedBookmarks;
   final List<dynamic> loadedImages;
+  final User currentUser;
   final int openScreen;
 
   AuthenticationAuthenticated({
@@ -23,6 +25,7 @@ class AuthenticationAuthenticated extends AuthenticationState {
     this.loadedComments,
     this.loadedBookmarks,
     this.loadedImages,
+    this.currentUser,
     this.openScreen = 0,
   });
 
