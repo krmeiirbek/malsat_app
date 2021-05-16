@@ -43,3 +43,10 @@ class UpdateBookMarks extends AuthenticationEvent {
   String toString() => 'UpdateBookMarks {$postId}';
 }
 
+class SearchPost extends AuthenticationEvent {
+  final String keyWord;
+
+  const SearchPost({@required this.keyWord });
+
+}
+

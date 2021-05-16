@@ -129,6 +129,37 @@ class AuthenticationBloc
       );
     }
 
+    if (event is SearchPost) {
+      yield AuthenticationLoading();
+      final List<City> _loadedCitiesList = await cityRepository.getAllCities();
+      final List<Category> _loadedCategoriesList =
+          await categoryRepository.getAllCategories();
+      final List<Post> _loadedPostsApprovedNotHidden =
+          await postRepository.getAllPostsWithKeyWord(event.keyWord);
+      final List<Post> _loadedMyHiddenPosts =
+          await postRepository.getMyHiddenPosts();
+
+      final List<Post> _loadedMyActivePosts =
+          await postRepository.getMyActivePosts();
+      final User _currentUser = await authRepository.getUserDetails();
+      final List<BookMark> _loadedBookmarks = await bookmarkRepository
+          .getAllBookmarks();
+
+      final List<Post> _loadedMyCheckingPosts =
+          await postRepository.getMyCheckingPosts();
+
+      yield AuthenticationAuthenticated(
+        loadedCities: _loadedCitiesList,
+        loadedCategories: _loadedCategoriesList,
+        loadedPostsApprovedNotHidden: _loadedPostsApprovedNotHidden,
+        loadedBookmarks: _loadedBookmarks,
+        currentUser: _currentUser,
+        listMyActivePosts: _loadedMyActivePosts,
+        listMyHiddenPosts: _loadedMyHiddenPosts,
+        listMyCheckingPosts: _loadedMyCheckingPosts,
+      );
+    }
+
     if (event is OpenScreen) {
       yield AuthenticationLoading();
       final List<City> _loadedCitiesList = await cityRepository.getAllCities();

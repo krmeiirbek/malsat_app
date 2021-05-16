@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:malsat_app/data/data.dart';
-import 'package:malsat_app/models/city.dart';
 import 'package:malsat_app/models/post.dart';
 
 class PostRepository {
@@ -12,6 +11,7 @@ class PostRepository {
   var getMyActivePostsUrl = "$mainUrl/api/authorposts/";
   var getMyHiddenPostsUrl = "$mainUrl/api/hidden/posts/";
   var getMyCheckingPostsUrl = "$mainUrl/api/user/checking/posts/";
+  var getAllPostsWithKeyWordUrl = "$mainUrl/api/product/";
 
   Future<List<Post>> getAllPostsApprovedNotHidden() async {
     final response = await http.get(
@@ -23,6 +23,20 @@ class PostRepository {
     if (response.statusCode == 200) {
       final List<dynamic> postsJson =
           json.decode(utf8.decode(response.bodyBytes));
+      print(postsJson);
+      return postsJson.map((json) => Post.fromJson(json)).toList();
+    } else {
+      return [];
+    }
+  }
+
+  Future<List<Post>> getAllPostsWithKeyWord(String keyWord) async {
+    final response = await http.get(
+      Uri.parse(getAllPostsWithKeyWordUrl+'?search=$keyWord'),
+    );
+    if (response.statusCode == 200) {
+      final List<dynamic> postsJson =
+      json.decode(utf8.decode(response.bodyBytes));
       print(postsJson);
       return postsJson.map((json) => Post.fromJson(json)).toList();
     } else {
