@@ -23,6 +23,12 @@ class LoggedIn extends AuthenticationEvent {
 
 class LoggedOut extends AuthenticationEvent {}
 
+class OpenScreen extends AuthenticationEvent {
+  final int openScreen;
+
+  OpenScreen({@required this.openScreen});
+}
+
 class UpdateBookMarks extends AuthenticationEvent {
   final int postId;
   final bool inBookmarks;

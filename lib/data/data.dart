@@ -6,3 +6,4 @@ String ACCESS_TOKEN;
 String REFRESH_TOKEN;
 
 AuthRepository authRepositoryGlobal = AuthRepository();
+int openScreenID = 0;

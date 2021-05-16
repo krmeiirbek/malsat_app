@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:malsat_app/models/user.dart';
 import 'package:malsat_app/repositories/auth_repository.dart';
+import 'package:malsat_app/repositories/post_respository.dart';
 import 'package:malsat_app/screens/create_post_screen.dart';
 import 'package:malsat_app/constants/custom_icons.dart';
 import 'package:malsat_app/screens/favorites_screen.dart';
@@ -17,6 +18,7 @@ class HomePage extends StatefulWidget {
   final List<dynamic> listMyHiddenPosts;
   final List<dynamic> listMyCheckingPosts;
   final AuthRepository authRepository;
+  final PostRepository postRepository;
   final List<dynamic> listBookmarks;
   final User currentUser;
 
@@ -31,7 +33,7 @@ class HomePage extends StatefulWidget {
     this.listMyCheckingPosts,
     @required this.authRepository,
     this.listBookmarks,
-    this.currentUser,
+    this.currentUser, this.postRepository,
   }) : super(key: key);
 
   @override
@@ -49,6 +51,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     _pages = [
       HomeScreen(
+        authRepository: widget.authRepository,
         loadedPostsApprovedNotHidden: widget.listPostsApprovedNotHidden,
         listBookmarks: widget.listBookmarks,
       ),
@@ -67,7 +70,7 @@ class _HomePageState extends State<HomePage> {
         authRepository: widget.authRepository,
         activePosts: widget.listMyActivePosts,
         hiddenPosts: widget.listMyHiddenPosts,
-        checkingPosts:widget.listMyCheckingPosts,
+        checkingPosts:widget.listMyCheckingPosts, postRepository: widget.postRepository,
       ),
     ];
     super.initState();

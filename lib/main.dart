@@ -68,7 +68,7 @@ class MyApp extends StatelessWidget {
               listMyActivePosts: state.listMyActivePosts,
               listMyHiddenPosts: state.listMyHiddenPosts,
               listMyCheckingPosts: state.listMyCheckingPosts,
-
+              postRepository: postRepository,
               listBookmarks: state.loadedBookmarks,
               selectedIndex: state.openScreen,
               currentUser: state.currentUser,
@@ -76,7 +76,7 @@ class MyApp extends StatelessWidget {
           }
           if (state is AuthenticationUnauthenticated) {
             return AuthSwitch(
-              authRepository: authRepository,
+              authRepository: authRepository, postRepository: postRepository,
             );
           }
           if (state is AuthenticationLoading) {

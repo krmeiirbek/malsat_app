@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:malsat_app/bloc/auth_bloc/auth.dart';
 import 'package:malsat_app/components/home_category_icon_button.dart';
 import 'package:malsat_app/components/home_post_card.dart';
 import 'package:malsat_app/components/material_button.dart';
 import 'package:malsat_app/constants/category_icons.dart';
-import 'package:malsat_app/models/bookmark.dart';
+import 'package:malsat_app/repositories/auth_repository.dart';
 
 class HomeScreen extends StatefulWidget {
   final List<dynamic> loadedPostsApprovedNotHidden;
   final List<dynamic> listBookmarks;
+  final AuthRepository authRepository;
 
-  HomeScreen({this.loadedPostsApprovedNotHidden, this.listBookmarks});
+  HomeScreen({this.loadedPostsApprovedNotHidden, this.listBookmarks, this.authRepository});
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -28,6 +31,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    return BlocBuilder<AuthenticationBloc, AuthenticationState>(
+  builder: (context, state) {
     return SafeArea(
       child: Column(
         children: [
@@ -150,7 +155,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   scrollDirection: Axis.horizontal,
                   child: Row(
                     children: [
-                      Button1(text: "Фильтры", press: () {}),
+                      Button1(text: "Фильтры", press: () {
+                        setState(() {
+                          BlocProvider.of<AuthenticationBloc>(context).add(
+                            OpenScreen(openScreen: 1),
+                          );
+                        });
+                      }),
                       SizedBox(width: 20),
                       Button1(text: "Все объявлений", press: () {}),
                       SizedBox(width: 20),
@@ -193,5 +204,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
     );
+  },
+);
   }
 }

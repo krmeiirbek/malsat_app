@@ -54,3 +54,8 @@ class AuthenticationAuthenticated extends AuthenticationState {
 class AuthenticationUnauthenticated extends AuthenticationState {}
 
 class AuthenticationLoading extends AuthenticationState {}
+
+class Screen extends AuthenticationState {
+  final int openScreen;
+
+  Screen({this.openScreen = 0});}
