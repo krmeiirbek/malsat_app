@@ -7,16 +7,25 @@ import 'package:malsat_app/components/material_button.dart';
 import 'package:malsat_app/constants/category_icons.dart';
 import 'package:malsat_app/data/data.dart';
 import 'package:malsat_app/repositories/auth_repository.dart';
+import 'package:malsat_app/repositories/post_respository.dart';
+import 'package:malsat_app/screens/filter_by_city.dart';
 
 class HomeScreen extends StatefulWidget {
   final List<dynamic> loadedPostsApprovedNotHidden;
   final List<dynamic> listBookmarks;
+  final List<dynamic> listCities;
+  final List<dynamic> listPostsByCity;
   final AuthRepository authRepository;
+  final PostRepository postRepository;
 
-  HomeScreen(
-      {this.loadedPostsApprovedNotHidden,
-      this.listBookmarks,
-      this.authRepository});
+  HomeScreen({
+    this.loadedPostsApprovedNotHidden,
+    this.listBookmarks,
+    this.authRepository,
+    this.listCities,
+    this.postRepository,
+    this.listPostsByCity,
+  });
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -204,9 +213,20 @@ class _HomeScreenState extends State<HomeScreen> {
                                 });
                               }),
                           SizedBox(width: 20),
-                          Button1(text: "Весь Казахстан", press: () {}),
-                          SizedBox(width: 20),
-                          Button1(text: "Весь Казахстан", press: () {}),
+                          Button1(
+                              text: "Весь Казахстан",
+                              press: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => FilterByCity(
+                                              listCities: widget.listCities,
+                                              postRepository:
+                                                  widget.postRepository,
+                                              listPostsByCity:
+                                                  widget.listPostsByCity,
+                                            )));
+                              }),
                           // Icon(icons[1]),
                         ],
                       ),

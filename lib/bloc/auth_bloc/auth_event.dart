@@ -50,3 +50,10 @@ class SearchPost extends AuthenticationEvent {
 
 }
 
+class GetPostsByCity extends AuthenticationEvent {
+  final int cityId;
+
+  const GetPostsByCity({@required this.cityId });
+
+}
+

@@ -11,7 +11,6 @@ class CityRepository {
     final response = await http.get(Uri.parse(getCitiesUrl));
     if(response.statusCode == 200){
       final List<dynamic> cityJson = json.decode(utf8.decode(response.bodyBytes));
-      print(cityJson);
       return cityJson.map((json) => City.fromJson(json)).toList();
     }else{
       return [];

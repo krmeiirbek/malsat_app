@@ -72,6 +72,7 @@ class MyApp extends StatelessWidget {
               listBookmarks: state.loadedBookmarks,
               selectedIndex: state.openScreen,
               currentUser: state.currentUser,
+              listPostsByCity: state.listPostsByCity,
             );
           }
           if (state is AuthenticationUnauthenticated) {

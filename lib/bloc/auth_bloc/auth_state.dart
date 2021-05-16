@@ -18,6 +18,7 @@ class AuthenticationAuthenticated extends AuthenticationState {
   final List<dynamic> listMyActivePosts;
   final List<dynamic> listMyHiddenPosts;
   final List<dynamic> listMyCheckingPosts;
+  final List<dynamic> listPostsByCity;
 
   final List<dynamic> loadedImages;
   final User currentUser;
@@ -35,6 +36,7 @@ class AuthenticationAuthenticated extends AuthenticationState {
     this.loadedImages,
     this.currentUser,
     this.openScreen = 0,
+    this.listPostsByCity,
   });
 
   @override

@@ -23,7 +23,6 @@ class PostRepository {
     if (response.statusCode == 200) {
       final List<dynamic> postsJson =
           json.decode(utf8.decode(response.bodyBytes));
-      print(postsJson);
       return postsJson.map((json) => Post.fromJson(json)).toList();
     } else {
       return [];
@@ -37,7 +36,20 @@ class PostRepository {
     if (response.statusCode == 200) {
       final List<dynamic> postsJson =
       json.decode(utf8.decode(response.bodyBytes));
-      print(postsJson);
+      return postsJson.map((json) => Post.fromJson(json)).toList();
+    } else {
+      return [];
+    }
+  }
+
+  Future<List<Post>> getAllPostsWithCity(int cityId) async {
+    final response = await http.get(
+      Uri.parse(getAllPostsWithKeyWordUrl+'?cities=$cityId'),
+    );
+    if (response.statusCode == 200) {
+      final List<dynamic> postsJson =
+      json.decode(utf8.decode(response.bodyBytes));
+      print("city:posts: "+postsJson.toString());
       return postsJson.map((json) => Post.fromJson(json)).toList();
     } else {
       return [];
@@ -54,7 +66,6 @@ class PostRepository {
     if (response.statusCode == 200) {
       final List<dynamic> postsJson =
           json.decode(utf8.decode(response.bodyBytes));
-      print(postsJson);
       return postsJson.map((json) => Post.fromJson(json)).toList();
     } else {
       return [];
@@ -71,7 +82,6 @@ class PostRepository {
     if (response.statusCode == 200) {
       final List<dynamic> postsJson =
           json.decode(utf8.decode(response.bodyBytes));
-      print(postsJson);
       return postsJson.map((json) => Post.fromJson(json)).toList();
     } else {
       return [];
@@ -101,7 +111,6 @@ class PostRepository {
     if (response.statusCode == 200) {
       final List<dynamic> postsJson =
           json.decode(utf8.decode(response.bodyBytes));
-      print(postsJson);
       return postsJson.map((json) => Post.fromJson(json)).toList();
     } else {
       return [];
@@ -118,7 +127,6 @@ class PostRepository {
     if (response.statusCode == 200) {
       final List<dynamic> postsJson =
           json.decode(utf8.decode(response.bodyBytes));
-      print(postsJson);
       return postsJson.map((json) => Post.fromJson(json)).toList();
     } else {
       return [];

@@ -17,6 +17,7 @@ class HomePage extends StatefulWidget {
   final List<dynamic> listMyActivePosts;
   final List<dynamic> listMyHiddenPosts;
   final List<dynamic> listMyCheckingPosts;
+  final List<dynamic> listPostsByCity;
   final AuthRepository authRepository;
   final PostRepository postRepository;
   final List<dynamic> listBookmarks;
@@ -33,7 +34,7 @@ class HomePage extends StatefulWidget {
     this.listMyCheckingPosts,
     @required this.authRepository,
     this.listBookmarks,
-    this.currentUser, this.postRepository,
+    this.currentUser, this.postRepository, this.listPostsByCity,
   }) : super(key: key);
 
   @override
@@ -54,6 +55,9 @@ class _HomePageState extends State<HomePage> {
         authRepository: widget.authRepository,
         loadedPostsApprovedNotHidden: widget.listPostsApprovedNotHidden,
         listBookmarks: widget.listBookmarks,
+        listCities: widget.listCities,
+        postRepository: widget.postRepository,
+        listPostsByCity: widget.listPostsByCity,
       ),
       SearchScreen(
         listCategories: widget.listCategories,
