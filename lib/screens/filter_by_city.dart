@@ -112,12 +112,6 @@ class _FilterByCityState extends State<FilterByCity> {
                                         ),
                                       ),
                                     );
-
-                                    // BlocProvider.of<AuthenticationBloc>(context)
-                                    //     .add(
-                                    //   GetPostsByCity(
-                                    //       cityId: widget.listCities[index].id),
-                                    // );
                                   });
                                 },
                               ),

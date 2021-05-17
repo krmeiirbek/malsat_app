@@ -12,8 +12,12 @@ class PostsByCityScreen extends StatefulWidget {
   final City city;
   final PostRepository postRepository;
 
-  const PostsByCityScreen({Key key,@required this.listPosts, this.city, this.postRepository})
-      : super(key: key);
+  const PostsByCityScreen({
+    Key key,
+    @required this.listPosts,
+    this.city,
+    this.postRepository,
+  }) : super(key: key);
 
   @override
   _PostsByCityScreenState createState() => _PostsByCityScreenState();
@@ -21,14 +25,10 @@ class PostsByCityScreen extends StatefulWidget {
 
 class _PostsByCityScreenState extends State<PostsByCityScreen> {
   List<dynamic> listPosts1;
+
   @override
   void initState() {
-    setState(() async {
-      listPosts1 = await getPosts();
-      BlocProvider.of<AuthenticationBloc>(context)
-          .add(GetPostsByCity(cityId: widget.city.id));
-    });
-    print("initState");
+    getPosts();
     super.initState();
   }
 
@@ -48,7 +48,6 @@ class _PostsByCityScreenState extends State<PostsByCityScreen> {
                     children: [
                       Container(
                         padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                        // color: Colors.white,
                         child: Column(
                           children: [
                             Row(
@@ -74,8 +73,8 @@ class _PostsByCityScreenState extends State<PostsByCityScreen> {
                                       print(listPosts1);
                                     },
                                     child: Image(
-                                      image:
-                                          AssetImage("assets/images/MALSAT.png"),
+                                      image: AssetImage(
+                                          "assets/images/MALSAT.png"),
                                     ),
                                   ),
                                 ),
@@ -84,7 +83,6 @@ class _PostsByCityScreenState extends State<PostsByCityScreen> {
                                 ),
                               ],
                             ),
-                            // SizedBox(height: 20),
                           ],
                         ),
                       ),
@@ -104,9 +102,10 @@ class _PostsByCityScreenState extends State<PostsByCityScreen> {
                                     Text(
                                       widget.city.name,
                                       style: TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold,
-                                          color: Color(0xFF4A564A)),
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                        color: Color(0xFF4A564A),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -130,7 +129,6 @@ class _PostsByCityScreenState extends State<PostsByCityScreen> {
                             ),
                           ),
                         ),
-                        // ),/
                       ),
                     ],
                   ),
@@ -140,8 +138,12 @@ class _PostsByCityScreenState extends State<PostsByCityScreen> {
     );
   }
 
-  Future<List<Post>> getPosts() async {
-    final _post = await widget.postRepository.getAllPostsWithCity(widget.city.id);
-    return _post;
-}
+  Future<void> getPosts() async {
+    listPosts1 =
+    await widget.postRepository.getAllPostsWithCity(widget.city.id);
+    setState(() {
+      BlocProvider.of<AuthenticationBloc>(context)
+          .add(GetPostsByCity(cityId: widget.city.id));
+    });
+  }
 }

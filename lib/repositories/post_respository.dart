@@ -49,7 +49,6 @@ class PostRepository {
     if (response.statusCode == 200) {
       final List<dynamic> postsJson =
       json.decode(utf8.decode(response.bodyBytes));
-      print("city:posts: "+postsJson.toString());
       return postsJson.map((json) => Post.fromJson(json)).toList();
     } else {
       return [];
