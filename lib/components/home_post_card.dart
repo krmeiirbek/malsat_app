@@ -45,6 +45,7 @@ class _HomePostCardState extends State<HomePostCard> {
               MaterialPageRoute(
                 builder: (context) => DetailPost(
                   post: widget.post,
+                  listBookmarks: widget.listBookmarks,
                 ),
               ),
             );
@@ -116,10 +117,17 @@ class _HomePostCardState extends State<HomePostCard> {
                                 onTap: () {
                                   setState(() {
                                     inFavorite = !inFavorite;
-                                    if(!inFavorite)
-                                      BlocProvider.of<AuthenticationBloc>(context).add(UpdateBookMarks(postId: widget.post.id));
+                                    if (!inFavorite)
+                                      BlocProvider.of<AuthenticationBloc>(
+                                              context)
+                                          .add(UpdateBookMarks(
+                                              postId: widget.post.id));
                                     else
-                                      BlocProvider.of<AuthenticationBloc>(context).add(UpdateBookMarks(postId: widget.post.id,inBookmarks: false));
+                                      BlocProvider.of<AuthenticationBloc>(
+                                              context)
+                                          .add(UpdateBookMarks(
+                                              postId: widget.post.id,
+                                              inBookmarks: false));
                                   });
                                 },
                               ),

@@ -227,7 +227,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   widget.listPostsByCity,
                                             )));
                               }),
-                          // Icon(icons[1]),
                         ],
                       ),
                     ),
