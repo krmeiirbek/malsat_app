@@ -242,6 +242,7 @@ class ProfileScreen extends StatelessWidget {
                                       builder: (context) => SettingsScreen(
                                         authRepository: authRepository,
                                         currentUser: currentUser,
+                                        postRepository: postRepository,
                                       ),
                                     ),
                                   );
