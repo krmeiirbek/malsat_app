@@ -1,14 +1,12 @@
-import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:malsat_app/bloc/auth_bloc/auth.dart';
 import 'package:malsat_app/constants/custom_icons.dart';
 import 'package:malsat_app/constants/social_networks_icons.dart';
 import 'package:malsat_app/models/post.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 
 class DetailPost extends StatefulWidget {
   final Post post;
@@ -103,15 +101,15 @@ class _DetailPostState extends State<DetailPost> {
                                     inFavorite = !inFavorite;
                                     if (!inFavorite)
                                       BlocProvider.of<AuthenticationBloc>(
-                                          context)
+                                              context)
                                           .add(UpdateBookMarks(
-                                          postId: widget.post.id));
+                                              postId: widget.post.id));
                                     else
                                       BlocProvider.of<AuthenticationBloc>(
-                                          context)
+                                              context)
                                           .add(UpdateBookMarks(
-                                          postId: widget.post.id,
-                                          inBookmarks: false));
+                                              postId: widget.post.id,
+                                              inBookmarks: false));
                                   });
                                 },
                               ),
@@ -132,25 +130,24 @@ class _DetailPostState extends State<DetailPost> {
                             height: 46,
                             decoration: BoxDecoration(
                               color: Color(0xffF8F8F8),
-                              borderRadius: BorderRadius.all(
-                                  Radius.circular(5)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(5)),
                             ),
                             child: Center(
                                 child: Text(
-                                  '${widget.post.price}',
-                                  style: TextStyle(
-                                    color: Color(0xff555555),
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 24,
-                                  ),
-                                )),
+                              '${widget.post.price}',
+                              style: TextStyle(
+                                color: Color(0xff555555),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 24,
+                              ),
+                            )),
                           ),
                           SizedBox(height: 10),
                           Container(
                             alignment: Alignment.center,
                             child: Text(
-                              '${widget.post.cities
-                                  .name} | Добавлено: 13 марта 2021',
+                              '${widget.post.cities.name} | Добавлено: 13 марта 2021',
                               style: TextStyle(
                                 color: Color(0xff9A9A9A).withOpacity(0.8),
                                 fontSize: 11,
@@ -189,21 +186,21 @@ class _DetailPostState extends State<DetailPost> {
                                     ),
                                     widget.post.exchange
                                         ? Text(
-                                      'Да',
-                                      style: TextStyle(
-                                        color: Color(0xff000000),
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.normal,
-                                      ),
-                                    )
+                                            'Да',
+                                            style: TextStyle(
+                                              color: Color(0xff000000),
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.normal,
+                                            ),
+                                          )
                                         : Text(
-                                      'Нет',
-                                      style: TextStyle(
-                                        color: Color(0xff000000),
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.normal,
-                                      ),
-                                    ),
+                                            'Нет',
+                                            style: TextStyle(
+                                              color: Color(0xff000000),
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.normal,
+                                            ),
+                                          ),
                                   ],
                                 ),
                               ],
@@ -231,21 +228,21 @@ class _DetailPostState extends State<DetailPost> {
                                     ),
                                     widget.post.delivery
                                         ? Text(
-                                      'Да',
-                                      style: TextStyle(
-                                        color: Color(0xff000000),
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.normal,
-                                      ),
-                                    )
+                                            'Да',
+                                            style: TextStyle(
+                                              color: Color(0xff000000),
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.normal,
+                                            ),
+                                          )
                                         : Text(
-                                      'Нет',
-                                      style: TextStyle(
-                                        color: Color(0xff000000),
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.normal,
-                                      ),
-                                    ),
+                                            'Нет',
+                                            style: TextStyle(
+                                              color: Color(0xff000000),
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.normal,
+                                            ),
+                                          ),
                                   ],
                                 ),
                               ],
@@ -273,21 +270,21 @@ class _DetailPostState extends State<DetailPost> {
                                     ),
                                     widget.post.auction
                                         ? Text(
-                                      'Да',
-                                      style: TextStyle(
-                                        color: Color(0xff000000),
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.normal,
-                                      ),
-                                    )
+                                            'Да',
+                                            style: TextStyle(
+                                              color: Color(0xff000000),
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.normal,
+                                            ),
+                                          )
                                         : Text(
-                                      'Нет',
-                                      style: TextStyle(
-                                        color: Color(0xff000000),
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.normal,
-                                      ),
-                                    ),
+                                            'Нет',
+                                            style: TextStyle(
+                                              color: Color(0xff000000),
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.normal,
+                                            ),
+                                          ),
                                   ],
                                 ),
                               ],
@@ -354,8 +351,8 @@ class _DetailPostState extends State<DetailPost> {
                                 image: widget.post.user.image != null
                                     ? NetworkImage(widget.post.user.image)
                                     : AssetImage(
-                                  'assets/images/avatar.png',
-                                ),
+                                        'assets/images/avatar.png',
+                                      ),
                                 fit: BoxFit.fill,
                               ),
                             ),
@@ -369,8 +366,8 @@ class _DetailPostState extends State<DetailPost> {
                                 Row(
                                   children: [
                                     Column(
-                                      crossAxisAlignment: CrossAxisAlignment
-                                          .start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         SizedBox(height: 3),
                                         Text(
@@ -427,8 +424,8 @@ class _DetailPostState extends State<DetailPost> {
                     Container(
                       decoration: BoxDecoration(
                         border: Border(
-                          bottom: BorderSide(
-                              color: Color(0xff828282), width: 1.5),
+                          bottom:
+                              BorderSide(color: Color(0xff828282), width: 1.5),
                         ),
                       ),
                       child: Text(
@@ -454,14 +451,14 @@ class _DetailPostState extends State<DetailPost> {
                                   padding: EdgeInsets.symmetric(horizontal: 8),
                                   child: Row(
                                     mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       InkWell(
                                         onTap: () {
                                           launch("https://www.facebook.com");
                                         },
                                         child: Icon(
-                                        SocialNetworks.facebook_official,
+                                          SocialNetworks.facebook_official,
                                           color: Color(0xff828282),
                                         ),
                                       ),
@@ -506,7 +503,7 @@ class _DetailPostState extends State<DetailPost> {
                                 ),
                                 SizedBox(height: 14),
                                 Text(
-                                  '${widget.post.views} просмотра объявления',
+                                  '${widget.post.views == null ? 0 : widget.post.views} просмотра объявления',
                                   style: TextStyle(
                                     color: Color(0xff828282),
                                     fontSize: 11,
@@ -527,7 +524,9 @@ class _DetailPostState extends State<DetailPost> {
                                       width: 2,
                                     ),
                                   ),
-                                  onPressed: () {},
+                                  onPressed: () async {
+                                    FlutterPhoneDirectCaller.callNumber("${widget.post.user.phone}");
+                                  },
                                   child: Text(
                                     'ПОЗВОНИТЬ'.toUpperCase(),
                                     style: TextStyle(
