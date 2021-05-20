@@ -31,11 +31,11 @@ class PostRepository {
 
   Future<List<Post>> getAllPostsWithKeyWord(String keyWord) async {
     final response = await http.get(
-      Uri.parse(getAllPostsWithKeyWordUrl+'?search=$keyWord'),
+      Uri.parse(getAllPostsWithKeyWordUrl + '?search=$keyWord'),
     );
     if (response.statusCode == 200) {
       final List<dynamic> postsJson =
-      json.decode(utf8.decode(response.bodyBytes));
+          json.decode(utf8.decode(response.bodyBytes));
       return postsJson.map((json) => Post.fromJson(json)).toList();
     } else {
       return [];
@@ -44,11 +44,11 @@ class PostRepository {
 
   Future<List<Post>> getAllPostsWithCity(int cityId) async {
     final response = await http.get(
-      Uri.parse(getAllPostsWithKeyWordUrl+'?cities=$cityId'),
+      Uri.parse(getAllPostsWithKeyWordUrl + '?cities=$cityId'),
     );
     if (response.statusCode == 200) {
       final List<dynamic> postsJson =
-      json.decode(utf8.decode(response.bodyBytes));
+          json.decode(utf8.decode(response.bodyBytes));
       return postsJson.map((json) => Post.fromJson(json)).toList();
     } else {
       return [];
@@ -131,7 +131,4 @@ class PostRepository {
       return [];
     }
   }
-
-
-
 }

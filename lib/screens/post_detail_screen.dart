@@ -7,6 +7,7 @@ import 'package:malsat_app/constants/social_networks_icons.dart';
 import 'package:malsat_app/models/post.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
+import 'package:http/http.dart' as http;
 
 class DetailPost extends StatefulWidget {
   final Post post;
@@ -525,7 +526,14 @@ class _DetailPostState extends State<DetailPost> {
                                     ),
                                   ),
                                   onPressed: () async {
-                                    FlutterPhoneDirectCaller.callNumber("${widget.post.user.phone}");
+                                    await http.post(
+                                        Uri.parse(
+                                            "http://api.malsat.kz/api/phone/"),
+                                        body: {
+                                          "post": "${widget.post.id}",
+                                        });
+                                    FlutterPhoneDirectCaller.callNumber(
+                                        "${widget.post.user.phone}");
                                   },
                                   child: Text(
                                     'ПОЗВОНИТЬ'.toUpperCase(),
