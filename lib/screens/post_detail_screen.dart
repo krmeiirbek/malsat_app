@@ -3,9 +3,12 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:malsat_app/bloc/auth_bloc/auth.dart';
 import 'package:malsat_app/constants/custom_icons.dart';
+import 'package:malsat_app/constants/social_networks_icons.dart';
 import 'package:malsat_app/models/post.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DetailPost extends StatefulWidget {
   final Post post;
@@ -453,25 +456,50 @@ class _DetailPostState extends State<DetailPost> {
                                     mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Icon(
-                                        Icons.wallet_giftcard,
-                                        color: Color(0xff828282),
+                                      InkWell(
+                                        onTap: () {
+                                          launch("https://www.facebook.com");
+                                        },
+                                        child: Icon(
+                                        SocialNetworks.facebook_official,
+                                          color: Color(0xff828282),
+                                        ),
                                       ),
-                                      Icon(
-                                        Icons.wallet_giftcard,
-                                        color: Color(0xff828282),
+                                      InkWell(
+                                        onTap: () {
+                                          launch("https://www.twitter.com");
+                                        },
+                                        child: Icon(
+                                          SocialNetworks.twitter,
+                                          color: Color(0xff828282),
+                                        ),
                                       ),
-                                      Icon(
-                                        Icons.wallet_giftcard,
-                                        color: Color(0xff828282),
+                                      InkWell(
+                                        onTap: () {
+                                          launch("https://www.instagram.com");
+                                        },
+                                        child: Icon(
+                                          SocialNetworks.instagram,
+                                          color: Color(0xff828282),
+                                        ),
                                       ),
-                                      Icon(
-                                        Icons.wallet_giftcard,
-                                        color: Color(0xff828282),
+                                      InkWell(
+                                        onTap: () {
+                                          launch("https://www.google.com");
+                                        },
+                                        child: Icon(
+                                          SocialNetworks.google,
+                                          color: Color(0xff828282),
+                                        ),
                                       ),
-                                      Icon(
-                                        Icons.wallet_giftcard,
-                                        color: Color(0xff828282),
+                                      InkWell(
+                                        onTap: () {
+                                          launch("https://www.telegram.com");
+                                        },
+                                        child: Icon(
+                                          SocialNetworks.telegram,
+                                          color: Color(0xff828282),
+                                        ),
                                       ),
                                     ],
                                   ),
