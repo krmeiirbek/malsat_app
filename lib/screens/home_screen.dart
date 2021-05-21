@@ -7,7 +7,7 @@ import 'package:malsat_app/components/material_button.dart';
 import 'package:malsat_app/constants/category_icons.dart';
 import 'package:malsat_app/data/data.dart';
 import 'package:malsat_app/repositories/auth_repository.dart';
-import 'package:malsat_app/repositories/post_respository.dart';
+import 'package:malsat_app/repositories/post_repository.dart';
 import 'package:malsat_app/screens/filter_by_city.dart';
 
 class HomeScreen extends StatefulWidget {

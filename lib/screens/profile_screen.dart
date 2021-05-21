@@ -6,7 +6,7 @@ import 'package:malsat_app/bloc/login_bloc/login_bloc.dart';
 import 'package:malsat_app/models/post.dart';
 import 'package:malsat_app/models/user.dart';
 import 'package:malsat_app/repositories/auth_repository.dart';
-import 'package:malsat_app/repositories/post_respository.dart';
+import 'package:malsat_app/repositories/post_repository.dart';
 import 'package:malsat_app/screens/my_posts_screen.dart';
 import 'package:malsat_app/screens/settings_screen.dart';
 

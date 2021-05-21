@@ -5,7 +5,7 @@ import 'package:malsat_app/bloc/auth_bloc/auth.dart';
 import 'package:malsat_app/components/favorite_post_card.dart';
 import 'package:malsat_app/models/city.dart';
 import 'package:malsat_app/models/post.dart';
-import 'package:malsat_app/repositories/post_respository.dart';
+import 'package:malsat_app/repositories/post_repository.dart';
 
 class PostsByCityScreen extends StatefulWidget {
   final List<Post> listPosts;

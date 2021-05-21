@@ -5,7 +5,7 @@ import 'package:malsat_app/bloc/auth_bloc/auth.dart';
 import 'package:malsat_app/bloc/login_bloc/login_bloc.dart';
 import 'package:malsat_app/components/auth_signin_or_signup_button.dart';
 import 'package:malsat_app/components/auth_switch_button.dart';
-import 'package:malsat_app/repositories/post_respository.dart';
+import 'package:malsat_app/repositories/post_repository.dart';
 import 'package:malsat_app/repositories/repositories.dart';
 
 enum WidgetMarker { login, signUp }

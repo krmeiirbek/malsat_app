@@ -5,7 +5,7 @@ import 'package:malsat_app/data/data.dart';
 import 'package:malsat_app/pages/auth.dart';
 import 'package:malsat_app/pages/home_page.dart';
 import 'package:malsat_app/repositories/bookmark_repository.dart';
-import 'package:malsat_app/repositories/post_respository.dart';
+import 'package:malsat_app/repositories/post_repository.dart';
 import 'package:malsat_app/repositories/repositories.dart';
 
 void main() {

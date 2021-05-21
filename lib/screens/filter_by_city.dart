@@ -4,7 +4,7 @@ import 'package:malsat_app/bloc/auth_bloc/auth.dart';
 import 'package:malsat_app/components/search_category_conpanent.dart';
 import 'package:malsat_app/components/search_post_by_city.dart';
 import 'package:malsat_app/repositories/auth_repository.dart';
-import 'package:malsat_app/repositories/post_respository.dart';
+import 'package:malsat_app/repositories/post_repository.dart';
 import 'package:malsat_app/screens/posts_by_city_screen.dart';
 
 class FilterByCity extends StatefulWidget {

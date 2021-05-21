@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:malsat_app/models/user.dart';
 import 'package:malsat_app/repositories/auth_repository.dart';
-import 'package:malsat_app/repositories/post_respository.dart';
+import 'package:malsat_app/repositories/post_repository.dart';
 import 'package:malsat_app/screens/create_post_screen.dart';
 import 'package:malsat_app/constants/custom_icons.dart';
 import 'package:malsat_app/screens/favorites_screen.dart';
