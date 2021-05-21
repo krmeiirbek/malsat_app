@@ -55,6 +55,19 @@ class PostRepository {
     }
   }
 
+  Future<List<Post>> getAllPostsWithCategory(int categoriesId) async {
+    final response = await http.get(
+      Uri.parse(getAllPostsWithKeyWordUrl + '?categories=$categoriesId'),
+    );
+    if (response.statusCode == 200) {
+      final List<dynamic> postsJson =
+      json.decode(utf8.decode(response.bodyBytes));
+      return postsJson.map((json) => Post.fromJson(json)).toList();
+    } else {
+      return [];
+    }
+  }
+
   Future<List<Post>> getMyPosts() async {
     final response = await http.get(
       Uri.parse(getMyActivePostsUrl),

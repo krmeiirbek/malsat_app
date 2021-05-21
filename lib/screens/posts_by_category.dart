@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:malsat_app/components/home_post_card.dart';
-import 'package:malsat_app/pages/home_page.dart';
 
 class PostByCategory extends StatelessWidget {
   @override
@@ -76,36 +74,6 @@ class PostByCategory extends StatelessWidget {
                         mainAxisSpacing: 10,
                         crossAxisCount: 2,
                         children: <Widget>[
-                          // HomePostCard(
-                          //   image: 'assets/images/card.png',
-                          //   title: 'Продам быка',
-                          //   date: '23.04.2021',
-                          //   price: '200000 тг',
-                          // ),
-                          // HomePostCard(
-                          //   image: 'assets/images/card.png',
-                          //   title: 'Продам быка',
-                          //   date: '23.04.2021',
-                          //   price: '200000 тг',
-                          // ),
-                          // HomePostCard(
-                          //   image: 'assets/images/card.png',
-                          //   title: 'Продам быка',
-                          //   date: '23.04.2021',
-                          //   price: '200000 тг',
-                          // ),
-                          // HomePostCard(
-                          //   image: 'assets/images/card.png',
-                          //   title: 'Продам быка',
-                          //   date: '23.04.2021',
-                          //   price: '200000 тг',
-                          // ),
-                          // HomePostCard(
-                          //   image: 'assets/images/card.png',
-                          //   title: 'Продам быка',
-                          //   date: '23.04.2021',
-                          //   price: '200000 тг',
-                          // ),
                         ],
                       ),
                     ),
