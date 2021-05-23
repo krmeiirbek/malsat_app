@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:malsat_app/data/data.dart';
 import 'package:malsat_app/models/post.dart';
@@ -61,7 +62,7 @@ class PostRepository {
     );
     if (response.statusCode == 200) {
       final List<dynamic> postsJson =
-      json.decode(utf8.decode(response.bodyBytes));
+          json.decode(utf8.decode(response.bodyBytes));
       return postsJson.map((json) => Post.fromJson(json)).toList();
     } else {
       return [];
@@ -100,17 +101,42 @@ class PostRepository {
     }
   }
 
-  Future<String> createPost(String title, String description, int price,
-      bool exchange, bool auction, bool delivery) async {
-    final response = await http.post(Uri.parse(createPostUrl));
-    // if (response.statusCode == 200) {
-    //   final List<dynamic> postsJson =
-    //   json.decode(utf8.decode(response.bodyBytes));
-    //   print(postsJson);
-    //   return postsJson.map((json) => Post.fromJson(json)).toList();
-    // } else {
-    //   return [];
-    // }
+  Future<bool> addPost({
+    @required String title,
+    @required String description,
+    @required String price,
+    @required String exchange,
+    @required String auction,
+    @required String delivery,
+    @required String categoriesId,
+    @required String citiesId,
+    String units = "1",
+    String numOfItem = "1",
+  }) async {
+    final response = await http.post(
+      Uri.parse(createPostUrl),
+      headers: {
+        'Authorization': 'Bearer $ACCESS_TOKEN',
+      },
+      body: {
+        "title": title,
+        "categories": categoriesId,
+        "cities": citiesId,
+        "description": description,
+        "price": price,
+        "exchange":exchange,
+        "auction":auction,
+        "delivery":delivery,
+        "units": units,
+        "numOfItem": numOfItem,
+      },
+    );
+    if(response.statusCode == 201){
+      print("post added");
+      print(json.decode(response.body)["id"]);
+      return true;
+    }
+    return false;
   }
 
   Future<List<Post>> getMyHiddenPosts() async {

@@ -2,15 +2,16 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:malsat_app/bloc/login_bloc/login_bloc.dart';
+import 'package:malsat_app/repositories/post_repository.dart';
 
 class CreatePostScreen extends StatefulWidget {
   final List<dynamic> listCities;
   final List<dynamic> listCategories;
+  final PostRepository postRepository;
 
-  const CreatePostScreen({Key key, this.listCities, this.listCategories})
+  const CreatePostScreen(
+      {Key key, this.listCities, this.listCategories, this.postRepository})
       : super(key: key);
 
   @override
@@ -143,23 +144,18 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                       ),
                     ),
                     SizedBox(height: 10),
-
                     Container(
                       height: 50,
-                      child: DropdownButton(
+                      child: DropdownButtonFormField(
                         hint: Text('Выберите категория'),
                         isExpanded: true,
-                        // value: selectedCategoryName,
                         icon: Icon(
                           Icons.arrow_forward_ios,
                           color: Color(0xffA8A8A8),
                           size: 15,
                         ),
                         onChanged: (newValue) {
-                          setState(() {
-                            // selectedCategoryName = newValue.name;
                             selectedCategoryId = newValue.id;
-                          });
                         },
                         items: widget.listCategories
                             .map(
@@ -452,19 +448,40 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                           style: ElevatedButton.styleFrom(
                               primary: Color(0xff00BF97),
                               minimumSize: Size(double.infinity, 45)),
-                          onPressed: () {
-                            // BlocProvider.of<LoginBloc>(context).add(
-                            //   CreatePostButtonPressed(
-                            //     title: _titleController.text,
-                            //     description: _descriptionController.text,
-                            //     price: _priceController.text.,
-                            //     exchange: exchange,
-                            //     auction: auction,
-                            //     delivery: delivery,
-                            //   ),
-                            // );
-                            print(" \ncategory: "+selectedCityId.toString());
-                            // print("title: "+_titleController.text+" \ncategory: "+dropValue+" \ndescription: "+_descriptionController.text+ " \nprice: "+_priceController.text+" \ndogovor: "+ isSwitched1.toString() + " \nobmen: "+ isSwitched2.toString() + " \ndostavka: "+ isSwitched3.toString() + " \nimages: "+_imageFiles.toString()+" \nadres: "+dropValue2);
+                          onPressed: () async {
+                            bool added = await widget.postRepository.addPost(
+                              citiesId: '$selectedCityId',
+                              description: '${_descriptionController.text}',
+                              categoriesId: '$selectedCategoryId',
+                              price: '${_priceController.text}',
+                              title: '${_titleController.text}',
+                              auction: auction ? 'True' : 'False',
+                              delivery: delivery ? 'True' : 'False',
+                              exchange: exchange ? 'True' : 'False',
+                            );
+                            if(added){
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text('Post Added'),
+                                  backgroundColor: Colors.green,
+                                ),
+                              );
+                              setState(() {
+                                _titleController.text = "";
+                                _priceController.text = "";
+                                _descriptionController.text = "";
+                                selectedCity = null;
+                                selectedCategoryName = null;
+                              });
+                            }
+                            else{
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text('Error'),
+                                  backgroundColor: Colors.red,
+                                ),
+                              );
+                            }
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,

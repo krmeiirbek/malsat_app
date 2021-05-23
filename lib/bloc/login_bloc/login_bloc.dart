@@ -64,22 +64,5 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         yield ChangePasswordFailure(error: e.toString());
       }
     }
-    if (event is CreatePostButtonPressed) {
-      yield LoginLoading();
-      try {
-        final success = await postRepository.createPost(
-            event.title,
-            event.description,
-            event.price,
-            event.exchange,
-            event.auction,
-            event.delivery
-            );
-        yield CreatePostButtonSuccess(success: success);
-        yield LoginInitial();
-      } catch (e) {
-        yield CreatePostFailure(error: e.toString());
-      }
-    }
   }
 }

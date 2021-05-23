@@ -66,6 +66,7 @@ class _HomePageState extends State<HomePage> {
       CreatePostScreen(
         listCities: widget.listCities,
         listCategories: widget.listCategories,
+        postRepository: widget.postRepository,
       ),
       FavoritesScreen(
         listBookmarks: widget.listBookmarks,
