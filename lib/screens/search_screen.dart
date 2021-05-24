@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:malsat_app/components/search_category_conpanent.dart';
+import 'package:malsat_app/models/category.dart';
+import 'package:malsat_app/models/city.dart';
 import 'package:malsat_app/models/user.dart';
 import 'package:malsat_app/repositories/comment_repository.dart';
 import 'package:malsat_app/repositories/post_repository.dart';
@@ -11,6 +13,8 @@ class SearchScreen extends StatefulWidget {
   final User currentUser;
   final CommentRepository commentRepository;
   final AuthRepository authRepository;
+  final List<City> listCities;
+  final List<Category> listCategories1;
 
   const SearchScreen({
     Key key,
@@ -19,6 +23,8 @@ class SearchScreen extends StatefulWidget {
     this.currentUser,
     this.commentRepository,
     this.authRepository,
+    @required this.listCities,
+    @required this.listCategories1,
   }) : super(key: key);
 
   @override
@@ -105,6 +111,8 @@ class _SearchScreenState extends State<SearchScreen> {
                           postRepository: widget.postRepository,
                           commentRepository: widget.commentRepository,
                           currentUser: widget.currentUser,
+                          listCategories: widget.listCategories1,
+                          listCities: widget.listCities,
                         ),
                       ),
                     ),

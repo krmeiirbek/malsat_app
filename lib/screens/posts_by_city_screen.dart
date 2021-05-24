@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:malsat_app/bloc/auth_bloc/auth.dart';
 import 'package:malsat_app/components/favorite_post_card.dart';
+import 'package:malsat_app/models/category.dart';
 import 'package:malsat_app/models/city.dart';
 import 'package:malsat_app/models/post.dart';
 import 'package:malsat_app/models/user.dart';
@@ -17,6 +18,8 @@ class PostsByCityScreen extends StatefulWidget {
   final User currentUser;
   final CommentRepository commentRepository;
   final AuthRepository authRepository;
+  final List<City> listCities;
+  final List<Category> listCategories;
 
   const PostsByCityScreen({
     Key key,
@@ -26,6 +29,8 @@ class PostsByCityScreen extends StatefulWidget {
     this.currentUser,
     this.commentRepository,
     this.authRepository,
+    @required this.listCities,
+    @required this.listCategories,
   }) : super(key: key);
 
   @override
@@ -135,6 +140,11 @@ class _PostsByCityScreenState extends State<PostsByCityScreen> {
                                                 widget.commentRepository,
                                             currentUser: widget.currentUser,
                                             post: listPosts1[index],
+                                            postRepository:
+                                                widget.postRepository,
+                                            listCategories:
+                                                widget.listCategories,
+                                            listCities: widget.listCities,
                                           ),
                                         )
                                       : SizedBox(),

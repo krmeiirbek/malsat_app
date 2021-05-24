@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:malsat_app/components/favorite_post_card.dart';
+import 'package:malsat_app/models/category.dart';
+import 'package:malsat_app/models/city.dart';
 import 'package:malsat_app/models/user.dart';
 import 'package:malsat_app/repositories/comment_repository.dart';
+import 'package:malsat_app/repositories/post_repository.dart';
 import 'package:malsat_app/repositories/repositories.dart';
 
 class FavoritesScreen extends StatefulWidget {
@@ -9,6 +12,9 @@ class FavoritesScreen extends StatefulWidget {
   final User currentUser;
   final CommentRepository commentRepository;
   final AuthRepository authRepository;
+  final List<City> listCities;
+  final List<Category> listCategories;
+  final PostRepository postRepository;
 
   const FavoritesScreen({
     Key key,
@@ -16,6 +22,9 @@ class FavoritesScreen extends StatefulWidget {
     this.currentUser,
     this.commentRepository,
     this.authRepository,
+    @required this.listCities,
+    @required this.listCategories,
+    @required this.postRepository,
   }) : super(key: key);
 
   @override
@@ -129,6 +138,9 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                                   post: widget.listBookmarks[index].post,
                                   commentRepository: widget.commentRepository,
                                   currentUser: widget.currentUser,
+                                  postRepository: widget.postRepository,
+                                  listCategories: widget.listCategories,
+                                  listCities: widget.listCities,
                                 ),
                               )
                             : Center(

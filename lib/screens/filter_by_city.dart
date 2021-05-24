@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:malsat_app/bloc/auth_bloc/auth.dart';
 import 'package:malsat_app/components/search_post_by_city.dart';
+import 'package:malsat_app/models/category.dart';
+import 'package:malsat_app/models/city.dart';
 import 'package:malsat_app/models/user.dart';
 import 'package:malsat_app/repositories/auth_repository.dart';
 import 'package:malsat_app/repositories/comment_repository.dart';
@@ -15,6 +17,8 @@ class FilterByCity extends StatefulWidget {
   final CommentRepository commentRepository;
   final User currentUser;
   final AuthRepository authRepository;
+  final List<City> listCities1;
+  final List<Category> listCategories;
 
   const FilterByCity({
     Key key,
@@ -24,6 +28,8 @@ class FilterByCity extends StatefulWidget {
     this.commentRepository,
     this.currentUser,
     this.authRepository,
+    @required this.listCities1,
+    @required this.listCategories,
   }) : super(key: key);
 
   @override
@@ -120,6 +126,8 @@ class _FilterByCityState extends State<FilterByCity> {
                                           postRepository: widget.postRepository,
                                           listPosts: widget.listPostsByCity,
                                           city: widget.listCities[index],
+                                          listCategories: widget.listCategories,
+                                          listCities: widget.listCities1,
                                         ),
                                       ),
                                     );

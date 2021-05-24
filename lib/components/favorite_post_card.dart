@@ -3,10 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:malsat_app/bloc/auth_bloc/auth.dart';
 import 'package:malsat_app/constants/custom_icons.dart';
+import 'package:malsat_app/models/category.dart';
+import 'package:malsat_app/models/city.dart';
 import 'package:malsat_app/models/post.dart';
 import 'package:malsat_app/models/user.dart';
 import 'package:malsat_app/repositories/comment_repository.dart';
+import 'package:malsat_app/repositories/post_repository.dart';
 import 'package:malsat_app/repositories/repositories.dart';
+import 'package:malsat_app/screens/change_post_screen.dart';
 import 'package:malsat_app/screens/post_detail_screen.dart';
 
 class FavoritePostCard extends StatefulWidget {
@@ -14,6 +18,10 @@ class FavoritePostCard extends StatefulWidget {
   final User currentUser;
   final CommentRepository commentRepository;
   final AuthRepository authRepository;
+  final bool isMyPost;
+  final List<City> listCities;
+  final List<Category> listCategories;
+  final PostRepository postRepository;
 
   const FavoritePostCard({
     Key key,
@@ -21,6 +29,10 @@ class FavoritePostCard extends StatefulWidget {
     this.currentUser,
     this.commentRepository,
     this.authRepository,
+    this.isMyPost = false,
+    @required this.listCities,
+    @required this.listCategories,
+    @required this.postRepository,
   }) : super(key: key);
 
   @override
@@ -86,62 +98,85 @@ class _FavoritePostCardState extends State<FavoritePostCard> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Text(
-                              widget.post.title,
-                              style: TextStyle(
-                                color: Color(0xFFEA5E3C),
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
-                              ),
-                              textAlign: TextAlign.left,
-                            ),
-                            SizedBox(
-                              width: 30,
-                            ),
-                            InkWell(
-                              child: Icon(
-                                Custom.heart_empty,
-                                size: 16,
-                                color: !inFavorite
-                                    ? Color.fromRGBO(74, 86, 74, 0.4)
-                                    : Colors.red,
-                              ),
-                              onTap: () {
-                                setState(() {
-                                  inFavorite = !inFavorite;
-                                  BlocProvider.of<AuthenticationBloc>(context)
-                                      .add(UpdateBookMarks(
-                                          postId: widget.post.id,
-                                          inBookmarks: false,
-                                          openScreen: 3));
-                                });
-                              },
-                            ),
-                          ],
-                        ),
                         Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              widget.post.date.toString(),
-                              textAlign: TextAlign.left,
-                              style: TextStyle(
-                                  color: Color(0xFFB5B5B5), fontSize: 12),
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Text(
+                                  widget.post.title,
+                                  style: TextStyle(
+                                    color: Color(0xFFEA5E3C),
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                  textAlign: TextAlign.left,
+                                ),
+                                SizedBox(
+                                  width: 30,
+                                ),
+                                InkWell(
+                                  child: Icon(
+                                    Custom.heart_empty,
+                                    size: 16,
+                                    color: !inFavorite
+                                        ? Color.fromRGBO(74, 86, 74, 0.4)
+                                        : Colors.red,
+                                  ),
+                                  onTap: () {
+                                    setState(() {
+                                      inFavorite = !inFavorite;
+                                      BlocProvider.of<AuthenticationBloc>(
+                                              context)
+                                          .add(UpdateBookMarks(
+                                              postId: widget.post.id,
+                                              inBookmarks: false,
+                                              openScreen: 3));
+                                    });
+                                  },
+                                ),
+                              ],
                             ),
-                            Text(
-                              widget.post.price.toString(),
-                              textAlign: TextAlign.left,
-                              style: TextStyle(
-                                color: Color(0xFF6C6C6C),
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text(
+                                  widget.post.date.toString(),
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                      color: Color(0xFFB5B5B5), fontSize: 12),
+                                ),
+                                Text(
+                                  widget.post.price.toString(),
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                    color: Color(0xFF6C6C6C),
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
                             ),
                           ],
                         ),
+                        SizedBox(height: 20),
+                        if (widget.isMyPost)
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ChangePostScreen(
+                                    listCities: widget.listCities,
+                                    listCategories: widget.listCategories,
+                                    postRepository: widget.postRepository,
+                                    post: widget.post,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: Text('Редактирования'),
+                          ),
                       ],
                     ),
                   )

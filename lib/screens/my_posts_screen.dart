@@ -1,16 +1,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:malsat_app/components/favorite_post_card.dart';
+import 'package:malsat_app/models/category.dart';
+import 'package:malsat_app/models/city.dart';
 import 'package:malsat_app/models/post.dart';
 import 'package:malsat_app/models/user.dart';
 import 'package:malsat_app/repositories/auth_repository.dart';
 import 'package:malsat_app/repositories/comment_repository.dart';
+import 'package:malsat_app/repositories/post_repository.dart';
 
 class MyPostsScreen extends StatelessWidget {
   final List<Post> listPosts;
   final User currentUser;
   final CommentRepository commentRepository;
   final AuthRepository authRepository;
+  final bool isMyPost;
+  final List<City> listCities;
+  final List<Category> listCategories;
+  final PostRepository postRepository;
 
   const MyPostsScreen({
     Key key,
@@ -18,6 +25,10 @@ class MyPostsScreen extends StatelessWidget {
     @required this.currentUser,
     @required this.commentRepository,
     this.authRepository,
+    this.isMyPost = false,
+    @required this.listCities,
+    @required this.listCategories,
+    @required this.postRepository,
   }) : super(key: key);
 
   @override
@@ -92,10 +103,14 @@ class MyPostsScreen extends StatelessWidget {
                         child: ListView.builder(
                           itemCount: listPosts.length,
                           itemBuilder: (context, index) => FavoritePostCard(
+                            isMyPost: isMyPost,
                             authRepository: authRepository,
                             commentRepository: commentRepository,
                             currentUser: currentUser,
                             post: listPosts[index],
+                            postRepository: postRepository,
+                            listCategories: listCategories,
+                            listCities: listCities,
                           ),
                         ),
                       ),

@@ -139,6 +139,39 @@ class PostRepository {
     return false;
   }
 
+  Future<bool> updatePost({
+    @required String postId,
+    @required String title,
+    @required String description,
+    @required String price,
+    @required String exchange,
+    @required String auction,
+    @required String delivery,
+    @required String categoriesId,
+    @required String citiesId,
+  }) async {
+    final response = await http.put(
+      Uri.parse(createPostUrl+postId+'/'),
+      body: {
+        "title": title,
+        "categories": categoriesId,
+        "cities": citiesId,
+        "description": description,
+        "price": price,
+        "exchange":exchange,
+        "auction":auction,
+        "delivery":delivery
+      },
+    );
+    print(response.statusCode);
+    if(response.statusCode == 200){
+      print("post added");
+      print(json.decode(response.body)["id"]);
+      return true;
+    }
+    return false;
+  }
+
   Future<List<Post>> getMyHiddenPosts() async {
     final response = await http.get(
       Uri.parse(getMyHiddenPostsUrl),

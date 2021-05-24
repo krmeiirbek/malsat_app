@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:malsat_app/models/category.dart';
+import 'package:malsat_app/models/city.dart';
 import 'package:malsat_app/models/user.dart';
 import 'package:malsat_app/repositories/comment_repository.dart';
 import 'package:malsat_app/repositories/post_repository.dart';
@@ -13,6 +14,8 @@ class SearchCategoryCompanent extends StatelessWidget {
   final CommentRepository commentRepository;
   final User currentUser;
   final AuthRepository authRepository;
+  final List<City> listCities;
+  final List<Category> listCategories;
 
   const SearchCategoryCompanent({
     Key key,
@@ -22,6 +25,8 @@ class SearchCategoryCompanent extends StatelessWidget {
     this.commentRepository,
     this.currentUser,
     this.authRepository,
+    @required this.listCities,
+    @required this.listCategories,
   }) : super(key: key);
 
   @override
@@ -50,6 +55,8 @@ class SearchCategoryCompanent extends StatelessWidget {
                       commentRepository: commentRepository,
                       authRepository: authRepository,
                       currentUser: currentUser,
+                      listCategories: listCategories,
+                      listCities: listCities,
                     ),
                   ),
                 );

@@ -65,6 +65,8 @@ class _HomePageState extends State<HomePage> {
         listPostsByCity: widget.listPostsByCity,
         commentRepository: widget.commentRepository,
         currentUser: widget.currentUser,
+        listCategories: widget.listCategories,
+        listCities1: widget.listCities,
       ),
       SearchScreen(
         listCategories: widget.listCategories,
@@ -72,6 +74,8 @@ class _HomePageState extends State<HomePage> {
         commentRepository: widget.commentRepository,
         currentUser: widget.currentUser,
         authRepository: widget.authRepository,
+        listCities: widget.listCities,
+        listCategories1: widget.listCategories,
       ),
       CreatePostScreen(
         listCities: widget.listCities,
@@ -83,6 +87,9 @@ class _HomePageState extends State<HomePage> {
         commentRepository: widget.commentRepository,
         currentUser: widget.currentUser,
         authRepository: widget.authRepository,
+        listCategories: widget.listCategories,
+        listCities: widget.listCities,
+        postRepository: widget.postRepository,
       ),
       ProfileScreen(
         currentUser: widget.currentUser,
@@ -92,6 +99,8 @@ class _HomePageState extends State<HomePage> {
         checkingPosts: widget.listMyCheckingPosts,
         postRepository: widget.postRepository,
         commentRepository: widget.commentRepository,
+        listCategories: widget.listCategories,
+        listCities: widget.listCities,
       ),
     ];
     super.initState();

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:malsat_app/bloc/auth_bloc/auth.dart';
 import 'package:malsat_app/bloc/login_bloc/login_bloc.dart';
+import 'package:malsat_app/models/category.dart';
+import 'package:malsat_app/models/city.dart';
 import 'package:malsat_app/models/post.dart';
 import 'package:malsat_app/models/user.dart';
 import 'package:malsat_app/repositories/auth_repository.dart';
@@ -19,7 +21,8 @@ class ProfileScreen extends StatefulWidget {
   final List<Post> checkingPosts;
   final User currentUser;
   final CommentRepository commentRepository;
-
+  final List<City> listCities;
+  final List<Category> listCategories;
 
   const ProfileScreen({
     Key key,
@@ -30,6 +33,8 @@ class ProfileScreen extends StatefulWidget {
     this.checkingPosts,
     this.currentUser,
     this.commentRepository,
+    @required this.listCities,
+    @required this.listCategories,
   }) : super(key: key);
 
   @override
@@ -104,7 +109,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           ? AssetImage(
                                               "assets/images/nouser.png",
                                             )
-                                          : NetworkImage(widget.currentUser.image),
+                                          : NetworkImage(
+                                              widget.currentUser.image),
                                       fit: BoxFit.fill,
                                     ),
                                   ),
@@ -141,14 +147,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                            builder: (context) =>
-                                                MyPostsScreen(
-                                                  commentRepository:
+                                            builder: (context) => MyPostsScreen(
+                                              isMyPost: true,
+                                              commentRepository:
                                                   widget.commentRepository,
-                                                  currentUser:
-                                                  widget.currentUser,
-                                                  listPosts: userPosts,
-                                                ),
+                                              currentUser: widget.currentUser,
+                                              listPosts: userPosts,
+                                              listCities: widget.listCities,
+                                              listCategories:
+                                                  widget.listCategories,
+                                              postRepository:
+                                                  widget.postRepository,
+                                            ),
                                           ),
                                         );
                                       },
@@ -183,9 +193,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     MaterialPageRoute(
                                       builder: (context) => MyPostsScreen(
                                         authRepository: widget.authRepository,
-                                        commentRepository: widget.commentRepository,
+                                        commentRepository:
+                                            widget.commentRepository,
                                         currentUser: widget.currentUser,
                                         listPosts: widget.activePosts,
+                                        listCities: widget.listCities,
+                                        listCategories: widget.listCategories,
+                                        postRepository: widget.postRepository,
                                       ),
                                     ),
                                   );
@@ -217,9 +231,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     MaterialPageRoute(
                                       builder: (context) => MyPostsScreen(
                                         authRepository: widget.authRepository,
-                                        commentRepository: widget.commentRepository,
+                                        commentRepository:
+                                            widget.commentRepository,
                                         currentUser: widget.currentUser,
                                         listPosts: widget.checkingPosts,
+                                        listCities: widget.listCities,
+                                        listCategories: widget.listCategories,
+                                        postRepository: widget.postRepository,
                                       ),
                                     ),
                                   );
@@ -251,9 +269,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     MaterialPageRoute(
                                       builder: (context) => MyPostsScreen(
                                         authRepository: widget.authRepository,
-                                        commentRepository: widget.commentRepository,
+                                        commentRepository:
+                                            widget.commentRepository,
                                         currentUser: widget.currentUser,
                                         listPosts: widget.hiddenPosts,
+                                        listCities: widget.listCities,
+                                        listCategories: widget.listCategories,
+                                        postRepository: widget.postRepository,
                                       ),
                                     ),
                                   );
