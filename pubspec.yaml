@@ -38,6 +38,7 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/category/
+    - assets/icons/category/halal.svg
 
   fonts:
     - family:  Custom

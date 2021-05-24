@@ -24,6 +24,7 @@ class Post {
     this.postViews,
     this.bookmarkViews,
     this.isHidden,
+    this.halal,
   });
 
   int id;
@@ -45,10 +46,10 @@ class Post {
   List<dynamic> postViews;
   List<dynamic> bookmarkViews;
   bool isHidden;
+  String halal;
 
   factory Post.fromJson(Map<String, dynamic> json) {
     User user = User.fromJson(json['user']);
-    // City city = City.fromJson(json['cities']);
     Category category = Category.fromJson(json['categories']);
     return Post(
       id: json["id"],
@@ -72,6 +73,7 @@ class Post {
       postViews: json["post_views"],
       bookmarkViews: json["bookmark_views"],
       isHidden: json["isHidden"],
+      halal: json["halalimg"],
     );
   }
 

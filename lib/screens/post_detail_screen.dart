@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:malsat_app/bloc/auth_bloc/auth.dart';
 import 'package:malsat_app/components/comment_component.dart';
 import 'package:malsat_app/constants/custom_icons.dart';
@@ -319,6 +320,36 @@ class _DetailPostState extends State<DetailPost> {
                         ],
                       ),
                     ),
+                    if (widget.post.halal != null) SizedBox(height: 50),
+                    if (widget.post.halal != null)
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Сертификат',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xff4A564A),
+                                ),
+                              ),
+                              SizedBox(height: 3),
+                              Text(
+                                'Проверено',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.normal,
+                                  color: Color(0xff87C440),
+                                ),
+                              ),
+                            ],
+                          ),
+                          SvgPicture.asset('assets/icons/category/halal.svg'),
+                        ],
+                      ),
                     SizedBox(height: 50),
                     Container(
                       padding: EdgeInsets.fromLTRB(20, 20, 20, 40),
