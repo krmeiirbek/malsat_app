@@ -5,18 +5,24 @@ import 'package:malsat_app/bloc/auth_bloc/auth.dart';
 import 'package:malsat_app/components/favorite_post_card.dart';
 import 'package:malsat_app/models/city.dart';
 import 'package:malsat_app/models/post.dart';
+import 'package:malsat_app/models/user.dart';
+import 'package:malsat_app/repositories/comment_repository.dart';
 import 'package:malsat_app/repositories/post_repository.dart';
 
 class PostsByCityScreen extends StatefulWidget {
   final List<Post> listPosts;
   final City city;
   final PostRepository postRepository;
+  final User currentUser;
+  final CommentRepository commentRepository;
 
   const PostsByCityScreen({
     Key key,
     @required this.listPosts,
     this.city,
     this.postRepository,
+    this.currentUser,
+    this.commentRepository,
   }) : super(key: key);
 
   @override
@@ -120,6 +126,9 @@ class _PostsByCityScreenState extends State<PostsByCityScreen> {
                                           itemCount: listPosts1.length,
                                           itemBuilder: (context, index) =>
                                               FavoritePostCard(
+                                            commentRepository:
+                                                widget.commentRepository,
+                                            currentUser: widget.currentUser,
                                             post: listPosts1[index],
                                           ),
                                         )
@@ -140,7 +149,7 @@ class _PostsByCityScreenState extends State<PostsByCityScreen> {
 
   Future<void> getPosts() async {
     listPosts1 =
-    await widget.postRepository.getAllPostsWithCity(widget.city.id);
+        await widget.postRepository.getAllPostsWithCity(widget.city.id);
     setState(() {
       BlocProvider.of<AuthenticationBloc>(context)
           .add(GetPostsByCity(cityId: widget.city.id));
