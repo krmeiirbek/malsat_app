@@ -5,6 +5,7 @@ import 'package:malsat_app/data/data.dart';
 import 'package:malsat_app/pages/auth.dart';
 import 'package:malsat_app/pages/home_page.dart';
 import 'package:malsat_app/repositories/bookmark_repository.dart';
+import 'package:malsat_app/repositories/comment_repository.dart';
 import 'package:malsat_app/repositories/post_repository.dart';
 import 'package:malsat_app/repositories/repositories.dart';
 
@@ -14,6 +15,7 @@ void main() {
   final CategoryRepository categoryRepository = CategoryRepository();
   final PostRepository postRepository = PostRepository();
   final BookmarkRepository bookmarkRepository = BookmarkRepository();
+  final CommentRepository commentRepository = CommentRepository();
 
   runApp(
     BlocProvider(
@@ -32,6 +34,7 @@ void main() {
         categoryRepository: categoryRepository,
         postRepository: postRepository,
         bookmarkRepository: bookmarkRepository,
+        commentRepository: commentRepository,
       ),
     ),
   );
@@ -43,6 +46,7 @@ class MyApp extends StatelessWidget {
   final CategoryRepository categoryRepository;
   final PostRepository postRepository;
   final BookmarkRepository bookmarkRepository;
+  final CommentRepository commentRepository;
 
   MyApp({
     Key key,
@@ -50,7 +54,7 @@ class MyApp extends StatelessWidget {
     this.cityRepository,
     this.categoryRepository,
     this.postRepository,
-    this.bookmarkRepository,
+    this.bookmarkRepository, this.commentRepository,
   }) : super(key: key);
 
   @override
@@ -73,6 +77,7 @@ class MyApp extends StatelessWidget {
               selectedIndex: state.openScreen,
               currentUser: state.currentUser,
               listPostsByCity: state.listPostsByCity,
+              commentRepository: commentRepository,
             );
           }
           if (state is AuthenticationUnauthenticated) {

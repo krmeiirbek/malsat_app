@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:malsat_app/models/user.dart';
 import 'package:malsat_app/repositories/auth_repository.dart';
+import 'package:malsat_app/repositories/comment_repository.dart';
 import 'package:malsat_app/repositories/post_repository.dart';
 import 'package:malsat_app/screens/create_post_screen.dart';
 import 'package:malsat_app/constants/custom_icons.dart';
@@ -22,6 +23,7 @@ class HomePage extends StatefulWidget {
   final PostRepository postRepository;
   final List<dynamic> listBookmarks;
   final User currentUser;
+  final CommentRepository commentRepository;
 
   const HomePage({
     Key key,
@@ -34,7 +36,7 @@ class HomePage extends StatefulWidget {
     this.listMyCheckingPosts,
     @required this.authRepository,
     this.listBookmarks,
-    this.currentUser, this.postRepository, this.listPostsByCity,
+    this.currentUser, this.postRepository, this.listPostsByCity, this.commentRepository,
   }) : super(key: key);
 
   @override
@@ -57,7 +59,7 @@ class _HomePageState extends State<HomePage> {
         listBookmarks: widget.listBookmarks,
         listCities: widget.listCities,
         postRepository: widget.postRepository,
-        listPostsByCity: widget.listPostsByCity,
+        listPostsByCity: widget.listPostsByCity, commentRepository: widget.commentRepository,
       ),
       SearchScreen(
         listCategories: widget.listCategories,

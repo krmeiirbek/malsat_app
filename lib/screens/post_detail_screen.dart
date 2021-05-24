@@ -2,9 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:malsat_app/bloc/auth_bloc/auth.dart';
+import 'package:malsat_app/components/comment_component.dart';
 import 'package:malsat_app/constants/custom_icons.dart';
 import 'package:malsat_app/constants/social_networks_icons.dart';
+import 'package:malsat_app/models/comment.dart';
 import 'package:malsat_app/models/post.dart';
+import 'package:malsat_app/repositories/comment_repository.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:http/http.dart' as http;
@@ -12,8 +15,15 @@ import 'package:http/http.dart' as http;
 class DetailPost extends StatefulWidget {
   final Post post;
   final List<dynamic> listBookmarks;
+  final CommentRepository commentRepository;
 
-  const DetailPost({Key key, this.post, this.listBookmarks}) : super(key: key);
+  const DetailPost(
+      {Key key,
+      this.post,
+      this.listBookmarks,
+      @required this.commentRepository})
+      : assert(commentRepository != null),
+        super(key: key);
 
   @override
   _DetailPostState createState() => _DetailPostState();
@@ -21,9 +31,15 @@ class DetailPost extends StatefulWidget {
 
 class _DetailPostState extends State<DetailPost> {
   bool inFavorite = false;
+  bool _loading = false;
+  List<Comment> _listComments;
+  List<Comment> _listCommentsByPost = [];
+
+  TextEditingController _commentController = TextEditingController();
 
   @override
   void initState() {
+    getComments();
     if (widget.listBookmarks != null)
       for (int i = 0; i < widget.listBookmarks.length; i++) {
         if (widget.listBookmarks[i].post.id == widget.post.id) {
@@ -32,6 +48,12 @@ class _DetailPostState extends State<DetailPost> {
         }
       }
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _commentController.dispose();
+    super.dispose();
   }
 
   @override
@@ -411,13 +433,150 @@ class _DetailPostState extends State<DetailPost> {
                     Container(
                       padding: EdgeInsets.symmetric(horizontal: 20),
                       alignment: Alignment.centerLeft,
-                      child: Text(
-                        'Этот автор пока не получил ни одного отзыва.\nСтаньте первым, кто оценит его!',
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.normal,
-                          color: Color(0xff4A564A).withOpacity(0.7),
-                          height: 1.5,
+                      child: ListTile(
+                        title: Text(
+                          'Комментарии',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                            color: Color(0xff4A564A),
+                          ),
+                        ),
+                        subtitle: Container(
+                          child: Column(
+                            children: [
+                              SizedBox(height: 25),
+                              Container(
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Icon(
+                                          Icons.mode_comment_outlined,
+                                          color: Color(0xffC8C8C8),
+                                        ),
+                                        SizedBox(width: 8),
+                                        Text(
+                                          "Опубликовать комментарий",
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            color: Color(0xff828282),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(height: 10),
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          flex: 2,
+                                          child: Container(
+                                            height: 40,
+                                            color: Color(0xffD9D9D9)
+                                                .withOpacity(0.48),
+                                            child: TextField(
+                                              controller: _commentController,
+                                              decoration: InputDecoration(
+                                                border: OutlineInputBorder(),
+                                                hintText:
+                                                    "Добавить коммента.....",
+                                                hintStyle: TextStyle(
+                                                  color: Color(0xffA4A4A4),
+                                                  fontSize: 14,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: InkWell(
+                                            onTap: () {
+                                              if (_commentController.text
+                                                      .trim() !=
+                                                  "") {
+                                                setState(() {
+                                                  _listCommentsByPost.clear();
+                                                  addComment(
+                                                      _commentController.text);
+                                                });
+                                                _commentController.clear();
+                                              }
+                                            },
+                                            child: Container(
+                                              height: 40,
+                                              color: Color(0xff00BF97)
+                                                  .withOpacity(0.5),
+                                              child: Center(
+                                                child: Text(
+                                                  'Отправить',
+                                                  style: TextStyle(
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.white,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(height: 25),
+                              Container(
+                                child: _loading
+                                    ? Container(
+                                        child: Center(
+                                          child: CircularProgressIndicator(),
+                                        ),
+                                        height: 40,
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                      )
+                                    : Container(
+                                        child: (_listComments.length != null) &&
+                                                (_listCommentsByPost?.length !=
+                                                    0)
+                                            ? Container(
+                                                height: 170,
+                                                child: ListView.builder(
+                                                  itemBuilder:
+                                                      (context, index) =>
+                                                          CommentComponent(
+                                                    comment:
+                                                        _listCommentsByPost[index],
+                                                  ),
+                                                  itemCount: _listComments
+                                                      .where((element) =>
+                                                          element.postId ==
+                                                          widget.post.id)
+                                                      .length,
+                                                ),
+                                              )
+                                            : Container(
+                                                padding: EdgeInsets.symmetric(
+                                                    horizontal: 20),
+                                                alignment: Alignment.centerLeft,
+                                                child: Text(
+                                                  'Этот автор пока не получил ни одного отзыва.\nСтаньте первым, кто оценит его!',
+                                                  style: TextStyle(
+                                                    fontSize: 12,
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                    color: Color(0xff4A564A)
+                                                        .withOpacity(0.7),
+                                                    height: 1.5,
+                                                  ),
+                                                ),
+                                              ),
+                                      ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -579,5 +738,47 @@ class _DetailPostState extends State<DetailPost> {
         },
       ),
     );
+  }
+
+  Future<void> getComments() async {
+    setState(() {
+      _loading = true;
+    });
+    _listComments = await widget.commentRepository?.getComment1();
+    setState(() {
+      _loading = false;
+    });
+    for (int i = 0; i < _listComments.length; i++) {
+      if (_listComments[i].postId == widget.post.id) {
+        _listCommentsByPost.add(new Comment(
+          id: _listComments[i].id,
+          comment: _listComments[i].comment,
+          user: _listComments[i].user,
+          postId: _listComments[i].postId,
+        ));
+      }
+    }
+  }
+
+  Future<void> addComment(String comment) async {
+    await widget.commentRepository
+        .addComment(comment, widget.post.id.toString());
+    setState(() {
+      _loading = true;
+    });
+    _listComments = await widget.commentRepository?.getComment1();
+    setState(() {
+      _loading = false;
+    });
+    for (int i = 0; i < _listComments.length; i++) {
+      if (_listComments[i].postId == widget.post.id) {
+        _listCommentsByPost.add(new Comment(
+          id: _listComments[i].id,
+          comment: _listComments[i].comment,
+          user: _listComments[i].user,
+          postId: _listComments[i].postId,
+        ));
+      }
+    }
   }
 }
