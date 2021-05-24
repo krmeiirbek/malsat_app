@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:malsat_app/bloc/auth_bloc/auth.dart';
-import 'package:malsat_app/components/search_category_conpanent.dart';
 import 'package:malsat_app/components/search_post_by_city.dart';
 import 'package:malsat_app/models/user.dart';
 import 'package:malsat_app/repositories/auth_repository.dart';
@@ -15,6 +14,7 @@ class FilterByCity extends StatefulWidget {
   final PostRepository postRepository;
   final CommentRepository commentRepository;
   final User currentUser;
+  final AuthRepository authRepository;
 
   const FilterByCity({
     Key key,
@@ -23,6 +23,7 @@ class FilterByCity extends StatefulWidget {
     this.listPostsByCity,
     this.commentRepository,
     this.currentUser,
+    this.authRepository,
   }) : super(key: key);
 
   @override
@@ -112,6 +113,7 @@ class _FilterByCityState extends State<FilterByCity> {
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) => PostsByCityScreen(
+                                          authRepository: widget.authRepository,
                                           commentRepository:
                                               widget.commentRepository,
                                           currentUser: widget.currentUser,

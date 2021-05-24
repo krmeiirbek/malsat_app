@@ -2,17 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:malsat_app/components/favorite_post_card.dart';
 import 'package:malsat_app/models/user.dart';
 import 'package:malsat_app/repositories/comment_repository.dart';
+import 'package:malsat_app/repositories/repositories.dart';
 
 class FavoritesScreen extends StatefulWidget {
   final List<dynamic> listBookmarks;
   final User currentUser;
   final CommentRepository commentRepository;
+  final AuthRepository authRepository;
 
   const FavoritesScreen({
     Key key,
     this.listBookmarks,
     this.currentUser,
     this.commentRepository,
+    this.authRepository,
   }) : super(key: key);
 
   @override
@@ -122,6 +125,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                                 itemCount: widget.listBookmarks.length,
                                 itemBuilder: (context, index) =>
                                     FavoritePostCard(
+                                  authRepository: widget.authRepository,
                                   post: widget.listBookmarks[index].post,
                                   commentRepository: widget.commentRepository,
                                   currentUser: widget.currentUser,

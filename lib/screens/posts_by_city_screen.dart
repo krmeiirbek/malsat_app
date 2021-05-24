@@ -8,6 +8,7 @@ import 'package:malsat_app/models/post.dart';
 import 'package:malsat_app/models/user.dart';
 import 'package:malsat_app/repositories/comment_repository.dart';
 import 'package:malsat_app/repositories/post_repository.dart';
+import 'package:malsat_app/repositories/repositories.dart';
 
 class PostsByCityScreen extends StatefulWidget {
   final List<Post> listPosts;
@@ -15,6 +16,7 @@ class PostsByCityScreen extends StatefulWidget {
   final PostRepository postRepository;
   final User currentUser;
   final CommentRepository commentRepository;
+  final AuthRepository authRepository;
 
   const PostsByCityScreen({
     Key key,
@@ -23,6 +25,7 @@ class PostsByCityScreen extends StatefulWidget {
     this.postRepository,
     this.currentUser,
     this.commentRepository,
+    this.authRepository,
   }) : super(key: key);
 
   @override
@@ -126,6 +129,8 @@ class _PostsByCityScreenState extends State<PostsByCityScreen> {
                                           itemCount: listPosts1.length,
                                           itemBuilder: (context, index) =>
                                               FavoritePostCard(
+                                            authRepository:
+                                                widget.authRepository,
                                             commentRepository:
                                                 widget.commentRepository,
                                             currentUser: widget.currentUser,

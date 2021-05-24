@@ -3,20 +3,23 @@ import 'package:malsat_app/components/search_category_conpanent.dart';
 import 'package:malsat_app/models/user.dart';
 import 'package:malsat_app/repositories/comment_repository.dart';
 import 'package:malsat_app/repositories/post_repository.dart';
+import 'package:malsat_app/repositories/repositories.dart';
 
 class SearchScreen extends StatefulWidget {
   final List<dynamic> listCategories;
   final PostRepository postRepository;
   final User currentUser;
   final CommentRepository commentRepository;
+  final AuthRepository authRepository;
 
-  const SearchScreen(
-      {Key key,
-      this.listCategories,
-      this.postRepository,
-      this.currentUser,
-      this.commentRepository})
-      : super(key: key);
+  const SearchScreen({
+    Key key,
+    this.listCategories,
+    this.postRepository,
+    this.currentUser,
+    this.commentRepository,
+    this.authRepository,
+  }) : super(key: key);
 
   @override
   _SearchScreenState createState() => _SearchScreenState();
@@ -96,6 +99,7 @@ class _SearchScreenState extends State<SearchScreen> {
                         itemCount: widget.listCategories.length,
                         itemBuilder: (context, index) =>
                             SearchCategoryCompanent(
+                          authRepository: widget.authRepository,
                           press: () {},
                           category: widget.listCategories[index],
                           postRepository: widget.postRepository,

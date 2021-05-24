@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:malsat_app/data/data.dart';
+import 'package:malsat_app/models/post.dart';
 import 'package:malsat_app/models/user.dart';
 
 class AuthRepository {
@@ -103,12 +104,24 @@ class AuthRepository {
     }
   }
 
-  Future<User> getUserDetails() async{
+  Future<User> getUserDetails() async {
     int id = await currentlyUser();
     final response = await http.get(Uri.parse(getUserDetailsUrl + '$id'));
-    if(response.statusCode == 200){
+    if (response.statusCode == 200) {
       return User.fromJson(json.decode(utf8.decode(response.bodyBytes)));
-    }else{
+    } else {
+      return null;
+    }
+  }
+
+  Future<List<Post>> getPostsByUser(String userId) async {
+    final response = await http
+        .get(Uri.parse('http://api.malsat.kz/api/someones/posts/' + '$userId'));
+    if (response.statusCode == 200) {
+      final List<dynamic> postsJson =
+          json.decode(utf8.decode(response.bodyBytes));
+      return postsJson.map((json) => Post.fromJson(json)).toList();
+    } else {
       return null;
     }
   }

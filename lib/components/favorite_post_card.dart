@@ -6,18 +6,21 @@ import 'package:malsat_app/constants/custom_icons.dart';
 import 'package:malsat_app/models/post.dart';
 import 'package:malsat_app/models/user.dart';
 import 'package:malsat_app/repositories/comment_repository.dart';
+import 'package:malsat_app/repositories/repositories.dart';
 import 'package:malsat_app/screens/post_detail_screen.dart';
 
 class FavoritePostCard extends StatefulWidget {
   final Post post;
   final User currentUser;
   final CommentRepository commentRepository;
+  final AuthRepository authRepository;
 
   const FavoritePostCard({
     Key key,
     @required this.post,
     this.currentUser,
     this.commentRepository,
+    this.authRepository,
   }) : super(key: key);
 
   @override
@@ -40,6 +43,7 @@ class _FavoritePostCardState extends State<FavoritePostCard> {
                   commentRepository: widget.commentRepository,
                   currentUser: widget.currentUser,
                   post: widget.post,
+                  authRepository: widget.authRepository,
                 ),
               ),
             );

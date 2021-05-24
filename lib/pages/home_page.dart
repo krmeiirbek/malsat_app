@@ -71,6 +71,7 @@ class _HomePageState extends State<HomePage> {
         postRepository: widget.postRepository,
         commentRepository: widget.commentRepository,
         currentUser: widget.currentUser,
+        authRepository: widget.authRepository,
       ),
       CreatePostScreen(
         listCities: widget.listCities,
@@ -81,6 +82,7 @@ class _HomePageState extends State<HomePage> {
         listBookmarks: widget.listBookmarks,
         commentRepository: widget.commentRepository,
         currentUser: widget.currentUser,
+        authRepository: widget.authRepository,
       ),
       ProfileScreen(
         currentUser: widget.currentUser,
@@ -90,7 +92,6 @@ class _HomePageState extends State<HomePage> {
         checkingPosts: widget.listMyCheckingPosts,
         postRepository: widget.postRepository,
         commentRepository: widget.commentRepository,
-
       ),
     ];
     super.initState();

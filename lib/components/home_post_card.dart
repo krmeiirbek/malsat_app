@@ -4,6 +4,7 @@ import 'package:malsat_app/bloc/auth_bloc/auth.dart';
 import 'package:malsat_app/constants/custom_icons.dart';
 import 'package:malsat_app/models/post.dart';
 import 'package:malsat_app/models/user.dart';
+import 'package:malsat_app/repositories/auth_repository.dart';
 import 'package:malsat_app/repositories/bookmark_repository.dart';
 import 'package:malsat_app/repositories/comment_repository.dart';
 import 'package:malsat_app/screens/post_detail_screen.dart';
@@ -14,6 +15,7 @@ class HomePostCard extends StatefulWidget {
   final BookmarkRepository bookmarkRepository;
   final CommentRepository commentRepository;
   final User currentUser;
+  final AuthRepository authRepository;
 
   const HomePostCard({
     Key key,
@@ -22,6 +24,7 @@ class HomePostCard extends StatefulWidget {
     this.bookmarkRepository,
     @required this.commentRepository,
     @required this.currentUser,
+    @required this.authRepository,
   })  : assert(commentRepository != null),
         super(key: key);
 
@@ -58,6 +61,7 @@ class _HomePostCardState extends State<HomePostCard> {
                   listBookmarks: widget.listBookmarks,
                   commentRepository: widget.commentRepository,
                   currentUser: widget.currentUser,
+                  authRepository: widget.authRepository,
                 ),
               ),
             );

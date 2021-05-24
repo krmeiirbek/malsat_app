@@ -10,23 +10,28 @@ import 'package:malsat_app/models/comment.dart';
 import 'package:malsat_app/models/post.dart';
 import 'package:malsat_app/models/user.dart';
 import 'package:malsat_app/repositories/comment_repository.dart';
+import 'package:malsat_app/repositories/repositories.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:http/http.dart' as http;
+
+import 'my_posts_screen.dart';
 
 class DetailPost extends StatefulWidget {
   final Post post;
   final List<dynamic> listBookmarks;
   final CommentRepository commentRepository;
+  final AuthRepository authRepository;
   final User currentUser;
 
-  const DetailPost(
-      {Key key,
-      this.post,
-      this.listBookmarks,
-      @required this.commentRepository,
-      @required this.currentUser})
-      : assert(commentRepository != null),
+  const DetailPost({
+    Key key,
+    this.post,
+    this.listBookmarks,
+    @required this.commentRepository,
+    @required this.currentUser,
+    @required this.authRepository,
+  })  : assert(commentRepository != null),
         super(key: key);
 
   @override
@@ -38,11 +43,13 @@ class _DetailPostState extends State<DetailPost> {
   bool _loading = false;
   List<Comment> _listComments;
   List<Comment> _listCommentsByPost = [];
+  List<Post> userPosts;
 
   TextEditingController _commentController = TextEditingController();
 
   @override
   void initState() {
+    getPosts();
     getComments();
     if (widget.listBookmarks != null)
       for (int i = 0; i < widget.listBookmarks.length; i++) {
@@ -427,12 +434,29 @@ class _DetailPostState extends State<DetailPost> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         SizedBox(height: 3),
-                                        Text(
-                                          'Автор объявления',
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.normal,
-                                            color: Color(0xff9A9A9A),
+                                        InkWell(
+                                          onTap: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    MyPostsScreen(
+                                                  commentRepository:
+                                                      widget.commentRepository,
+                                                  currentUser:
+                                                      widget.currentUser,
+                                                  listPosts: userPosts,
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                          child: Text(
+                                            'Автор объявления',
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.normal,
+                                              color: Color(0xff9A9A9A),
+                                            ),
                                           ),
                                         ),
                                         SizedBox(height: 3),
@@ -572,7 +596,7 @@ class _DetailPostState extends State<DetailPost> {
                                             MediaQuery.of(context).size.width,
                                       )
                                     : Container(
-                                        child: (_listComments.length != null) &&
+                                        child: (_listComments?.length != null) &&
                                                 (_listCommentsByPost?.length !=
                                                     0)
                                             ? Container(
@@ -775,6 +799,17 @@ class _DetailPostState extends State<DetailPost> {
         },
       ),
     );
+  }
+
+  Future<void> getPosts() async {
+    setState(() {
+      _loading = true;
+    });
+    userPosts = await widget.authRepository
+        .getPostsByUser(widget.post.user.id.toString());
+    setState(() {
+      _loading = false;
+    });
   }
 
   Future<void> getComments() async {

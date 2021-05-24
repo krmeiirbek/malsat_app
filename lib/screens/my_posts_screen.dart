@@ -3,18 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:malsat_app/components/favorite_post_card.dart';
 import 'package:malsat_app/models/post.dart';
 import 'package:malsat_app/models/user.dart';
+import 'package:malsat_app/repositories/auth_repository.dart';
 import 'package:malsat_app/repositories/comment_repository.dart';
 
 class MyPostsScreen extends StatelessWidget {
   final List<Post> listPosts;
   final User currentUser;
   final CommentRepository commentRepository;
+  final AuthRepository authRepository;
 
   const MyPostsScreen({
     Key key,
-    this.listPosts,
-    this.currentUser,
-    this.commentRepository,
+    @required this.listPosts,
+    @required this.currentUser,
+    @required this.commentRepository,
+    this.authRepository,
   }) : super(key: key);
 
   @override
@@ -89,6 +92,7 @@ class MyPostsScreen extends StatelessWidget {
                         child: ListView.builder(
                           itemCount: listPosts.length,
                           itemBuilder: (context, index) => FavoritePostCard(
+                            authRepository: authRepository,
                             commentRepository: commentRepository,
                             currentUser: currentUser,
                             post: listPosts[index],

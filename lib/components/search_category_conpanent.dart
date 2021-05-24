@@ -3,6 +3,7 @@ import 'package:malsat_app/models/category.dart';
 import 'package:malsat_app/models/user.dart';
 import 'package:malsat_app/repositories/comment_repository.dart';
 import 'package:malsat_app/repositories/post_repository.dart';
+import 'package:malsat_app/repositories/repositories.dart';
 import 'package:malsat_app/screens/post_by_category_screen.dart';
 
 class SearchCategoryCompanent extends StatelessWidget {
@@ -11,6 +12,7 @@ class SearchCategoryCompanent extends StatelessWidget {
   final PostRepository postRepository;
   final CommentRepository commentRepository;
   final User currentUser;
+  final AuthRepository authRepository;
 
   const SearchCategoryCompanent({
     Key key,
@@ -19,6 +21,7 @@ class SearchCategoryCompanent extends StatelessWidget {
     @required this.postRepository,
     this.commentRepository,
     this.currentUser,
+    this.authRepository,
   }) : super(key: key);
 
   @override
@@ -45,6 +48,7 @@ class SearchCategoryCompanent extends StatelessWidget {
                       category: category,
                       postRepository: postRepository,
                       commentRepository: commentRepository,
+                      authRepository: authRepository,
                       currentUser: currentUser,
                     ),
                   ),

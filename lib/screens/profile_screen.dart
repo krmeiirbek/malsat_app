@@ -11,7 +11,7 @@ import 'package:malsat_app/repositories/post_repository.dart';
 import 'package:malsat_app/screens/my_posts_screen.dart';
 import 'package:malsat_app/screens/settings_screen.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   final AuthRepository authRepository;
   final PostRepository postRepository;
   final List<Post> activePosts;
@@ -19,6 +19,7 @@ class ProfileScreen extends StatelessWidget {
   final List<Post> checkingPosts;
   final User currentUser;
   final CommentRepository commentRepository;
+
 
   const ProfileScreen({
     Key key,
@@ -32,10 +33,24 @@ class ProfileScreen extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  _ProfileScreenState createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  List<Post> userPosts;
+  bool _loading = false;
+
+  @override
+  void initState() {
+    getPosts();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => LoginBloc(authRepository,
-          BlocProvider.of<AuthenticationBloc>(context), postRepository),
+      create: (context) => LoginBloc(widget.authRepository,
+          BlocProvider.of<AuthenticationBloc>(context), widget.postRepository),
       child: BlocBuilder<LoginBloc, LoginState>(
         builder: (context, state) {
           return SafeArea(
@@ -85,11 +100,11 @@ class ProfileScreen extends StatelessWidget {
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
                                     image: DecorationImage(
-                                      image: currentUser.image == null
+                                      image: widget.currentUser.image == null
                                           ? AssetImage(
                                               "assets/images/nouser.png",
                                             )
-                                          : NetworkImage(currentUser.image),
+                                          : NetworkImage(widget.currentUser.image),
                                       fit: BoxFit.fill,
                                     ),
                                   ),
@@ -121,15 +136,32 @@ class ProfileScreen extends StatelessWidget {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
-                                    Text(
-                                      'Автор объявления',
-                                      style: TextStyle(
-                                          color: Color(0xFF9A9A9A),
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w500),
+                                    InkWell(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                MyPostsScreen(
+                                                  commentRepository:
+                                                  widget.commentRepository,
+                                                  currentUser:
+                                                  widget.currentUser,
+                                                  listPosts: userPosts,
+                                                ),
+                                          ),
+                                        );
+                                      },
+                                      child: Text(
+                                        'Автор объявления',
+                                        style: TextStyle(
+                                            color: Color(0xFF9A9A9A),
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w500),
+                                      ),
                                     ),
                                     Text(
-                                      currentUser.firstName,
+                                      widget.currentUser.firstName,
                                       style: TextStyle(
                                         color: Color(0xFF4A564A),
                                         fontSize: 18,
@@ -150,9 +182,10 @@ class ProfileScreen extends StatelessWidget {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) => MyPostsScreen(
-                                        commentRepository: commentRepository,
-                                        currentUser: currentUser,
-                                        listPosts: activePosts,
+                                        authRepository: widget.authRepository,
+                                        commentRepository: widget.commentRepository,
+                                        currentUser: widget.currentUser,
+                                        listPosts: widget.activePosts,
                                       ),
                                     ),
                                   );
@@ -183,9 +216,10 @@ class ProfileScreen extends StatelessWidget {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) => MyPostsScreen(
-                                        commentRepository: commentRepository,
-                                        currentUser: currentUser,
-                                        listPosts: checkingPosts,
+                                        authRepository: widget.authRepository,
+                                        commentRepository: widget.commentRepository,
+                                        currentUser: widget.currentUser,
+                                        listPosts: widget.checkingPosts,
                                       ),
                                     ),
                                   );
@@ -216,9 +250,10 @@ class ProfileScreen extends StatelessWidget {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) => MyPostsScreen(
-                                        commentRepository: commentRepository,
-                                        currentUser: currentUser,
-                                        listPosts: hiddenPosts,
+                                        authRepository: widget.authRepository,
+                                        commentRepository: widget.commentRepository,
+                                        currentUser: widget.currentUser,
+                                        listPosts: widget.hiddenPosts,
                                       ),
                                     ),
                                   );
@@ -249,9 +284,9 @@ class ProfileScreen extends StatelessWidget {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) => SettingsScreen(
-                                        authRepository: authRepository,
-                                        currentUser: currentUser,
-                                        postRepository: postRepository,
+                                        authRepository: widget.authRepository,
+                                        currentUser: widget.currentUser,
+                                        postRepository: widget.postRepository,
                                       ),
                                     ),
                                   );
@@ -304,5 +339,16 @@ class ProfileScreen extends StatelessWidget {
         },
       ),
     );
+  }
+
+  Future<void> getPosts() async {
+    setState(() {
+      _loading = true;
+    });
+    userPosts = await widget.authRepository
+        .getPostsByUser(widget.currentUser.id.toString());
+    setState(() {
+      _loading = false;
+    });
   }
 }

@@ -226,6 +226,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => FilterByCity(
+                                              authRepository:
+                                                  widget.authRepository,
                                               commentRepository:
                                                   widget.commentRepository,
                                               currentUser: widget.currentUser,
@@ -262,6 +264,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               listBookmarks: widget.listBookmarks,
                               commentRepository: widget.commentRepository,
                               currentUser: widget.currentUser,
+                              authRepository: widget.authRepository,
                             ),
                           ),
                         ),
