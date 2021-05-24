@@ -7,6 +7,7 @@ import 'package:malsat_app/constants/custom_icons.dart';
 import 'package:malsat_app/constants/social_networks_icons.dart';
 import 'package:malsat_app/models/comment.dart';
 import 'package:malsat_app/models/post.dart';
+import 'package:malsat_app/models/user.dart';
 import 'package:malsat_app/repositories/comment_repository.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
@@ -16,12 +17,14 @@ class DetailPost extends StatefulWidget {
   final Post post;
   final List<dynamic> listBookmarks;
   final CommentRepository commentRepository;
+  final User currentUser;
 
   const DetailPost(
       {Key key,
       this.post,
       this.listBookmarks,
-      @required this.commentRepository})
+      @required this.commentRepository,
+      @required this.currentUser})
       : assert(commentRepository != null),
         super(key: key);
 
@@ -548,7 +551,10 @@ class _DetailPostState extends State<DetailPost> {
                                                       (context, index) =>
                                                           CommentComponent(
                                                     comment:
-                                                        _listCommentsByPost[index],
+                                                        _listCommentsByPost[
+                                                            index],
+                                                    currentUser:
+                                                        widget.currentUser,
                                                   ),
                                                   itemCount: _listComments
                                                       .where((element) =>

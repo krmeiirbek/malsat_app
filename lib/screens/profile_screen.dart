@@ -6,6 +6,7 @@ import 'package:malsat_app/bloc/login_bloc/login_bloc.dart';
 import 'package:malsat_app/models/post.dart';
 import 'package:malsat_app/models/user.dart';
 import 'package:malsat_app/repositories/auth_repository.dart';
+import 'package:malsat_app/repositories/comment_repository.dart';
 import 'package:malsat_app/repositories/post_repository.dart';
 import 'package:malsat_app/screens/my_posts_screen.dart';
 import 'package:malsat_app/screens/settings_screen.dart';
@@ -17,6 +18,7 @@ class ProfileScreen extends StatelessWidget {
   final List<Post> hiddenPosts;
   final List<Post> checkingPosts;
   final User currentUser;
+  final CommentRepository commentRepository;
 
   const ProfileScreen({
     Key key,
@@ -26,13 +28,14 @@ class ProfileScreen extends StatelessWidget {
     this.hiddenPosts,
     this.checkingPosts,
     this.currentUser,
+    this.commentRepository,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => LoginBloc(
-          authRepository, BlocProvider.of<AuthenticationBloc>(context),postRepository),
+      create: (context) => LoginBloc(authRepository,
+          BlocProvider.of<AuthenticationBloc>(context), postRepository),
       child: BlocBuilder<LoginBloc, LoginState>(
         builder: (context, state) {
           return SafeArea(
@@ -147,6 +150,8 @@ class ProfileScreen extends StatelessWidget {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) => MyPostsScreen(
+                                        commentRepository: commentRepository,
+                                        currentUser: currentUser,
                                         listPosts: activePosts,
                                       ),
                                     ),
@@ -178,6 +183,8 @@ class ProfileScreen extends StatelessWidget {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) => MyPostsScreen(
+                                        commentRepository: commentRepository,
+                                        currentUser: currentUser,
                                         listPosts: checkingPosts,
                                       ),
                                     ),
@@ -209,6 +216,8 @@ class ProfileScreen extends StatelessWidget {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) => MyPostsScreen(
+                                        commentRepository: commentRepository,
+                                        currentUser: currentUser,
                                         listPosts: hiddenPosts,
                                       ),
                                     ),

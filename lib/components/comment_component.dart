@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:malsat_app/models/comment.dart';
+import 'package:malsat_app/models/user.dart';
 
 class CommentComponent extends StatefulWidget {
   final Comment comment;
+  final User currentUser;
 
   const CommentComponent({
     Key key,
     @required this.comment,
+    @required this.currentUser,
   }) : super(key: key);
 
   @override
@@ -52,7 +55,7 @@ class _CommentComponentState extends State<CommentComponent> {
                         ),
                         children: [
                           TextSpan(
-                            text: ' '+widget.comment.comment,
+                            text: ' ' + widget.comment.comment,
                             style: const TextStyle(
                               color: Color(0xff4A564A),
                               fontWeight: FontWeight.normal,
@@ -71,21 +74,29 @@ class _CommentComponentState extends State<CommentComponent> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('Ответить',style: TextStyle(
-                          fontSize: 11,
-                          color: Color(0xffA4A4A4),
+                        Text(
+                          'Ответить',
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: Color(0xffA4A4A4),
+                          ),
                         ),
-                        ),
-                        Text('Удалить',style: TextStyle(
-                          fontSize: 11,
-                          color: Color(0xffA4A4A4),
-                        ),
-                        ),
-                        Text('Редактировать',style: TextStyle(
-                          fontSize: 11,
-                          color: Color(0xffA4A4A4),
-                        ),
-                        ),
+                        if (widget.comment.user.id == widget.currentUser.id)
+                          Text(
+                            'Удалить',
+                            style: TextStyle(
+                              fontSize: 11,
+                              color: Color(0xffA4A4A4),
+                            ),
+                          ),
+                        if (widget.comment.user.id == widget.currentUser.id)
+                          Text(
+                            'Редактировать',
+                            style: TextStyle(
+                              fontSize: 11,
+                              color: Color(0xffA4A4A4),
+                            ),
+                          ),
                       ],
                     ),
                   ],

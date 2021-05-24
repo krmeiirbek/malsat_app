@@ -1,10 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:malsat_app/components/favorite_post_card.dart';
+import 'package:malsat_app/models/user.dart';
+import 'package:malsat_app/repositories/comment_repository.dart';
 
 class FavoritesScreen extends StatefulWidget {
   final List<dynamic> listBookmarks;
+  final User currentUser;
+  final CommentRepository commentRepository;
 
-  const FavoritesScreen({Key key, this.listBookmarks}) : super(key: key);
+  const FavoritesScreen({
+    Key key,
+    this.listBookmarks,
+    this.currentUser,
+    this.commentRepository,
+  }) : super(key: key);
+
   @override
   _FavoritesScreenState createState() => _FavoritesScreenState();
 }
@@ -107,13 +117,19 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                   ),
                   Expanded(
                     child: Container(
-                      child: widget.listBookmarks.isNotEmpty ? ListView.builder(
-                        itemCount: widget.listBookmarks.length,
-                        itemBuilder: (context, index) => FavoritePostCard(
-                          post: widget.listBookmarks[index].post,
-                        ),
-                      ) : Center(child: Text('У вас нет избранные посты'),)
-                    ),
+                        child: widget.listBookmarks.isNotEmpty
+                            ? ListView.builder(
+                                itemCount: widget.listBookmarks.length,
+                                itemBuilder: (context, index) =>
+                                    FavoritePostCard(
+                                  post: widget.listBookmarks[index].post,
+                                  commentRepository: widget.commentRepository,
+                                  currentUser: widget.currentUser,
+                                ),
+                              )
+                            : Center(
+                                child: Text('У вас нет избранные посты'),
+                              )),
                   ),
                 ],
               ),

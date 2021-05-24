@@ -4,14 +4,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:malsat_app/bloc/auth_bloc/auth.dart';
 import 'package:malsat_app/constants/custom_icons.dart';
 import 'package:malsat_app/models/post.dart';
+import 'package:malsat_app/models/user.dart';
+import 'package:malsat_app/repositories/comment_repository.dart';
 import 'package:malsat_app/screens/post_detail_screen.dart';
 
 class FavoritePostCard extends StatefulWidget {
   final Post post;
+  final User currentUser;
+  final CommentRepository commentRepository;
 
   const FavoritePostCard({
     Key key,
-    @required this.post
+    @required this.post,
+    this.currentUser,
+    this.commentRepository,
   }) : super(key: key);
 
   @override
@@ -27,8 +33,16 @@ class _FavoritePostCardState extends State<FavoritePostCard> {
       builder: (context, state) {
         return InkWell(
           onTap: () {
-            Navigator.push(context, MaterialPageRoute(
-                builder: (context) => DetailPost(post: widget.post,)));
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => DetailPost(
+                  commentRepository: widget.commentRepository,
+                  currentUser: widget.currentUser,
+                  post: widget.post,
+                ),
+              ),
+            );
           },
           child: Container(
             margin: EdgeInsets.all(5),
@@ -94,7 +108,11 @@ class _FavoritePostCardState extends State<FavoritePostCard> {
                               onTap: () {
                                 setState(() {
                                   inFavorite = !inFavorite;
-                                  BlocProvider.of<AuthenticationBloc>(context).add(UpdateBookMarks(postId: widget.post.id,inBookmarks: false,openScreen: 3));
+                                  BlocProvider.of<AuthenticationBloc>(context)
+                                      .add(UpdateBookMarks(
+                                          postId: widget.post.id,
+                                          inBookmarks: false,
+                                          openScreen: 3));
                                 });
                               },
                             ),
@@ -106,8 +124,8 @@ class _FavoritePostCardState extends State<FavoritePostCard> {
                             Text(
                               widget.post.date.toString(),
                               textAlign: TextAlign.left,
-                              style:
-                              TextStyle(color: Color(0xFFB5B5B5), fontSize: 12),
+                              style: TextStyle(
+                                  color: Color(0xFFB5B5B5), fontSize: 12),
                             ),
                             Text(
                               widget.post.price.toString(),

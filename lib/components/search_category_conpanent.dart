@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:malsat_app/models/category.dart';
+import 'package:malsat_app/models/user.dart';
+import 'package:malsat_app/repositories/comment_repository.dart';
 import 'package:malsat_app/repositories/post_repository.dart';
 import 'package:malsat_app/screens/post_by_category_screen.dart';
 
@@ -7,12 +9,16 @@ class SearchCategoryCompanent extends StatelessWidget {
   final VoidCallback press;
   final Category category;
   final PostRepository postRepository;
+  final CommentRepository commentRepository;
+  final User currentUser;
 
   const SearchCategoryCompanent({
     Key key,
     @required this.press,
     @required this.category,
     @required this.postRepository,
+    this.commentRepository,
+    this.currentUser,
   }) : super(key: key);
 
   @override
@@ -34,7 +40,13 @@ class SearchCategoryCompanent extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => PostsByCategoryScreen(listPosts: [],category: category,postRepository: postRepository,),
+                    builder: (context) => PostsByCategoryScreen(
+                      listPosts: [],
+                      category: category,
+                      postRepository: postRepository,
+                      commentRepository: commentRepository,
+                      currentUser: currentUser,
+                    ),
                   ),
                 );
               },

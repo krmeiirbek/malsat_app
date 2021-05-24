@@ -2,11 +2,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:malsat_app/components/favorite_post_card.dart';
 import 'package:malsat_app/models/post.dart';
+import 'package:malsat_app/models/user.dart';
+import 'package:malsat_app/repositories/comment_repository.dart';
 
 class MyPostsScreen extends StatelessWidget {
   final List<Post> listPosts;
+  final User currentUser;
+  final CommentRepository commentRepository;
 
-  const MyPostsScreen({Key key, this.listPosts}) : super(key: key);
+  const MyPostsScreen({
+    Key key,
+    this.listPosts,
+    this.currentUser,
+    this.commentRepository,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,8 +60,7 @@ class MyPostsScreen extends StatelessWidget {
               ),
             ),
             Expanded(
-              child:
-              SingleChildScrollView(
+              child: SingleChildScrollView(
                 child: Container(
                   padding: EdgeInsets.all(20),
                   width: MediaQuery.of(context).size.width,
@@ -76,13 +85,14 @@ class MyPostsScreen extends StatelessWidget {
                         height: 20,
                       ),
                       Container(
-                        height:MediaQuery.of(context).size.height*0.8,
+                        height: MediaQuery.of(context).size.height * 0.8,
                         child: ListView.builder(
                           itemCount: listPosts.length,
-                          itemBuilder: (context,index)=>
-                              FavoritePostCard(
-                                post: listPosts[index],
-                              ),
+                          itemBuilder: (context, index) => FavoritePostCard(
+                            commentRepository: commentRepository,
+                            currentUser: currentUser,
+                            post: listPosts[index],
+                          ),
                         ),
                       ),
                     ],

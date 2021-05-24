@@ -36,7 +36,10 @@ class HomePage extends StatefulWidget {
     this.listMyCheckingPosts,
     @required this.authRepository,
     this.listBookmarks,
-    this.currentUser, this.postRepository, this.listPostsByCity, this.commentRepository,
+    this.currentUser,
+    this.postRepository,
+    this.listPostsByCity,
+    this.commentRepository,
   }) : super(key: key);
 
   @override
@@ -59,11 +62,15 @@ class _HomePageState extends State<HomePage> {
         listBookmarks: widget.listBookmarks,
         listCities: widget.listCities,
         postRepository: widget.postRepository,
-        listPostsByCity: widget.listPostsByCity, commentRepository: widget.commentRepository,
+        listPostsByCity: widget.listPostsByCity,
+        commentRepository: widget.commentRepository,
+        currentUser: widget.currentUser,
       ),
       SearchScreen(
         listCategories: widget.listCategories,
         postRepository: widget.postRepository,
+        commentRepository: widget.commentRepository,
+        currentUser: widget.currentUser,
       ),
       CreatePostScreen(
         listCities: widget.listCities,
@@ -72,13 +79,18 @@ class _HomePageState extends State<HomePage> {
       ),
       FavoritesScreen(
         listBookmarks: widget.listBookmarks,
+        commentRepository: widget.commentRepository,
+        currentUser: widget.currentUser,
       ),
       ProfileScreen(
         currentUser: widget.currentUser,
         authRepository: widget.authRepository,
         activePosts: widget.listMyActivePosts,
         hiddenPosts: widget.listMyHiddenPosts,
-        checkingPosts:widget.listMyCheckingPosts, postRepository: widget.postRepository,
+        checkingPosts: widget.listMyCheckingPosts,
+        postRepository: widget.postRepository,
+        commentRepository: widget.commentRepository,
+
       ),
     ];
     super.initState();
@@ -95,7 +107,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       backgroundColor: Color(0xffF4F4F4),
       body: _pages[selectedIndex],
       bottomNavigationBar: SafeArea(

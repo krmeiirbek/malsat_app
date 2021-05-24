@@ -6,6 +6,7 @@ import 'package:malsat_app/components/home_post_card.dart';
 import 'package:malsat_app/components/material_button.dart';
 import 'package:malsat_app/constants/category_icons.dart';
 import 'package:malsat_app/data/data.dart';
+import 'package:malsat_app/models/user.dart';
 import 'package:malsat_app/repositories/auth_repository.dart';
 import 'package:malsat_app/repositories/comment_repository.dart';
 import 'package:malsat_app/repositories/post_repository.dart';
@@ -19,6 +20,7 @@ class HomeScreen extends StatefulWidget {
   final AuthRepository authRepository;
   final PostRepository postRepository;
   final CommentRepository commentRepository;
+  final User currentUser;
 
   HomeScreen({
     this.loadedPostsApprovedNotHidden,
@@ -28,6 +30,7 @@ class HomeScreen extends StatefulWidget {
     this.postRepository,
     this.listPostsByCity,
     @required this.commentRepository,
+    @required this.currentUser,
   }) : assert(commentRepository != null);
 
   @override
@@ -255,6 +258,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               post: widget.loadedPostsApprovedNotHidden[index],
                               listBookmarks: widget.listBookmarks,
                               commentRepository: widget.commentRepository,
+                              currentUser: widget.currentUser,
                             ),
                           ),
                         ),

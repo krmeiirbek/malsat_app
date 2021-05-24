@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:malsat_app/bloc/auth_bloc/auth.dart';
 import 'package:malsat_app/constants/custom_icons.dart';
 import 'package:malsat_app/models/post.dart';
+import 'package:malsat_app/models/user.dart';
 import 'package:malsat_app/repositories/bookmark_repository.dart';
 import 'package:malsat_app/repositories/comment_repository.dart';
 import 'package:malsat_app/screens/post_detail_screen.dart';
@@ -12,10 +13,16 @@ class HomePostCard extends StatefulWidget {
   final List<dynamic> listBookmarks;
   final BookmarkRepository bookmarkRepository;
   final CommentRepository commentRepository;
+  final User currentUser;
 
-  const HomePostCard(
-      {Key key, this.post, this.listBookmarks, this.bookmarkRepository,@required this.commentRepository})
-      : assert(commentRepository!=null),
+  const HomePostCard({
+    Key key,
+    this.post,
+    this.listBookmarks,
+    this.bookmarkRepository,
+    @required this.commentRepository,
+    @required this.currentUser,
+  })  : assert(commentRepository != null),
         super(key: key);
 
   @override
@@ -48,7 +55,9 @@ class _HomePostCardState extends State<HomePostCard> {
               MaterialPageRoute(
                 builder: (context) => DetailPost(
                   post: widget.post,
-                  listBookmarks: widget.listBookmarks, commentRepository: widget.commentRepository,
+                  listBookmarks: widget.listBookmarks,
+                  commentRepository: widget.commentRepository,
+                  currentUser: widget.currentUser,
                 ),
               ),
             );
