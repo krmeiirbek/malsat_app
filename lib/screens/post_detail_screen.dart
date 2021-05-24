@@ -11,6 +11,7 @@ import 'package:malsat_app/models/post.dart';
 import 'package:malsat_app/models/user.dart';
 import 'package:malsat_app/repositories/comment_repository.dart';
 import 'package:malsat_app/repositories/repositories.dart';
+import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:http/http.dart' as http;
@@ -41,6 +42,7 @@ class DetailPost extends StatefulWidget {
 class _DetailPostState extends State<DetailPost> {
   bool inFavorite = false;
   bool _loading = false;
+  bool _start = true;
   List<Comment> _listComments;
   List<Comment> _listCommentsByPost = [];
   List<Post> userPosts;
@@ -473,14 +475,31 @@ class _DetailPostState extends State<DetailPost> {
                                     Spacer(),
                                   ],
                                 ),
-                                Text(
-                                  'Оставить отзыв',
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.bold,
-                                    color: Color(0xff828282),
-                                  ),
-                                )
+                                _start
+                                    ? InkWell(
+                                        onTap: () {
+                                          setState(() {
+                                            _start = !_start;
+                                          });
+                                        },
+                                        child: Text(
+                                          'Оставить отзыв',
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.bold,
+                                            color: Color(0xff828282),
+                                          ),
+                                        ),
+                                      )
+                                    : SmoothStarRating(
+                                        allowHalfRating: false,
+                                        onRated: (v) {},
+                                        starCount: 5,
+                                        size: 30,
+                                  isReadOnly: false,
+                                  color: Colors.yellowAccent.withOpacity(0.8),
+                                  borderColor: Colors.yellowAccent.withOpacity(0.5),
+                                      ),
                               ],
                             ),
                           ),
@@ -596,7 +615,8 @@ class _DetailPostState extends State<DetailPost> {
                                             MediaQuery.of(context).size.width,
                                       )
                                     : Container(
-                                        child: (_listComments?.length != null) &&
+                                        child: (_listComments?.length !=
+                                                    null) &&
                                                 (_listCommentsByPost?.length !=
                                                     0)
                                             ? Container(
