@@ -6,10 +6,13 @@ import 'package:malsat_app/bloc/auth_bloc/auth.dart';
 import 'package:malsat_app/components/comment_component.dart';
 import 'package:malsat_app/constants/custom_icons.dart';
 import 'package:malsat_app/constants/social_networks_icons.dart';
+import 'package:malsat_app/models/category.dart';
+import 'package:malsat_app/models/city.dart';
 import 'package:malsat_app/models/comment.dart';
 import 'package:malsat_app/models/post.dart';
 import 'package:malsat_app/models/user.dart';
 import 'package:malsat_app/repositories/comment_repository.dart';
+import 'package:malsat_app/repositories/post_repository.dart';
 import 'package:malsat_app/repositories/repositories.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -23,7 +26,10 @@ class DetailPost extends StatefulWidget {
   final List<dynamic> listBookmarks;
   final CommentRepository commentRepository;
   final AuthRepository authRepository;
+  final PostRepository postRepository;
   final User currentUser;
+  final List<Category> listCategories;
+  final List<City> listCities;
 
   const DetailPost({
     Key key,
@@ -32,6 +38,9 @@ class DetailPost extends StatefulWidget {
     @required this.commentRepository,
     @required this.currentUser,
     @required this.authRepository,
+    @required this.postRepository,
+    @required this.listCategories,
+    @required this.listCities,
   })  : assert(commentRepository != null),
         super(key: key);
 
@@ -43,9 +52,11 @@ class _DetailPostState extends State<DetailPost> {
   bool inFavorite = false;
   bool _loading = false;
   bool _start = true;
+  bool sendPost = true;
   List<Comment> _listComments;
   List<Comment> _listCommentsByPost = [];
   List<Post> userPosts;
+  int updateCommentId;
 
   TextEditingController _commentController = TextEditingController();
 
@@ -448,6 +459,14 @@ class _DetailPostState extends State<DetailPost> {
                                                   currentUser:
                                                       widget.currentUser,
                                                   listPosts: userPosts,
+                                                  postRepository:
+                                                      widget.postRepository,
+                                                  authRepository:
+                                                      widget.authRepository,
+                                                  listCategories:
+                                                      widget.listCategories,
+                                                  listCities: widget.listCities,
+                                                  isPost: 'MyPost',
                                                 ),
                                               ),
                                             );
@@ -496,9 +515,11 @@ class _DetailPostState extends State<DetailPost> {
                                         onRated: (v) {},
                                         starCount: 5,
                                         size: 30,
-                                  isReadOnly: false,
-                                  color: Colors.yellowAccent.withOpacity(0.8),
-                                  borderColor: Colors.yellowAccent.withOpacity(0.5),
+                                        isReadOnly: false,
+                                        color: Colors.yellowAccent
+                                            .withOpacity(0.8),
+                                        borderColor: Colors.yellowAccent
+                                            .withOpacity(0.5),
                                       ),
                               ],
                             ),
@@ -548,7 +569,7 @@ class _DetailPostState extends State<DetailPost> {
                                     Row(
                                       children: [
                                         Expanded(
-                                          flex: 2,
+                                          flex: sendPost ? 2 : 1,
                                           child: Container(
                                             height: 40,
                                             color: Color(0xffD9D9D9)
@@ -568,35 +589,114 @@ class _DetailPostState extends State<DetailPost> {
                                           ),
                                         ),
                                         Expanded(
-                                          child: InkWell(
-                                            onTap: () {
-                                              if (_commentController.text
-                                                      .trim() !=
-                                                  "") {
-                                                setState(() {
-                                                  _listCommentsByPost.clear();
-                                                  addComment(
-                                                      _commentController.text);
-                                                });
-                                                _commentController.clear();
-                                              }
-                                            },
-                                            child: Container(
-                                              height: 40,
-                                              color: Color(0xff00BF97)
-                                                  .withOpacity(0.5),
-                                              child: Center(
-                                                child: Text(
-                                                  'Отправить',
-                                                  style: TextStyle(
-                                                    fontSize: 14,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.white,
+                                          child: sendPost
+                                              ? InkWell(
+                                                  onTap: () {
+                                                    if (_commentController.text
+                                                            .trim() !=
+                                                        "") {
+                                                      setState(() {
+                                                        _listCommentsByPost
+                                                            .clear();
+                                                        addComment(
+                                                            _commentController
+                                                                .text);
+                                                      });
+                                                      _commentController
+                                                          .clear();
+                                                    }
+                                                  },
+                                                  child: Container(
+                                                    height: 40,
+                                                    color: Color(0xff00BF97)
+                                                        .withOpacity(0.5),
+                                                    child: Center(
+                                                      child: Text(
+                                                        'Отправить',
+                                                        style: TextStyle(
+                                                          fontSize: 14,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Colors.white,
+                                                        ),
+                                                      ),
+                                                    ),
                                                   ),
+                                                )
+                                              : Row(
+                                                  children: [
+                                                    Expanded(
+                                                      child: InkWell(
+                                                        onTap: () {
+                                                          if (_commentController.text
+                                                              .trim() !=
+                                                              "") {
+                                                            setState(() {
+                                                              _listCommentsByPost
+                                                                  .clear();
+                                                              updateComment(
+                                                                  _commentController
+                                                                      .text,updateCommentId.toString());
+                                                            });
+                                                            _commentController
+                                                                .clear();
+                                                            sendPost = true;
+                                                          }
+                                                        },
+                                                        child: Container(
+                                                          height: 40,
+                                                          color: Color(
+                                                                  0xff00BF97)
+                                                              .withOpacity(0.5),
+                                                          child: Center(
+                                                            child: Text(
+                                                              'Update',
+                                                              style: TextStyle(
+                                                                fontSize: 14,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                color: Colors
+                                                                    .white,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Expanded(
+                                                      child: InkWell(
+                                                        onTap: () {
+                                                          setState(() {
+                                                            _commentController
+                                                                .clear();
+                                                            sendPost = true;
+                                                            updateCommentId = 0;
+                                                          });
+                                                        },
+                                                        child: Container(
+                                                          height: 40,
+                                                          color: Colors
+                                                              .redAccent
+                                                              .withOpacity(0.5),
+                                                          child: Center(
+                                                            child: Text(
+                                                              'Cancel',
+                                                              style: TextStyle(
+                                                                fontSize: 14,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                color: Colors
+                                                                    .white,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
-                                              ),
-                                            ),
-                                          ),
                                         ),
                                       ],
                                     ),
@@ -630,6 +730,28 @@ class _DetailPostState extends State<DetailPost> {
                                                             index],
                                                     currentUser:
                                                         widget.currentUser,
+                                                    deletePress: () {
+                                                      setState(() {
+                                                        deleteComment(
+                                                            _listCommentsByPost[
+                                                                    index]
+                                                                .id
+                                                                .toString());
+                                                      });
+                                                    },
+                                                    commentRepository: widget
+                                                        .commentRepository,
+                                                    updatePress: () {
+                                                      setState(() {
+                                                        _commentController
+                                                                .text =
+                                                            _listCommentsByPost[
+                                                                    index]
+                                                                .comment;
+                                                        sendPost = false;
+                                                        updateCommentId = _listCommentsByPost[index].id;
+                                                      });
+                                                    },
                                                   ),
                                                   itemCount: _listComments
                                                       .where((element) =>
@@ -861,6 +983,51 @@ class _DetailPostState extends State<DetailPost> {
     _listComments = await widget.commentRepository?.getComment1();
     setState(() {
       _loading = false;
+      _listCommentsByPost.clear();
+    });
+    for (int i = 0; i < _listComments.length; i++) {
+      if (_listComments[i].postId == widget.post.id) {
+        _listCommentsByPost.add(new Comment(
+          id: _listComments[i].id,
+          comment: _listComments[i].comment,
+          user: _listComments[i].user,
+          postId: _listComments[i].postId,
+        ));
+      }
+    }
+  }
+
+  Future<void> deleteComment(String commentId) async {
+    await widget.commentRepository.deleteComment(commentId);
+    setState(() {
+      _loading = true;
+    });
+    _listComments = await widget.commentRepository?.getComment1();
+    setState(() {
+      _loading = false;
+      _listCommentsByPost.clear();
+    });
+    for (int i = 0; i < _listComments.length; i++) {
+      if (_listComments[i].postId == widget.post.id) {
+        _listCommentsByPost.add(new Comment(
+          id: _listComments[i].id,
+          comment: _listComments[i].comment,
+          user: _listComments[i].user,
+          postId: _listComments[i].postId,
+        ));
+      }
+    }
+  }
+
+  Future<void> updateComment(String comment,String commentId ) async {
+    await widget.commentRepository.updateComment(comment,commentId);
+    setState(() {
+      _loading = true;
+    });
+    _listComments = await widget.commentRepository?.getComment1();
+    setState(() {
+      _loading = false;
+      _listCommentsByPost.clear();
     });
     for (int i = 0; i < _listComments.length; i++) {
       if (_listComments[i].postId == widget.post.id) {

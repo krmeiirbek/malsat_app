@@ -34,4 +34,27 @@ class CommentRepository{
     );
     print(response.statusCode);
   }
+
+  Future<void> deleteComment(String commentId) async {
+    final response = await http.delete(
+      Uri.parse('http://api.malsat.kz/api/comments/$commentId/'),
+      headers: {
+        'Authorization': 'Bearer $ACCESS_TOKEN',
+      },
+    );
+    print(response.statusCode);
+  }
+
+  Future<void> updateComment(String comment,String commentId) async {
+    final response = await http.put(
+      Uri.parse('http://api.malsat.kz/api/comments/$commentId/'),
+      headers: {
+        'Authorization': 'Bearer $ACCESS_TOKEN',
+      },
+      body: {
+        'comment': comment,
+      },
+    );
+    print(response.statusCode);
+  }
 }

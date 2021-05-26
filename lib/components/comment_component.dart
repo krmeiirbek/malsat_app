@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:malsat_app/models/comment.dart';
 import 'package:malsat_app/models/user.dart';
+import 'package:malsat_app/repositories/comment_repository.dart';
 
 class CommentComponent extends StatefulWidget {
   final Comment comment;
   final User currentUser;
+  final CommentRepository commentRepository;
+  final VoidCallback deletePress;
+  final VoidCallback updatePress;
 
   const CommentComponent({
     Key key,
     @required this.comment,
     @required this.currentUser,
+    @required this.commentRepository,
+    @required this.deletePress,
+    @required this.updatePress,
   }) : super(key: key);
 
   @override
@@ -82,19 +89,25 @@ class _CommentComponentState extends State<CommentComponent> {
                           ),
                         ),
                         if (widget.comment.user.id == widget.currentUser.id)
-                          Text(
-                            'Удалить',
-                            style: TextStyle(
-                              fontSize: 11,
-                              color: Color(0xffA4A4A4),
+                          InkWell(
+                            onTap: widget.deletePress,
+                            child: Text(
+                              'Удалить',
+                              style: TextStyle(
+                                fontSize: 11,
+                                color: Color(0xffA4A4A4),
+                              ),
                             ),
                           ),
                         if (widget.comment.user.id == widget.currentUser.id)
-                          Text(
-                            'Редактировать',
-                            style: TextStyle(
-                              fontSize: 11,
-                              color: Color(0xffA4A4A4),
+                          InkWell(
+                            onTap: widget.updatePress,
+                            child: Text(
+                              'Редактировать',
+                              style: TextStyle(
+                                fontSize: 11,
+                                color: Color(0xffA4A4A4),
+                              ),
                             ),
                           ),
                       ],
