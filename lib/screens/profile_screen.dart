@@ -158,6 +158,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                   widget.listCategories,
                                               postRepository:
                                                   widget.postRepository,
+                                              isPost: 'MyPost',
+                                              authRepository:
+                                                  widget.authRepository,
                                             ),
                                           ),
                                         );
@@ -200,6 +203,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         listCities: widget.listCities,
                                         listCategories: widget.listCategories,
                                         postRepository: widget.postRepository,
+                                        isPost: 'Active',
                                       ),
                                     ),
                                   );
@@ -238,6 +242,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         listCities: widget.listCities,
                                         listCategories: widget.listCategories,
                                         postRepository: widget.postRepository,
+                                        isPost: 'Proverka',
                                       ),
                                     ),
                                   );
@@ -276,6 +281,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         listCities: widget.listCities,
                                         listCategories: widget.listCategories,
                                         postRepository: widget.postRepository,
+                                        isPost: 'Hidden',
                                       ),
                                     ),
                                   );
