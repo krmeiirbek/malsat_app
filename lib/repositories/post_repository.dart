@@ -139,30 +139,38 @@ class PostRepository {
     if (response.statusCode == 201) {
       print("post added");
       print(json.decode(response.body)["id"]);
-      if(image!=null){
-        bool added1 = await addImg(title: 'title', image: image, postId: json.decode(response.body)["id"].toString());
+      if (image != null) {
+        bool added1 = await addImg(
+            title: 'title',
+            image: image,
+            postId: json.decode(response.body)["id"].toString());
       }
       return true;
     }
     return false;
   }
 
-  Future<bool> addImg(
-      {@required String title,
-      @required String image,
-      @required String postId}) async {
-    // open a bytestream
+  Future<bool> addImg({
+    @required String title,
+    @required String image,
+    @required String postId,
+  }) async {
+    final msg = {
+      "title": title,
+      "post": postId,
+    };
     var stream = new http.ByteStream(DelegatingStream.typed(File(image).openRead()));
-    // get file length
+
     var length = await File(image).length();
-    var request = new http.MultipartRequest("POST", Uri.parse('http://api.malsat.kz/api/images/'))..fields['post'] = postId..fields['title'] = title;
-    var multipartFile = new http.MultipartFile('image', stream, length,
-        filename: basename(File(image).path));
-    request.files.add(multipartFile);
-    var response = await request.send();
-    if (response.statusCode == 201) {
-      return true;
-    }
+
+    var response = await http.MultipartRequest(
+        'POST', Uri.parse("http://api.malsat.kz/api/images/"))
+      ..fields.addAll(msg)
+      ..files.add(http.MultipartFile('image',stream,length, filename: basename(File(image).path)));
+
+    var request = await response.send();
+    print(request.statusCode);
+
     return false;
   }
 

@@ -81,7 +81,7 @@ class Post {
     String url =
         'https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png';
     if (images != null && images.length > 0) {
-      if (images[0]['image'][0] != ':') {
+      if (images[0]['image'][4] == ':') {
         url = images[0]['image'];
       } else
         url = 'http://api.malsat.kz' + images[0]['image'];
