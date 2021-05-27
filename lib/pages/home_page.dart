@@ -133,7 +133,7 @@ class _HomePageState extends State<HomePage> {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(35),
               child: BottomNavigationBar(
-                backgroundColor: Colors.blueGrey,
+                backgroundColor: Colors.white,
                 currentIndex: selectedIndex,
                 onTap: (value) {
                   setState(() {
@@ -146,6 +146,7 @@ class _HomePageState extends State<HomePage> {
                 unselectedFontSize: 12,
                 showSelectedLabels: false,
                 showUnselectedLabels: false,
+                type: BottomNavigationBarType.fixed,
                 items: const <BottomNavigationBarItem>[
                   BottomNavigationBarItem(
                       icon: Icon(
