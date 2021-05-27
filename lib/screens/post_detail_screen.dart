@@ -461,7 +461,7 @@ class _DetailPostState extends State<DetailPost> {
                                                   commentRepository:
                                                       widget.commentRepository,
                                                   currentUser:
-                                                      widget.currentUser,
+                                                      widget.post.user,
                                                   listPosts: userPosts,
                                                   postRepository:
                                                       widget.postRepository,
@@ -837,7 +837,7 @@ class _DetailPostState extends State<DetailPost> {
                                     commentRepository:
                                     widget.commentRepository,
                                     currentUser:
-                                    widget.currentUser,
+                                    widget.post.user,
                                     listPosts: userPosts,
                                     postRepository:
                                     widget.postRepository,
