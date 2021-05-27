@@ -2,7 +2,7 @@
     package="kz.nnaltynbek.malsat_app">
    <application
         android:usesCleartextTraffic="true"
-        android:label="malsat_app"
+        android:label="MALSAT"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
