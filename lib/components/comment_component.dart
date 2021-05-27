@@ -9,6 +9,7 @@ class CommentComponent extends StatefulWidget {
   final CommentRepository commentRepository;
   final VoidCallback deletePress;
   final VoidCallback updatePress;
+  final VoidCallback otvetPress;
 
   const CommentComponent({
     Key key,
@@ -17,6 +18,7 @@ class CommentComponent extends StatefulWidget {
     @required this.commentRepository,
     @required this.deletePress,
     @required this.updatePress,
+    @required this.otvetPress,
   }) : super(key: key);
 
   @override
@@ -81,11 +83,14 @@ class _CommentComponentState extends State<CommentComponent> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          'Ответить',
-                          style: TextStyle(
-                            fontSize: 11,
-                            color: Color(0xffA4A4A4),
+                        InkWell(
+                          onTap: widget.otvetPress,
+                          child: Text(
+                            'Ответить',
+                            style: TextStyle(
+                              fontSize: 11,
+                              color: Color(0xffA4A4A4),
+                            ),
                           ),
                         ),
                         if (widget.comment.user.id == widget.currentUser.id)

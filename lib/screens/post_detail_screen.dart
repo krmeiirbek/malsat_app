@@ -59,6 +59,7 @@ class _DetailPostState extends State<DetailPost> {
   int updateCommentId;
 
   TextEditingController _commentController = TextEditingController();
+  ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
@@ -571,10 +572,14 @@ class _DetailPostState extends State<DetailPost> {
                                         Expanded(
                                           flex: sendPost ? 2 : 1,
                                           child: Container(
-                                            height: 40,
+                                            height: 60,
+                                            padding: EdgeInsets.symmetric(vertical: 0),
                                             color: Color(0xffD9D9D9)
                                                 .withOpacity(0.48),
                                             child: TextField(
+                                              textDirection: TextDirection.ltr,
+                                              scrollPadding: EdgeInsets.zero,
+                                              maxLines: 1,
                                               controller: _commentController,
                                               decoration: InputDecoration(
                                                 border: OutlineInputBorder(),
@@ -607,7 +612,7 @@ class _DetailPostState extends State<DetailPost> {
                                                     }
                                                   },
                                                   child: Container(
-                                                    height: 40,
+                                                    height: 60,
                                                     color: Color(0xff00BF97)
                                                         .withOpacity(0.5),
                                                     child: Center(
@@ -644,7 +649,7 @@ class _DetailPostState extends State<DetailPost> {
                                                           }
                                                         },
                                                         child: Container(
-                                                          height: 40,
+                                                          height: 60,
                                                           color: Color(
                                                                   0xff00BF97)
                                                               .withOpacity(0.5),
@@ -675,7 +680,7 @@ class _DetailPostState extends State<DetailPost> {
                                                           });
                                                         },
                                                         child: Container(
-                                                          height: 40,
+                                                          height: 60,
                                                           color: Colors
                                                               .redAccent
                                                               .withOpacity(0.5),
@@ -751,7 +756,12 @@ class _DetailPostState extends State<DetailPost> {
                                                         sendPost = false;
                                                         updateCommentId = _listCommentsByPost[index].id;
                                                       });
-                                                    },
+                                                    }, otvetPress: () {
+                                                      setState(() {
+                                                        _commentController.clear();
+                                                        _commentController.text = _listCommentsByPost[index].user.firstName + ', ';
+                                                      });
+                                                          },
                                                   ),
                                                   itemCount: _listComments
                                                       .where((element) =>
