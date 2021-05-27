@@ -36,7 +36,7 @@ class PostRepository {
 
   Future<List<Post>> getAllPostsWithKeyWord(String keyWord) async {
     final response = await http.get(
-      Uri.parse(getAllPostsWithKeyWordUrl + '?search=$keyWord'),
+      Uri.parse(getAllPostsWithKeyWordUrl + '?search=$keyWord&isApproved=true&isHidden=false'),
     );
     if (response.statusCode == 200) {
       final List<dynamic> postsJson =
