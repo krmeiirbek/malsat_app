@@ -827,12 +827,37 @@ class _DetailPostState extends State<DetailPost> {
                               BorderSide(color: Color(0xff828282), width: 1.5),
                         ),
                       ),
-                      child: Text(
-                        'Все объявления автора',
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xff828282),
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  MyPostsScreen(
+                                    commentRepository:
+                                    widget.commentRepository,
+                                    currentUser:
+                                    widget.currentUser,
+                                    listPosts: userPosts,
+                                    postRepository:
+                                    widget.postRepository,
+                                    authRepository:
+                                    widget.authRepository,
+                                    listCategories:
+                                    widget.listCategories,
+                                    listCities: widget.listCities,
+                                    isPost: 'MyPost', reviewRepository: widget.reviewRepository,
+                                  ),
+                            ),
+                          );
+                        },
+                        child: Text(
+                          'Все объявления автора',
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xff828282),
+                          ),
                         ),
                       ),
                     ),

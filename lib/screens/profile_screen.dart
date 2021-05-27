@@ -200,6 +200,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) => MyPostsScreen(
+                                        isMyPost: true,
                                         authRepository: widget.authRepository,
                                         commentRepository:
                                             widget.commentRepository,
@@ -239,6 +240,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) => MyPostsScreen(
+                                        isMyPost: true,
                                         authRepository: widget.authRepository,
                                         commentRepository:
                                             widget.commentRepository,
@@ -278,6 +280,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) => MyPostsScreen(
+                                        isMyPost: true,
                                         authRepository: widget.authRepository,
                                         commentRepository:
                                             widget.commentRepository,
