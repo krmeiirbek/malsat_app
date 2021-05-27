@@ -1,4 +1,8 @@
 import 'dart:convert';
+import 'dart:io';
+import 'dart:async';
+import 'package:path/path.dart';
+import 'package:async/async.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
@@ -110,6 +114,7 @@ class PostRepository {
     @required String delivery,
     @required String categoriesId,
     @required String citiesId,
+    String image,
     String units = "1",
     String numOfItem = "1",
   }) async {
@@ -124,16 +129,38 @@ class PostRepository {
         "cities": citiesId,
         "description": description,
         "price": price,
-        "exchange":exchange,
-        "auction":auction,
-        "delivery":delivery,
+        "exchange": exchange,
+        "auction": auction,
+        "delivery": delivery,
         "units": units,
         "numOfItem": numOfItem,
       },
     );
-    if(response.statusCode == 201){
+    if (response.statusCode == 201) {
       print("post added");
       print(json.decode(response.body)["id"]);
+      if(image!=null){
+        bool added1 = await addImg(title: 'title', image: image, postId: json.decode(response.body)["id"].toString());
+      }
+      return true;
+    }
+    return false;
+  }
+
+  Future<bool> addImg(
+      {@required String title,
+      @required String image,
+      @required String postId}) async {
+    // open a bytestream
+    var stream = new http.ByteStream(DelegatingStream.typed(File(image).openRead()));
+    // get file length
+    var length = await File(image).length();
+    var request = new http.MultipartRequest("POST", Uri.parse('http://api.malsat.kz/api/images/'))..fields['post'] = postId..fields['title'] = title;
+    var multipartFile = new http.MultipartFile('image', stream, length,
+        filename: basename(File(image).path));
+    request.files.add(multipartFile);
+    var response = await request.send();
+    if (response.statusCode == 201) {
       return true;
     }
     return false;
@@ -151,20 +178,20 @@ class PostRepository {
     @required String citiesId,
   }) async {
     final response = await http.put(
-      Uri.parse(createPostUrl+postId+'/'),
+      Uri.parse(createPostUrl + postId + '/'),
       body: {
         "title": title,
         "categories": categoriesId,
         "cities": citiesId,
         "description": description,
         "price": price,
-        "exchange":exchange,
-        "auction":auction,
-        "delivery":delivery
+        "exchange": exchange,
+        "auction": auction,
+        "delivery": delivery
       },
     );
     print(response.statusCode);
-    if(response.statusCode == 200){
+    if (response.statusCode == 200) {
       print("post added");
       print(json.decode(response.body)["id"]);
       return true;

@@ -155,7 +155,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                           size: 15,
                         ),
                         onChanged: (newValue) {
-                            selectedCategoryId = newValue.id;
+                          selectedCategoryId = newValue.id;
                         },
                         items: widget.listCategories
                             .map(
@@ -458,8 +458,11 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                               auction: auction ? 'True' : 'False',
                               delivery: delivery ? 'True' : 'False',
                               exchange: exchange ? 'True' : 'False',
+                              image: _imageFiles[0] != null
+                                  ? _imageFiles[0]
+                                  : null,
                             );
-                            if(added){
+                            if (added) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   content: Text('Post Added'),
@@ -473,8 +476,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                                 selectedCity = null;
                                 selectedCategoryName = null;
                               });
-                            }
-                            else{
+                            } else {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   content: Text('Error'),

@@ -85,89 +85,103 @@ class _FavoritePostCardState extends State<FavoritePostCard> {
                 color: Colors.white,
                 borderRadius: BorderRadius.all(Radius.circular(8)),
               ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Expanded(
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(8),
-                        bottomLeft: Radius.circular(8),
+              child: Column(
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Expanded(
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(8),
+                            bottomLeft: Radius.circular(8),
+                          ),
+                          child: Image.network(
+                            widget.post.getImage(),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
                       ),
-                      child: Image.network(
-                        widget.post.getImage(),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.all(20),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Text(
-                                  widget.post.title,
-                                  style: TextStyle(
-                                    color: Color(0xFFEA5E3C),
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                  textAlign: TextAlign.left,
-                                ),
-                                SizedBox(
-                                  width: 30,
-                                ),
-                                InkWell(
-                                  child: Icon(
-                                    Custom.heart_empty,
-                                    size: 16,
-                                    color: !inFavorite
-                                        ? Color.fromRGBO(74, 86, 74, 0.4)
-                                        : Colors.red,
-                                  ),
-                                  onTap: () {
-                                    setState(() {
-                                      inFavorite = !inFavorite;
-                                      BlocProvider.of<AuthenticationBloc>(
-                                              context)
-                                          .add(UpdateBookMarks(
-                                              postId: widget.post.id,
-                                              inBookmarks: false,
-                                              openScreen: 3));
-                                    });
-                                  },
-                                ),
-                              ],
-                            ),
+                      Container(
+                        padding: EdgeInsets.all(20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
                             Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text(
-                                  widget.post.date.toString(),
-                                  textAlign: TextAlign.left,
-                                  style: TextStyle(
-                                      color: Color(0xFFB5B5B5), fontSize: 12),
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    Text(
+                                      widget.post.title,
+                                      style: TextStyle(
+                                        color: Color(0xFFEA5E3C),
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                      textAlign: TextAlign.left,
+                                    ),
+                                    SizedBox(
+                                      width: 30,
+                                    ),
+                                    InkWell(
+                                      child: Icon(
+                                        Custom.heart_empty,
+                                        size: 16,
+                                        color: !inFavorite
+                                            ? Color.fromRGBO(74, 86, 74, 0.4)
+                                            : Colors.red,
+                                      ),
+                                      onTap: () {
+                                        setState(() {
+                                          inFavorite = !inFavorite;
+                                          BlocProvider.of<AuthenticationBloc>(
+                                                  context)
+                                              .add(UpdateBookMarks(
+                                                  postId: widget.post.id,
+                                                  inBookmarks: false,
+                                                  openScreen: 3));
+                                        });
+                                      },
+                                    ),
+                                  ],
                                 ),
-                                Text(
-                                  widget.post.price.toString(),
-                                  textAlign: TextAlign.left,
-                                  style: TextStyle(
-                                    color: Color(0xFF6C6C6C),
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Text(
+                                      widget.post.date.toString(),
+                                      textAlign: TextAlign.left,
+                                      style: TextStyle(
+                                          color: Color(0xFFB5B5B5), fontSize: 12),
+                                    ),
+                                    Text(
+                                      widget.post.price.toString(),
+                                      textAlign: TextAlign.left,
+                                      style: TextStyle(
+                                        color: Color(0xFF6C6C6C),
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),
+                            SizedBox(height: 20),
                           ],
                         ),
-                        SizedBox(height: 20),
-                        if (widget.isMyPost)
+                      )
+                    ],
+                  ),
+                  SizedBox(height: 10,),
+                  if (widget.isMyPost)
+                    Container(
+                      padding: EdgeInsets.all(8),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text('Посмотреть'),
                           InkWell(
                             onTap: () {
                               Navigator.push(
@@ -184,9 +198,10 @@ class _FavoritePostCardState extends State<FavoritePostCard> {
                             },
                             child: Text('Редактирования'),
                           ),
-                      ],
+                          Text('Скрыть'),
+                        ],
+                      ),
                     ),
-                  )
                 ],
               ),
             ),
