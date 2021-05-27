@@ -12,6 +12,7 @@ import 'package:malsat_app/models/user.dart';
 import 'package:malsat_app/repositories/auth_repository.dart';
 import 'package:malsat_app/repositories/comment_repository.dart';
 import 'package:malsat_app/repositories/post_repository.dart';
+import 'package:malsat_app/repositories/review_repository.dart';
 import 'package:malsat_app/screens/filter_by_city.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -25,6 +26,7 @@ class HomeScreen extends StatefulWidget {
   final User currentUser;
   final List<City> listCities1;
   final List<Category> listCategories;
+  final ReviewRepository reviewRepository;
 
   HomeScreen({
     this.loadedPostsApprovedNotHidden,
@@ -37,6 +39,7 @@ class HomeScreen extends StatefulWidget {
     @required this.currentUser,
     @required this.listCities1,
     @required this.listCategories,
+    @required this.reviewRepository,
   }) : assert(commentRepository != null);
 
   @override
@@ -226,27 +229,26 @@ class _HomeScreenState extends State<HomeScreen> {
                               }),
                           SizedBox(width: 20),
                           Button1(
-                              text: "Весь Казахстан",
-                              press: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => FilterByCity(
-                                              authRepository:
-                                                  widget.authRepository,
-                                              commentRepository:
-                                                  widget.commentRepository,
-                                              currentUser: widget.currentUser,
-                                              listCities: widget.listCities,
-                                              postRepository:
-                                                  widget.postRepository,
-                                              listPostsByCity:
-                                                  widget.listPostsByCity,
-                                              listCategories:
-                                                  widget.listCategories,
-                                              listCities1: widget.listCities1,
-                                            )));
-                              }),
+                            text: "Весь Казахстан",
+                            press: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => FilterByCity(
+                                    authRepository: widget.authRepository,
+                                    commentRepository: widget.commentRepository,
+                                    currentUser: widget.currentUser,
+                                    listCities: widget.listCities,
+                                    postRepository: widget.postRepository,
+                                    listPostsByCity: widget.listPostsByCity,
+                                    listCategories: widget.listCategories,
+                                    listCities1: widget.listCities1,
+                                    reviewRepository: widget.reviewRepository,
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
                         ],
                       ),
                     ),
@@ -274,6 +276,10 @@ class _HomeScreenState extends State<HomeScreen> {
                               commentRepository: widget.commentRepository,
                               currentUser: widget.currentUser,
                               authRepository: widget.authRepository,
+                              listCategories: widget.listCategories,
+                              listCities: widget.listCities,
+                              postRepository: widget.postRepository,
+                              reviewRepository: widget.reviewRepository,
                             ),
                           ),
                         ),

@@ -3,6 +3,7 @@ import 'package:malsat_app/models/user.dart';
 import 'package:malsat_app/repositories/auth_repository.dart';
 import 'package:malsat_app/repositories/comment_repository.dart';
 import 'package:malsat_app/repositories/post_repository.dart';
+import 'package:malsat_app/repositories/review_repository.dart';
 import 'package:malsat_app/screens/create_post_screen.dart';
 import 'package:malsat_app/constants/custom_icons.dart';
 import 'package:malsat_app/screens/favorites_screen.dart';
@@ -24,6 +25,7 @@ class HomePage extends StatefulWidget {
   final List<dynamic> listBookmarks;
   final User currentUser;
   final CommentRepository commentRepository;
+  final ReviewRepository reviewRepository;
 
   const HomePage({
     Key key,
@@ -40,6 +42,7 @@ class HomePage extends StatefulWidget {
     this.postRepository,
     this.listPostsByCity,
     this.commentRepository,
+    @required this.reviewRepository,
   }) : super(key: key);
 
   @override
@@ -67,6 +70,7 @@ class _HomePageState extends State<HomePage> {
         currentUser: widget.currentUser,
         listCategories: widget.listCategories,
         listCities1: widget.listCities,
+        reviewRepository: widget.reviewRepository,
       ),
       SearchScreen(
         listCategories: widget.listCategories,
@@ -76,6 +80,7 @@ class _HomePageState extends State<HomePage> {
         authRepository: widget.authRepository,
         listCities: widget.listCities,
         listCategories1: widget.listCategories,
+        reviewRepository: widget.reviewRepository,
       ),
       CreatePostScreen(
         listCities: widget.listCities,
@@ -90,6 +95,7 @@ class _HomePageState extends State<HomePage> {
         listCategories: widget.listCategories,
         listCities: widget.listCities,
         postRepository: widget.postRepository,
+        reviewRepository: widget.reviewRepository,
       ),
       ProfileScreen(
         currentUser: widget.currentUser,
@@ -101,6 +107,7 @@ class _HomePageState extends State<HomePage> {
         commentRepository: widget.commentRepository,
         listCategories: widget.listCategories,
         listCities: widget.listCities,
+        reviewRepository: widget.reviewRepository,
       ),
     ];
     super.initState();

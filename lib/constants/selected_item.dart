@@ -1,5 +1,3 @@
-import 'package:flutter/widgets.dart';
-
 class SelectedItem {
   static const int selectedHome = 0;
   static const int selectedHeart = 1;

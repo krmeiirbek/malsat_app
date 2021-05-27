@@ -10,6 +10,7 @@ import 'package:malsat_app/models/user.dart';
 import 'package:malsat_app/repositories/comment_repository.dart';
 import 'package:malsat_app/repositories/post_repository.dart';
 import 'package:malsat_app/repositories/repositories.dart';
+import 'package:malsat_app/repositories/review_repository.dart';
 
 class PostsByCategoryScreen extends StatefulWidget {
   final List<Post> listPosts;
@@ -20,6 +21,7 @@ class PostsByCategoryScreen extends StatefulWidget {
   final AuthRepository authRepository;
   final List<City> listCities;
   final List<Category> listCategories;
+  final ReviewRepository reviewRepository;
 
   const PostsByCategoryScreen({
     Key key,
@@ -31,6 +33,7 @@ class PostsByCategoryScreen extends StatefulWidget {
     this.authRepository,
     @required this.listCities,
     @required this.listCategories,
+    @required this.reviewRepository,
   }) : super(key: key);
 
   @override
@@ -145,6 +148,8 @@ class _PostsByCategoryScreenState extends State<PostsByCategoryScreen> {
                                             listCities: widget.listCities,
                                             postRepository:
                                                 widget.postRepository,
+                                            reviewRepository:
+                                                widget.reviewRepository,
                                           ),
                                         )
                                       : SizedBox(),

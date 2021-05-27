@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:malsat_app/bloc/auth_bloc/auth.dart';
 import 'package:malsat_app/constants/custom_icons.dart';
+import 'package:malsat_app/models/category.dart';
+import 'package:malsat_app/models/city.dart';
 import 'package:malsat_app/models/post.dart';
 import 'package:malsat_app/models/user.dart';
 import 'package:malsat_app/repositories/auth_repository.dart';
 import 'package:malsat_app/repositories/bookmark_repository.dart';
 import 'package:malsat_app/repositories/comment_repository.dart';
+import 'package:malsat_app/repositories/post_repository.dart';
+import 'package:malsat_app/repositories/review_repository.dart';
 import 'package:malsat_app/screens/post_detail_screen.dart';
 
 class HomePostCard extends StatefulWidget {
@@ -16,6 +20,10 @@ class HomePostCard extends StatefulWidget {
   final CommentRepository commentRepository;
   final User currentUser;
   final AuthRepository authRepository;
+  final PostRepository postRepository;
+  final List<City> listCities;
+  final List<Category> listCategories;
+  final ReviewRepository reviewRepository;
 
   const HomePostCard({
     Key key,
@@ -25,6 +33,10 @@ class HomePostCard extends StatefulWidget {
     @required this.commentRepository,
     @required this.currentUser,
     @required this.authRepository,
+    @required this.postRepository,
+    @required this.reviewRepository,
+    @required this.listCities,
+    @required this.listCategories,
   })  : assert(commentRepository != null),
         super(key: key);
 
@@ -62,6 +74,10 @@ class _HomePostCardState extends State<HomePostCard> {
                   commentRepository: widget.commentRepository,
                   currentUser: widget.currentUser,
                   authRepository: widget.authRepository,
+                  reviewRepository: widget.reviewRepository,
+                  listCities: widget.listCities,
+                  listCategories: widget.listCategories,
+                  postRepository: widget.postRepository,
                 ),
               ),
             );

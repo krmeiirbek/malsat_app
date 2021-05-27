@@ -14,6 +14,8 @@ import 'package:malsat_app/models/user.dart';
 import 'package:malsat_app/repositories/comment_repository.dart';
 import 'package:malsat_app/repositories/post_repository.dart';
 import 'package:malsat_app/repositories/repositories.dart';
+import 'package:malsat_app/repositories/review_repository.dart';
+import 'package:malsat_app/screens/review_screen.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
@@ -27,6 +29,7 @@ class DetailPost extends StatefulWidget {
   final CommentRepository commentRepository;
   final AuthRepository authRepository;
   final PostRepository postRepository;
+  final ReviewRepository reviewRepository;
   final User currentUser;
   final List<Category> listCategories;
   final List<City> listCities;
@@ -41,6 +44,7 @@ class DetailPost extends StatefulWidget {
     @required this.postRepository,
     @required this.listCategories,
     @required this.listCities,
+    @required this.reviewRepository,
   })  : assert(commentRepository != null),
         super(key: key);
 
@@ -59,7 +63,6 @@ class _DetailPostState extends State<DetailPost> {
   int updateCommentId;
 
   TextEditingController _commentController = TextEditingController();
-  ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
@@ -467,7 +470,7 @@ class _DetailPostState extends State<DetailPost> {
                                                   listCategories:
                                                       widget.listCategories,
                                                   listCities: widget.listCities,
-                                                  isPost: 'MyPost',
+                                                  isPost: 'MyPost', reviewRepository: widget.reviewRepository,
                                                 ),
                                               ),
                                             );
@@ -498,9 +501,17 @@ class _DetailPostState extends State<DetailPost> {
                                 _start
                                     ? InkWell(
                                         onTap: () {
-                                          setState(() {
-                                            _start = !_start;
-                                          });
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ReviewScreen(
+                                                post: widget.post,
+                                                reviewRepository:
+                                                    widget.reviewRepository,
+                                              ),
+                                            ),
+                                          );
                                         },
                                         child: Text(
                                           'Оставить отзыв',
@@ -573,7 +584,8 @@ class _DetailPostState extends State<DetailPost> {
                                           flex: sendPost ? 2 : 1,
                                           child: Container(
                                             height: 60,
-                                            padding: EdgeInsets.symmetric(vertical: 0),
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: 0),
                                             color: Color(0xffD9D9D9)
                                                 .withOpacity(0.48),
                                             child: TextField(
@@ -633,15 +645,18 @@ class _DetailPostState extends State<DetailPost> {
                                                     Expanded(
                                                       child: InkWell(
                                                         onTap: () {
-                                                          if (_commentController.text
-                                                              .trim() !=
+                                                          if (_commentController
+                                                                  .text
+                                                                  .trim() !=
                                                               "") {
                                                             setState(() {
                                                               _listCommentsByPost
                                                                   .clear();
                                                               updateComment(
                                                                   _commentController
-                                                                      .text,updateCommentId.toString());
+                                                                      .text,
+                                                                  updateCommentId
+                                                                      .toString());
                                                             });
                                                             _commentController
                                                                 .clear();
@@ -754,14 +769,25 @@ class _DetailPostState extends State<DetailPost> {
                                                                     index]
                                                                 .comment;
                                                         sendPost = false;
-                                                        updateCommentId = _listCommentsByPost[index].id;
+                                                        updateCommentId =
+                                                            _listCommentsByPost[
+                                                                    index]
+                                                                .id;
                                                       });
-                                                    }, otvetPress: () {
+                                                    },
+                                                    otvetPress: () {
                                                       setState(() {
-                                                        _commentController.clear();
-                                                        _commentController.text = _listCommentsByPost[index].user.firstName + ', ';
+                                                        _commentController
+                                                            .clear();
+                                                        _commentController
+                                                                .text =
+                                                            _listCommentsByPost[
+                                                                        index]
+                                                                    .user
+                                                                    .firstName +
+                                                                ', ';
                                                       });
-                                                          },
+                                                    },
                                                   ),
                                                   itemCount: _listComments
                                                       .where((element) =>
@@ -1029,8 +1055,8 @@ class _DetailPostState extends State<DetailPost> {
     }
   }
 
-  Future<void> updateComment(String comment,String commentId ) async {
-    await widget.commentRepository.updateComment(comment,commentId);
+  Future<void> updateComment(String comment, String commentId) async {
+    await widget.commentRepository.updateComment(comment, commentId);
     setState(() {
       _loading = true;
     });

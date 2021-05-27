@@ -8,6 +8,7 @@ import 'package:malsat_app/models/user.dart';
 import 'package:malsat_app/repositories/auth_repository.dart';
 import 'package:malsat_app/repositories/comment_repository.dart';
 import 'package:malsat_app/repositories/post_repository.dart';
+import 'package:malsat_app/repositories/review_repository.dart';
 import 'package:malsat_app/screens/posts_by_city_screen.dart';
 
 class FilterByCity extends StatefulWidget {
@@ -19,6 +20,7 @@ class FilterByCity extends StatefulWidget {
   final AuthRepository authRepository;
   final List<City> listCities1;
   final List<Category> listCategories;
+  final ReviewRepository reviewRepository;
 
   const FilterByCity({
     Key key,
@@ -30,6 +32,7 @@ class FilterByCity extends StatefulWidget {
     this.authRepository,
     @required this.listCities1,
     @required this.listCategories,
+    @required this.reviewRepository,
   }) : super(key: key);
 
   @override
@@ -128,6 +131,8 @@ class _FilterByCityState extends State<FilterByCity> {
                                           city: widget.listCities[index],
                                           listCategories: widget.listCategories,
                                           listCities: widget.listCities1,
+                                          reviewRepository:
+                                              widget.reviewRepository,
                                         ),
                                       ),
                                     );

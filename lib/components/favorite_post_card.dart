@@ -10,6 +10,7 @@ import 'package:malsat_app/models/user.dart';
 import 'package:malsat_app/repositories/comment_repository.dart';
 import 'package:malsat_app/repositories/post_repository.dart';
 import 'package:malsat_app/repositories/repositories.dart';
+import 'package:malsat_app/repositories/review_repository.dart';
 import 'package:malsat_app/screens/change_post_screen.dart';
 import 'package:malsat_app/screens/post_detail_screen.dart';
 
@@ -22,6 +23,7 @@ class FavoritePostCard extends StatefulWidget {
   final List<City> listCities;
   final List<Category> listCategories;
   final PostRepository postRepository;
+  final ReviewRepository reviewRepository;
 
   const FavoritePostCard({
     Key key,
@@ -33,6 +35,7 @@ class FavoritePostCard extends StatefulWidget {
     @required this.listCities,
     @required this.listCategories,
     @required this.postRepository,
+    @required this.reviewRepository,
   }) : super(key: key);
 
   @override
@@ -56,6 +59,10 @@ class _FavoritePostCardState extends State<FavoritePostCard> {
                   currentUser: widget.currentUser,
                   post: widget.post,
                   authRepository: widget.authRepository,
+                  postRepository: widget.postRepository,
+                  reviewRepository: widget.reviewRepository,
+                  listCities: widget.listCities,
+                  listCategories: widget.listCategories,
                 ),
               ),
             );

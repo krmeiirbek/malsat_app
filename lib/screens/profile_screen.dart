@@ -10,6 +10,7 @@ import 'package:malsat_app/models/user.dart';
 import 'package:malsat_app/repositories/auth_repository.dart';
 import 'package:malsat_app/repositories/comment_repository.dart';
 import 'package:malsat_app/repositories/post_repository.dart';
+import 'package:malsat_app/repositories/review_repository.dart';
 import 'package:malsat_app/screens/my_posts_screen.dart';
 import 'package:malsat_app/screens/settings_screen.dart';
 
@@ -23,6 +24,7 @@ class ProfileScreen extends StatefulWidget {
   final CommentRepository commentRepository;
   final List<City> listCities;
   final List<Category> listCategories;
+  final ReviewRepository reviewRepository;
 
   const ProfileScreen({
     Key key,
@@ -35,6 +37,7 @@ class ProfileScreen extends StatefulWidget {
     this.commentRepository,
     @required this.listCities,
     @required this.listCategories,
+    @required this.reviewRepository,
   }) : super(key: key);
 
   @override
@@ -161,6 +164,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                               isPost: 'MyPost',
                                               authRepository:
                                                   widget.authRepository,
+                                              reviewRepository:
+                                                  widget.reviewRepository,
                                             ),
                                           ),
                                         );
@@ -203,7 +208,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         listCities: widget.listCities,
                                         listCategories: widget.listCategories,
                                         postRepository: widget.postRepository,
-                                        isPost: 'Active',
+                                        isPost: 'Active', reviewRepository: widget.reviewRepository,
                                       ),
                                     ),
                                   );
@@ -242,7 +247,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         listCities: widget.listCities,
                                         listCategories: widget.listCategories,
                                         postRepository: widget.postRepository,
-                                        isPost: 'Proverka',
+                                        isPost: 'Proverka', reviewRepository: widget.reviewRepository,
                                       ),
                                     ),
                                   );
@@ -281,7 +286,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         listCities: widget.listCities,
                                         listCategories: widget.listCategories,
                                         postRepository: widget.postRepository,
-                                        isPost: 'Hidden',
+                                        isPost: 'Hidden', reviewRepository: widget.reviewRepository,
                                       ),
                                     ),
                                   );

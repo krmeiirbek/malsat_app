@@ -8,6 +8,7 @@ import 'package:malsat_app/repositories/bookmark_repository.dart';
 import 'package:malsat_app/repositories/comment_repository.dart';
 import 'package:malsat_app/repositories/post_repository.dart';
 import 'package:malsat_app/repositories/repositories.dart';
+import 'package:malsat_app/repositories/review_repository.dart';
 
 void main() {
   final authRepository = authRepositoryGlobal;
@@ -16,6 +17,7 @@ void main() {
   final PostRepository postRepository = PostRepository();
   final BookmarkRepository bookmarkRepository = BookmarkRepository();
   final CommentRepository commentRepository = CommentRepository();
+  final ReviewRepository reviewRepository = ReviewRepository();
 
   runApp(
     BlocProvider(
@@ -35,6 +37,7 @@ void main() {
         postRepository: postRepository,
         bookmarkRepository: bookmarkRepository,
         commentRepository: commentRepository,
+        reviewRepository: reviewRepository,
       ),
     ),
   );
@@ -47,6 +50,7 @@ class MyApp extends StatelessWidget {
   final PostRepository postRepository;
   final BookmarkRepository bookmarkRepository;
   final CommentRepository commentRepository;
+  final ReviewRepository reviewRepository;
 
   MyApp({
     Key key,
@@ -54,7 +58,9 @@ class MyApp extends StatelessWidget {
     this.cityRepository,
     this.categoryRepository,
     this.postRepository,
-    this.bookmarkRepository, this.commentRepository,
+    this.bookmarkRepository,
+    this.commentRepository,
+    this.reviewRepository,
   }) : super(key: key);
 
   @override
@@ -78,11 +84,13 @@ class MyApp extends StatelessWidget {
               currentUser: state.currentUser,
               listPostsByCity: state.listPostsByCity,
               commentRepository: commentRepository,
+              reviewRepository: reviewRepository,
             );
           }
           if (state is AuthenticationUnauthenticated) {
             return AuthSwitch(
-              authRepository: authRepository, postRepository: postRepository,
+              authRepository: authRepository,
+              postRepository: postRepository,
             );
           }
           if (state is AuthenticationLoading) {

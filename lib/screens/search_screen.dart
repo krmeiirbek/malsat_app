@@ -6,6 +6,7 @@ import 'package:malsat_app/models/user.dart';
 import 'package:malsat_app/repositories/comment_repository.dart';
 import 'package:malsat_app/repositories/post_repository.dart';
 import 'package:malsat_app/repositories/repositories.dart';
+import 'package:malsat_app/repositories/review_repository.dart';
 
 class SearchScreen extends StatefulWidget {
   final List<dynamic> listCategories;
@@ -15,6 +16,7 @@ class SearchScreen extends StatefulWidget {
   final AuthRepository authRepository;
   final List<City> listCities;
   final List<Category> listCategories1;
+  final ReviewRepository reviewRepository;
 
   const SearchScreen({
     Key key,
@@ -25,6 +27,7 @@ class SearchScreen extends StatefulWidget {
     this.authRepository,
     @required this.listCities,
     @required this.listCategories1,
+    @required this.reviewRepository,
   }) : super(key: key);
 
   @override
@@ -113,6 +116,7 @@ class _SearchScreenState extends State<SearchScreen> {
                           currentUser: widget.currentUser,
                           listCategories: widget.listCategories1,
                           listCities: widget.listCities,
+                          reviewRepository: widget.reviewRepository,
                         ),
                       ),
                     ),

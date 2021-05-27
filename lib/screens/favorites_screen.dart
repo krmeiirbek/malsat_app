@@ -6,6 +6,7 @@ import 'package:malsat_app/models/user.dart';
 import 'package:malsat_app/repositories/comment_repository.dart';
 import 'package:malsat_app/repositories/post_repository.dart';
 import 'package:malsat_app/repositories/repositories.dart';
+import 'package:malsat_app/repositories/review_repository.dart';
 
 class FavoritesScreen extends StatefulWidget {
   final List<dynamic> listBookmarks;
@@ -15,6 +16,7 @@ class FavoritesScreen extends StatefulWidget {
   final List<City> listCities;
   final List<Category> listCategories;
   final PostRepository postRepository;
+  final ReviewRepository reviewRepository;
 
   const FavoritesScreen({
     Key key,
@@ -25,6 +27,7 @@ class FavoritesScreen extends StatefulWidget {
     @required this.listCities,
     @required this.listCategories,
     @required this.postRepository,
+    @required this.reviewRepository,
   }) : super(key: key);
 
   @override
@@ -141,6 +144,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                                   postRepository: widget.postRepository,
                                   listCategories: widget.listCategories,
                                   listCities: widget.listCities,
+                                  reviewRepository: widget.reviewRepository,
                                 ),
                               )
                             : Center(
