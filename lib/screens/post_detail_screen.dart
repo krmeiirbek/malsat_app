@@ -650,7 +650,7 @@ class _DetailPostState extends State<DetailPost> {
                                                               .withOpacity(0.5),
                                                           child: Center(
                                                             child: Text(
-                                                              'Update',
+                                                              'Отправить',
                                                               style: TextStyle(
                                                                 fontSize: 14,
                                                                 fontWeight:
@@ -681,7 +681,7 @@ class _DetailPostState extends State<DetailPost> {
                                                               .withOpacity(0.5),
                                                           child: Center(
                                                             child: Text(
-                                                              'Cancel',
+                                                              'Отменить',
                                                               style: TextStyle(
                                                                 fontSize: 14,
                                                                 fontWeight:
